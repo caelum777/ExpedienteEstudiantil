@@ -9,7 +9,10 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
 		$scope.create = function() {
 			// Create new Estudiante object
 			var estudiante = new Estudiantes ({
-				name: this.name
+				name: this.name,
+                primer_apellido: this.primer_apellido,
+                segundo_apellido: this.segundo_apellido,
+                fecha_de_nacimiento: this.fecha_de_nacimiento
 			});
 
 			// Redirect after save

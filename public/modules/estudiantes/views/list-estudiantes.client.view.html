@@ -11,6 +11,9 @@
 				<span data-ng-bind="estudiante.user.displayName"></span>
 			</small>
 			<h4 class="list-group-item-heading" data-ng-bind="estudiante.name"></h4>
+            <h4 class="list-group-item-heading" data-ng-bind="estudiante.primer_apellido"></h4>
+            <h4 class="list-group-item-heading" data-ng-bind="estudiante.segundo_apellido"></h4>
+            <h4 class="list-group-item-heading" data-ng-bind="estudiante.fecha_de_nacimiento"></h4>
         </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!estudiantes.$resolved || estudiantes.length">

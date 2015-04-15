@@ -13,9 +13,24 @@ var EstudianteSchema = new Schema({
 	name: {
 		type: String,
 		default: '',
-		required: 'Please fill Estudiante name',
+		required: 'Nombre del estudiante',
 		trim: true
 	},
+    primer_apellido: {
+      type: String,
+      required: 'Primer apellido del estudiante',
+      trim: true
+    },
+    segundo_apellido: {
+        type: String,
+        required: 'Segundo apellido del estudiante',
+        trim: true
+    },
+    fecha_de_nacimiento: {
+        type: String,
+        required: 'Fecha de nacimiento del estudiante',
+        trim: true
+    },
 	created: {
 		type: Date,
 		default: Date.now
