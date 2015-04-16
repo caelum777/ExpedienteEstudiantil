@@ -12,8 +12,22 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
 				name: this.name,
                 primer_apellido: this.primer_apellido,
                 segundo_apellido: this.segundo_apellido,
+                nacionalidad: this.nacionalidad,
                 sexo: this.sexo,
-                fecha_de_nacimiento: this.fecha_de_nacimiento
+                fecha_de_nacimiento: this.fecha_de_nacimiento,
+                telefono_casa: this.telefono_casa,
+                celular: this.celular,
+                correo: this.correo,
+                provincia: this.provincia,
+                canton: this.canton,
+                distrito: this.distrito,
+                barrio: this.barrio,
+                direccion_exacta: this.direccion_exacta,
+                nombre_direcctor: this.nombre_direcctor,
+                foto: this.foto,
+                colegio_procedencia: this.colegio_procedencia,
+                adecuacion_sig: this.adecuacion_sig,
+                adecuacion_nsig: this.adecuacion_nsig
 			});
 
 			// Redirect after save
