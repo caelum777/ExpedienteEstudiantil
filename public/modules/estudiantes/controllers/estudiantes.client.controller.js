@@ -12,6 +12,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
 				name: this.name,
                 primer_apellido: this.primer_apellido,
                 segundo_apellido: this.segundo_apellido,
+                sexo: this.sexo,
                 fecha_de_nacimiento: this.fecha_de_nacimiento
 			});
 
