@@ -1,5 +1,9 @@
 'use strict';
 /**
+ * Sets the environment to development
+ */
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+/**
  * Module dependencies.
  */
 var init = require('./config/init')(),

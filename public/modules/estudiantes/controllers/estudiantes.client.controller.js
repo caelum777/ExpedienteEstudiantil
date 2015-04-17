@@ -23,7 +23,6 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 distrito: this.distrito,
                 barrio: this.barrio,
                 direccion_exacta: this.direccion_exacta,
-                nombre_direcctor: this.nombre_direcctor,
                 foto: this.foto,
                 colegio_procedencia: this.colegio_procedencia,
                 adecuacion_sig: this.adecuacion_sig,
