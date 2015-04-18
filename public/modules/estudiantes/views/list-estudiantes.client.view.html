@@ -4,19 +4,14 @@
     </div>
     <div class="list-group">
         <a data-ng-repeat="estudiante in estudiantes" data-ng-href="#!/estudiantes/{{estudiante._id}}" class="list-group-item">
-			<small class="list-group-item-text">
-				Posted on
-				<span data-ng-bind="estudiante.created | date:'medium'"></span>
-				by
-				<span data-ng-bind="estudiante.user.displayName"></span>
-			</small>
-			<h4 class="list-group-item-heading" data-ng-bind="estudiante.name"></h4>
+			<!--<h4 class="list-group-item-heading" data-ng-bind="estudiante.name"></h4>
             <h4 class="list-group-item-heading" data-ng-bind="estudiante.primer_apellido"></h4>
             <h4 class="list-group-item-heading" data-ng-bind="estudiante.segundo_apellido"></h4>
-            <h4 class="list-group-item-heading" data-ng-bind="estudiante.fecha_de_nacimiento"></h4>
+            <h4 class="list-group-item-heading" data-ng-bind="estudiante.fecha_de_nacimiento"></h4>-->
+            <h4 class="list-group-item-heading">{{estudiante.name + ' ' + estudiante.primer_apellido + ' ' + estudiante.segundo_apellido + ' ' +estudiante.nacionalidad}}</h4>
         </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!estudiantes.$resolved || estudiantes.length">
-    	No Estudiantes yet, why don't you <a href="/#!/estudiantes/create">create one</a>?
+    	No hay estudiantes insertados puede crear uno <a href="/#!/estudiantes/create"> aquí</a>?
     </div>
 </section>

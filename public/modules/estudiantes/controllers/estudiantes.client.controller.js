@@ -60,7 +60,6 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
 		// Update existing Estudiante
 		$scope.update = function() {
 			var estudiante = $scope.estudiante;
-
 			estudiante.$update(function() {
 				$location.path('estudiantes/' + estudiante._id);
 			}, function(errorResponse) {

@@ -3,12 +3,12 @@
         <h1>New Estudiante</h1>
     </div>
     <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="create()" novalidate>
+        <form class="form-horizontal" data-ng-submit="create()">
             <fieldset>
                 <div class="form-group">
                     <label class="control-label" for="name">Name</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Nombre" required>
                     </div>
                     <label class="control-label" for="name">Primer Apellido</label>
                     <div class="controls">
@@ -20,11 +20,11 @@
                     </div>
                     <label class="control-label" for="name">Fecha de nacimiento</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="fecha_de_nacimiento" id="fecha_de_nacimiento" class="form-control" placeholder="Fecha de nacimiento" required>
+                        <input type="text" data-ng-model="fecha_de_nacimiento" id="fecha_de_nacimiento" class="form-control" pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" title="Formato: dd-mm-yyyy" placeholder="Fecha de nacimiento" required>
                     </div>
-                    <label class="control-label" for="name">Nacionalidad</label>
+                    <label class="control-label" for="name">Cédula o número de pasaporte</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="nacionalidad" id="nacionalidad" class="form-control" placeholder="Nacionalidad" required>
+                        <input type="text" data-ng-model="nacionalidad" id="nacionalidad" class="form-control" placeholder="Cédula o numero de pasaporte" title="Formato: 0-0000-0000" pattern="[0-9]{1}-[0-9]{4}-[0-9]{4}" required>
                     </div>
                     <label class="control-label" for="name">Sexo</label>
                     <div class="controls">
@@ -35,17 +35,28 @@
                     </div>
                     <label class="control-label" for="name">Telefono Hogar</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="telefono_casa" id="telefono_casa" class="form-control" placeholder="Telefono Hogar" pattern="[0-9]{4}-[0-9]{4}" title="Formato incorrecto" required>
+                        <input type="text" data-ng-model="telefono_casa" id="telefono_casa" class="form-control" placeholder="Telefono Hogar" pattern="[0-9]{4}-[0-9]{4}" title="Formato: 0000-0000" required>
                     </div>
                     <label class="control-label" for="name">Celular</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="celular" id="celular" class="form-control" placeholder="Celular" pattern="[0-9]{4}-[0-9]{4}" title="Formato incorrecto" required>
+                        <input type="text" data-ng-model="celular" id="celular" class="form-control" placeholder="Celular" pattern="[0-9]{4}-[0-9]{4}" title="Formato: 0000-0000" required>
                     </div>
                     <label class="control-label" for="name">Correo electronico</label>
                     <div class="controls">
                         <input type="email" data-ng-model="correo" id="correo" class="form-control" placeholder="Correo" required>
                     </div>
-                    <!--FALTA PROVINCIA DISTRITO CANTON----------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+                    <label class="control-label" for="name">Provincia</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="provincia" id="provincia" class="form-control" placeholder="Provincia" required>
+                    </div>
+                    <label class="control-label" for="name">Cantón</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="canton" id="canton" class="form-control" placeholder="Cantón" required>
+                    </div>
+                    <label class="control-label" for="name">Distrito</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="distrito" id="distrito" class="form-control" placeholder="Distrito" required>
+                    </div>
                     <label class="control-label" for="name">Barrio</label>
                     <div class="controls">
                         <input type="text" data-ng-model="barrio" id="barrio" class="form-control" placeholder="Barrio" required>
@@ -77,9 +88,9 @@
                 <div class="form-group">
                     <input type="submit" class="btn btn-default">
                 </div>
-				<div data-ng-show="error" class="text-danger">
+				<!--<div data-ng-show="error" class="text-danger">
 					<strong data-ng-bind="error"></strong>
-				</div>
+				</div>-->
             </fieldset>
         </form>
     </div>

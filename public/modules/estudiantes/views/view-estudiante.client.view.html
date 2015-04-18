@@ -1,8 +1,8 @@
 <section data-ng-controller="EstudiantesController" data-ng-init="findOne()">
 	<div class="page-header">
-		<h1 data-ng-bind="estudiante.name"></h1>
+		<h1>{{estudiante.name + ' ' + estudiante.primer_apellido + ' ' + estudiante.segundo_apellido}}</h1>
 	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == estudiante.user._id))">
+	<div class="pull-right" data-ng-show="(authentication.user)">
 		<a class="btn btn-primary" href="/#!/estudiantes/{{estudiante._id}}/edit">
 			<i class="glyphicon glyphicon-edit"></i>
 		</a>
@@ -10,12 +10,18 @@
 			<i class="glyphicon glyphicon-trash"></i>
 		</a>
 	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="estudiante.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="estudiante.user.displayName"></span>
-		</em>
-	</small>
+    <div>
+        <h4 class="list-group-item-heading">{{'Cédula: '+estudiante.nacionalidad}}</h4>
+        <h4 class="list-group-item-heading">{{'Fecha de nacimiento: '+estudiante.fecha_de_nacimiento}}</h4>
+        <h4 class="list-group-item-heading">{{'Sexo: '+estudiante.sexo}}</h4>
+        <h4 class="list-group-item-heading">{{'Teléfono: '+estudiante.telefono_casa}}</h4>
+        <h4 class="list-group-item-heading">{{'Celular: '+estudiante.celular}}</h4>
+        <h4 class="list-group-item-heading">{{'Correo: '+estudiante.correo}}</h4>
+        <h4 class="list-group-item-heading">{{'Provincia: '+estudiante.provincia}}</h4>
+        <h4 class="list-group-item-heading">{{'Cantón: '+estudiante.canton}}</h4>
+        <h4 class="list-group-item-heading">{{'Distrío: '+estudiante.distrito}}</h4>
+        <h4 class="list-group-item-heading">{{'Barrio: '+estudiante.barrio}}</h4>
+        <h4 class="list-group-item-heading">{{'Dirección exacta: '+estudiante.direccion_exacta}}</h4>
+        <h4 class="list-group-item-heading">{{'Colegio de procedencia: '+estudiante.colegio_procedencia}}</h4>
+    </div>
 </section>
