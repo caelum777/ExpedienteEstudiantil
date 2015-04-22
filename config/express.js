@@ -9,6 +9,7 @@ var fs = require('fs'),
 	express = require('express'),
 	morgan = require('morgan'),
 	bodyParser = require('body-parser'),
+    busboyBodyParser = require('busboy-body-parser'),
 	session = require('express-session'),
 	compress = require('compression'),
 	methodOverride = require('method-override'),
@@ -80,6 +81,7 @@ module.exports = function(db) {
 		extended: true
 	}));
 	app.use(bodyParser.json());
+    app.use(busboyBodyParser({ limit: '16mb' }));
 	app.use(methodOverride());
 
 	// CookieParser should be above session

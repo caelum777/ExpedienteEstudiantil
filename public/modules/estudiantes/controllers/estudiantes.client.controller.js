@@ -4,6 +4,35 @@
 angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Estudiantes',
 	function($scope, $stateParams, $location, Authentication, Estudiantes) {
 		$scope.authentication = Authentication;
+        $scope.options =
+        [{
+            nombre: 'San Jose',
+            cantones: [{
+                nombre: 'San Jose',
+                distritos: [{nombre: 'Carmen'}, {nombre: 'Merced'}, {nombre: 'Hospital'}]
+            }]
+        }, {
+            nombre: 'Alajuela',
+            cantones: [{
+                nombre: 'Alajuela',
+                distritos: [{nombre: 'Alajuela'}]
+            }, {
+                nombre: 'San Ramon',
+                distritos: [{nombre: 'San Ramon'}]
+            }]
+        }];
+        $scope.provincia = $scope.options[0];
+        $scope.canton =  $scope.provincia.cantones[0];
+        $scope.distrito = $scope.canton.distritos[0];
+
+        $scope.provincia_change = function() {
+            $scope.canton =  $scope.provincia.cantones[0];
+            $scope.distrito = $scope.canton.distritos[0];
+        };
+
+        $scope.canton_change = function(){
+            $scope.distrito = $scope.canton.distritos[0];
+        };
 
 		// Create new Estudiante
 		$scope.create = function() {
@@ -42,9 +71,8 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
 
 		// Remove existing Estudiante
 		$scope.remove = function(estudiante) {
-			if ( estudiante ) { 
+			if ( estudiante ) {
 				estudiante.$remove();
-
 				for (var i in $scope.estudiantes) {
 					if ($scope.estudiantes [i] === estudiante) {
 						$scope.estudiantes.splice(i, 1);

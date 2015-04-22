@@ -47,15 +47,24 @@
                     </div>
                     <label class="control-label" for="name">Provincia</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="provincia" id="provincia" class="form-control" placeholder="Provincia" required>
+                        <select class="form-control" data-ng-model="provincia" id="provincia" ng-change="provincia_change()"
+                                ng-options="opt as opt.nombre for opt in options">
+                        </select>
+                        <!--<input type="text" data-ng-model="provincia" id="provincia" class="form-control" placeholder="Provincia" required>-->
                     </div>
                     <label class="control-label" for="name">Cantón</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="canton" id="canton" class="form-control" placeholder="Cantón" required>
+                        <select class="form-control" data-ng-model="canton" id="canton" ng-disabled="!provincia" ng-change="canton_change()"
+                                ng-options="opt as opt.nombre for opt in provincia.cantones">
+                        </select>
+                        <!--<input type="text" data-ng-model="canton" id="canton" class="form-control" placeholder="Cantón" required>-->
                     </div>
                     <label class="control-label" for="name">Distrito</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="distrito" id="distrito" class="form-control" placeholder="Distrito" required>
+                        <select class="form-control" data-ng-model="distrito" id="distrito" ng-disabled="!canton"
+                                ng-options="opt as opt.nombre for opt in canton.distritos">
+                        </select>
+                        <!--<input type="text" data-ng-model="distrito" id="distrito" class="form-control" placeholder="Distrito" required>-->
                     </div>
                     <label class="control-label" for="name">Barrio</label>
                     <div class="controls">
