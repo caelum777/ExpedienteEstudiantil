@@ -1,7 +1,7 @@
 <section data-ng-controller="EstudiantesController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1>{{estudiante.name + ' ' + estudiante.primer_apellido + ' ' + estudiante.segundo_apellido}}</h1>
-	</div>
+    <div class="page-header">
+        <h1>{{estudiante.name + ' ' + estudiante.primer_apellido + ' ' + estudiante.segundo_apellido}}</h1>
+    </div>
 	<div class="pull-right" data-ng-show="(authentication.user)">
 		<a class="btn btn-primary" href="/#!/estudiantes/{{estudiante._id}}/edit">
 			<i class="glyphicon glyphicon-edit"></i>
@@ -23,5 +23,6 @@
         <h4 class="list-group-item-heading">{{'Barrio: '+estudiante.barrio}}</h4>
         <h4 class="list-group-item-heading">{{'Dirección exacta: '+estudiante.direccion_exacta}}</h4>
         <h4 class="list-group-item-heading">{{'Colegio de procedencia: '+estudiante.colegio_procedencia}}</h4>
+        <img ng-src="{{estudiante.foto}}"/>
     </div>
 </section>

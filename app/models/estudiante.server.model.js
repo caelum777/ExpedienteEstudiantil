@@ -91,7 +91,7 @@ var EstudianteSchema = new Schema({
         trim: true
     },
     foto: {
-        type: String,
+        type: String
     },
     anno_ingreso: {
         type: Number,

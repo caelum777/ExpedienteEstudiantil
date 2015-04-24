@@ -1,7 +1,8 @@
 <section data-ng-controller="EstudiantesController">
     <div class="page-header">
-        <h1>New Estudiante</h1>
+        <h1>Insertar un nuevo estudiante</h1>
     </div>
+    <!--action="http://localhost:3000/upload" method="post" enctype="multipart/form-data"-->
     <div class="col-md-12">
         <form class="form-horizontal" data-ng-submit="create()">
             <fieldset>
@@ -28,10 +29,13 @@
                     </div>
                     <label class="control-label" for="name">Sexo</label>
                     <div class="controls">
-                        <select class="form-control" data-ng-model="sexo" id="sexo">
+                        <select class="form-control" data-ng-model="sexo" id="sexo"
+                                ng-options="opt as opt.nombre for opt in sexos">
+                        </select>
+                        <!--<select class="form-control" data-ng-model="sexo" id="sexo">
                             <option value=1 selected>Masculino</option>
                             <option value=0>Femenino</option>
-                        </select>
+                        </select>-->
                     </div>
                     <label class="control-label" for="name">Telefono Hogar</label>
                     <div class="controls">
@@ -92,6 +96,10 @@
                             <option value=1 selected>Tiene</option>
                             <option value=0>No tiene</option>
                         </select>
+                    </div>
+                    <div class="controls">
+                       <label class="control-label" for="name">Foto del estudiante</label>
+                       <input name="filefield" type="file" ng-file-select ng-file-change="onFileSelect($files)">
                     </div>
                 </div>
                 <div class="form-group">

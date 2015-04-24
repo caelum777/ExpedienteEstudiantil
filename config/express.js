@@ -9,7 +9,8 @@ var fs = require('fs'),
 	express = require('express'),
 	morgan = require('morgan'),
 	bodyParser = require('body-parser'),
-    busboyBodyParser = require('busboy-body-parser'),
+    //busboyBodyParser = require('busboy-body-parser'),
+    multer = require('multer'),
 	session = require('express-session'),
 	compress = require('compression'),
 	methodOverride = require('method-override'),
@@ -77,11 +78,14 @@ module.exports = function(db) {
 	}
 
 	// Request body parsing middleware should be above methodOverride
-	app.use(bodyParser.urlencoded({
-		extended: true
-	}));
-	app.use(bodyParser.json());
-    app.use(busboyBodyParser({ limit: '16mb' }));
+    app.use(bodyParser.json({limit: '5mb'}));
+    app.use(bodyParser.urlencoded({
+        extended: true,
+        limit: '5mb'})
+    );
+    app.use(multer({dest:'./uploads/'}));
+    //app.use(busboyBodyParser({ limit: '16mb' }));
+
 	app.use(methodOverride());
 
 	// CookieParser should be above session
@@ -114,6 +118,7 @@ module.exports = function(db) {
 
 	// Setting the app router and static folder
 	app.use(express.static(path.resolve('./public')));
+    app.use(express.static(path.resolve('./uploads')));
 
 	// Globbing routing files
 	config.getGlobbedFiles('./app/routes/**/*.js').forEach(function(routePath) {
