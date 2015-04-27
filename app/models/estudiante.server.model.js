@@ -58,7 +58,7 @@ var EstudianteSchema = new Schema({
     },
     provincia: {
         type: String,
-        required: 'Provincia de provinencia',
+        required: 'Provincia del estudiante',
         trim: true
     },
     canton: {
@@ -91,8 +91,7 @@ var EstudianteSchema = new Schema({
         trim: true
     },
     foto: {
-        type: String,
-        trim: true
+        type: String
     },
     anno_ingreso: {
         type: Number,
@@ -126,6 +125,18 @@ var EstudianteSchema = new Schema({
         type: Boolean,
         default: 0,
         trim: true
+    },
+    certificacion_nacimiento: {
+        type: String
+    },
+    certificacion_notas: {
+        type: String
+    },
+    informe_hogar: {
+        type: String
+    },
+    tarjeta_vacunas: {
+        type: String
     }
 
 });
