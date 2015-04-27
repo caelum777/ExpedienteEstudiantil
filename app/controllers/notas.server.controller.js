@@ -5,102 +5,102 @@
  */
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
-	Curso = mongoose.model('Curso'),
+	Nota = mongoose.model('Nota'),
 	_ = require('lodash');
 
 /**
- * Create a Curso
+ * Create a Nota
  */
 exports.create = function(req, res) {
-	var curso = new Curso(req.body);
-	curso.user = req.user;
+	var nota = new Nota(req.body);
+	nota.user = req.user;
 
-	curso.save(function(err) {
+	nota.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(curso);
+			res.jsonp(nota);
 		}
 	});
 };
 
 /**
- * Show the current Curso
+ * Show the current Nota
  */
 exports.read = function(req, res) {
-	res.jsonp(req.curso);
+	res.jsonp(req.nota);
 };
 
 /**
- * Update a Curso
+ * Update a Nota
  */
 exports.update = function(req, res) {
-	var curso = req.curso ;
+	var nota = req.nota ;
 
-	curso = _.extend(curso , req.body);
+	nota = _.extend(nota , req.body);
 
-	curso.save(function(err) {
+	nota.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(curso);
+			res.jsonp(nota);
 		}
 	});
 };
 
 /**
- * Delete an Curso
+ * Delete an Nota
  */
 exports.delete = function(req, res) {
-	var curso = req.curso ;
+	var nota = req.nota ;
 
-	curso.remove(function(err) {
+	nota.remove(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(curso);
+			res.jsonp(nota);
 		}
 	});
 };
 
 /**
- * List of Cursos
+ * List of Notas
  */
 exports.list = function(req, res) { 
-	Curso.find().sort('-created').populate('user', 'displayName').exec(function(err, cursos) {
+	Nota.find().sort('-created').populate('user', 'displayName').exec(function(err, notas) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(cursos);
+			res.jsonp(notas);
 		}
 	});
 };
 
 /**
- * Curso middleware
+ * Nota middleware
  */
-exports.cursoByID = function(req, res, next, id) { 
-	Curso.findById(id).populate('user', 'displayName').exec(function(err, curso) {
+exports.notaByID = function(req, res, next, id) { 
+	Nota.findById(id).populate('user', 'displayName').exec(function(err, nota) {
 		if (err) return next(err);
-		if (! curso) return next(new Error('Failed to load Curso ' + id));
-		req.curso = curso ;
+		if (! nota) return next(new Error('Failed to load Nota ' + id));
+		req.nota = nota ;
 		next();
 	});
 };
 
 /**
- * Curso authorization middleware
+ * Nota authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.curso.user.id !== req.user.id) {
+	if (req.nota.user.id !== req.user.id) {
 		return res.status(403).send('User is not authorized');
 	}
 	next();

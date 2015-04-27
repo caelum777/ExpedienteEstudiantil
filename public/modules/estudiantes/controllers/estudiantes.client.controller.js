@@ -80,6 +80,18 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     adecuacion_nsig: $scope.adecuacion_nsig
                 });
 
+                for(i = 0; i < $scope.notas_septimo.length; i++) {
+                    //Septimo
+                    var nota = new Notas ({
+                        cedula_estudiante: $scope.nacionalidad,
+                        grado: 'septimo',
+                        curso: $scope.notas_septimo[i].curso,
+                        nota: $scope.notas_septimo[i].nota,
+                        anno: $scope.anno,
+                        semestre: 0
+                    });
+                }
+
                 // Redirect after save
                 estudiante.$save(function(response) {
                     $location.path('estudiantes/' + response._id);
@@ -129,5 +141,60 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
 				estudianteId: $stateParams.estudianteId
 			});
 		};
+
+        //Notas de los cursos
+        $scope.notas_septimo = [
+            {curso: 'Inglés', nota: 0},
+            {curso: 'Matemática', nota: 0},
+            {curso: 'Ciencias', nota: 0},
+            {curso: 'Cívica', nota: 0},
+            {curso: 'Español', nota: 0},
+            {curso: 'Estudios Sociales', nota: 0},
+            {curso: 'Conducta', nota: 0}];
+
+        $scope.gridOptionsS = {
+            data: 'notas_septimo',
+            enableCellSelection: true,
+            enableRowSelection: false,
+            enableCellEditOnFocus: true,
+            columnDefs: [{field: 'curso', displayName: 'Curso', enableCellEdit: false},
+                {field:'nota', displayName:'Nota', enableCellEdit: true}]
+        };
+
+        $scope.notas_octavo = [
+            {curso: 'Inglés', nota: 0},
+            {curso: 'Matemática', nota: 0},
+            {curso: 'Ciencias', nota: 0},
+            {curso: 'Cívica', nota: 0},
+            {curso: 'Español', nota: 0},
+            {curso: 'Estudios Sociales', nota: 0},
+            {curso: 'Conducta', nota: 0}];
+
+        $scope.gridOptionsO = {
+            data: 'notas_octavo',
+            enableCellSelection: true,
+            enableRowSelection: false,
+            enableCellEditOnFocus: true,
+            columnDefs: [{field: 'curso', displayName: 'Curso', enableCellEdit: false},
+                {field:'nota', displayName:'Nota', enableCellEdit: true}]
+        };
+
+        $scope.notas_noveno = [
+            {curso: 'Inglés', nota: 0},
+            {curso: 'Matemática', nota: 0},
+            {curso: 'Ciencias', nota: 0},
+            {curso: 'Cívica', nota: 0},
+            {curso: 'Español', nota: 0},
+            {curso: 'Estudios Sociales', nota: 0},
+            {curso: 'Conducta', nota: 0}];
+
+        $scope.gridOptionsN = {
+            data: 'notas_noveno',
+            enableCellSelection: true,
+            enableRowSelection: false,
+            enableCellEditOnFocus: true,
+            columnDefs: [{field: 'curso', displayName: 'Curso', enableCellEdit: false},
+                {field:'nota', displayName:'Nota', enableCellEdit: true}]
+        };
 	}
 ]);

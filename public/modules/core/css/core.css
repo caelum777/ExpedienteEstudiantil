@@ -13,3 +13,7 @@
 .ng-valid.ng-dirty {
 	border-color: #78FA89;
 }
+.gridStyle {
+    border: 1px solid rgb(212,212,212);
+    height: 248px;
+}
