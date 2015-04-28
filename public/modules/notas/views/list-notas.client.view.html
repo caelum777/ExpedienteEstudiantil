@@ -3,7 +3,7 @@
         <h1>Notas</h1>
     </div>
     <div class="list-group">
-        <a data-ng-repeat="nota in notas" data-ng-href="#!/notas/{{nota._id}}" class="list-group-item">
+        <a data-ng-repeat="nota in notas" data-ng-href="#!/notas/{{nota.cedula_estudiante}}" class="list-group-item">
 			<small class="list-group-item-text">
 				Posted on
 				<span data-ng-bind="nota.created | date:'medium'"></span>

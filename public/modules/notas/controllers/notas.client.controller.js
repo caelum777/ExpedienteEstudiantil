@@ -63,9 +63,12 @@ angular.module('notas').controller('NotasController', ['$scope', '$stateParams',
 
 		// Find existing Nota
 		$scope.findOne = function() {
-			$scope.nota = Notas.get({ 
-				notaId: $stateParams.notaId
-			});
+			$scope.nota = Notas.query({
+				cedula_estudiante: $stateParams.cedula_estudiante
+			}).$promise.then(function(data) {
+                console.log(data[0]);
+            });
+            console.log($scope.nota);
 		};
 	}
 ]);

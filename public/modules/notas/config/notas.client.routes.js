@@ -14,11 +14,11 @@ angular.module('notas').config(['$stateProvider',
 			templateUrl: 'modules/notas/views/create-nota.client.view.html'
 		}).
 		state('viewNota', {
-			url: '/notas/:notaId',
+			url: '/notas/:cedula_estudiante',
 			templateUrl: 'modules/notas/views/view-nota.client.view.html'
 		}).
 		state('editNota', {
-			url: '/notas/:notaId/edit',
+			url: '/notas/:cedula_estudiante/edit',
 			templateUrl: 'modules/notas/views/edit-nota.client.view.html'
 		});
 	}

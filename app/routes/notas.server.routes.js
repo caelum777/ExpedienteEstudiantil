@@ -9,11 +9,17 @@ module.exports = function(app) {
 		.get(notas.list)
 		.post(users.requiresLogin, notas.create);
 
-	app.route('/notas/:notaId')
+	/*app.route('/notas/:notaId')
 		.get(notas.read)
 		.put(users.requiresLogin, notas.update)
-		.delete(users.requiresLogin, notas.delete);
+		.delete(users.requiresLogin, notas.delete);*/
+
+    app.route('/notas/:cedula_estudiante')
+        .get(notas.read)
+        .put(users.requiresLogin, notas.update)
+        .delete(users.requiresLogin, notas.delete);
 
 	// Finish by binding the Nota middleware
-	app.param('notaId', notas.notaByID);
+	//app.param('notaId', notas.notaByID);
+    app.param('cedula_estudiante', notas.notaByCedula);
 };

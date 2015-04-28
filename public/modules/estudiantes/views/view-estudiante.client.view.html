@@ -23,6 +23,15 @@
         <h4 class="list-group-item-heading">{{'Barrio: '+estudiante.barrio}}</h4>
         <h4 class="list-group-item-heading">{{'Dirección exacta: '+estudiante.direccion_exacta}}</h4>
         <h4 class="list-group-item-heading">{{'Colegio de procedencia: '+estudiante.colegio_procedencia}}</h4>
-        <img ng-src="{{estudiante.foto}}"/>
+        <img ng-src="{{estudiante.foto}}" height="200px"/>
+        <div>
+            <div class="gridStyle" ng-grid="gridOptionsS"></div>
+        </div>
+        <div>
+            <div class="gridStyle" ng-grid="gridOptionsO"></div>
+        </div>
+        <div>
+            <div class="gridStyle" ng-grid="gridOptionsN"></div>
+        </div>
     </div>
 </section>
