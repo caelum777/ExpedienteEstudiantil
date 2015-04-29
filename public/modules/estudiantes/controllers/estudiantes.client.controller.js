@@ -28,6 +28,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         $scope.distrito = $scope.canton.distritos[0];
         $scope.sexo = $scope.sexos[0];
         $scope.foto = '';
+        $scope.editable = false;
         $scope.selectedFile = [];
 
         $scope.provincia_change = function() {
@@ -125,7 +126,6 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 // Redirect after save
                 estudiante.$save(function(response) {
                     $location.path('estudiantes/' + response._id);
-
                     // Clear form fields
                     $scope.name = '';
                 }, function(errorResponse) {
@@ -158,6 +158,22 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
+            var notas = $scope.notas;
+            angular.forEach(notas, function (nota) {
+                for(var i = 0;i < $scope.notas_septimo.length; i++){
+                    if(($scope.notas_septimo.grado===nota.grado)&&($scope.notas_septimo.curso===nota.curso)){
+                        nota.nota = $scope.notas_septimo.nota;
+                    }
+                    else if(($scope.notas_octavo.grado===nota.grado)&&($scope.notas_octavo.curso===nota.curso)){
+                        nota.nota = $scope.notas_octavo.nota;
+                    }
+                    else if(($scope.notas_noveno.grado===nota.grado)&&($scope.notas_noveno.curso===nota.curso)){
+                        nota.nota = $scope.notas_noveno.nota;
+                    }
+                }
+                Notas.update({ notaId: nota._id }, nota);
+            });
+
 		};
 
 		// Find a list of Estudiantes
@@ -166,11 +182,12 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
 		};
 
 		// Find existing Estudiante
-		$scope.findOne = function() {
+		$scope.findOne = function(edit) {
+
             $scope.notas_septimo = [];
             $scope.notas_octavo =[];
             $scope.notas_noveno = [];
-            $scope.editable = false;
+            $scope.editable = edit;
 			$scope.estudiante = Estudiantes.get({ 
 				estudianteId: $stateParams.estudianteId
 			});
@@ -196,6 +213,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             }, function(error) {
                 console.log('Failed: ' + error);
             });
+            $scope.initGridOptions();
 		};
 
         //Notas de los cursos
@@ -225,33 +243,35 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 {curso: 'Español', nota: 0},
                 {curso: 'Estudios Sociales', nota: 0},
                 {curso: 'Conducta', nota: 0}];
+            $scope.initGridOptions();
         };
+        $scope.initGridOptions = function(){
+            $scope.gridOptionsS = {
+                data: 'notas_septimo',
+                enableCellSelection: true,
+                enableRowSelection: false,
+                enableCellEditOnFocus: $scope.editable,
+                columnDefs: [{field: 'curso', displayName: 'Curso', enableCellEdit: false},
+                    {field:'nota', displayName:'Nota', enableCellEdit: $scope.editable}]
+            };
 
-        $scope.gridOptionsS = {
-            data: 'notas_septimo',
-            enableCellSelection: true,
-            enableRowSelection: false,
-            enableCellEditOnFocus: $scope.editable,
-            columnDefs: [{field: 'curso', displayName: 'Curso', enableCellEdit: false},
-                {field:'nota', displayName:'Nota', enableCellEdit: $scope.editable}]
-        };
+            $scope.gridOptionsO = {
+                data: 'notas_octavo',
+                enableCellSelection: true,
+                enableRowSelection: false,
+                enableCellEditOnFocus: $scope.editable,
+                columnDefs: [{field: 'curso', displayName: 'Curso', enableCellEdit: false},
+                    {field:'nota', displayName:'Nota', enableCellEdit: $scope.editable}]
+            };
 
-        $scope.gridOptionsO = {
-            data: 'notas_octavo',
-            enableCellSelection: true,
-            enableRowSelection: false,
-            enableCellEditOnFocus: $scope.editable,
-            columnDefs: [{field: 'curso', displayName: 'Curso', enableCellEdit: false},
-                {field:'nota', displayName:'Nota', enableCellEdit: $scope.editable}]
-        };
-
-        $scope.gridOptionsN = {
-            data: 'notas_noveno',
-            enableCellSelection: true,
-            enableRowSelection: false,
-            enableCellEditOnFocus: $scope.editable,
-            columnDefs: [{field: 'curso', displayName: 'Curso', enableCellEdit: false},
-                {field:'nota', displayName:'Nota', enableCellEdit: $scope.editable}]
+            $scope.gridOptionsN = {
+                data: 'notas_noveno',
+                enableCellSelection: true,
+                enableRowSelection: false,
+                enableCellEditOnFocus: $scope.editable,
+                columnDefs: [{field: 'curso', displayName: 'Curso', enableCellEdit: false},
+                    {field:'nota', displayName:'Nota', enableCellEdit: $scope.editable}]
+            };
         };
 	}
 ]);

@@ -38,7 +38,6 @@ exports.read = function(req, res) {
  */
 exports.update = function(req, res) {
 	var nota = req.nota ;
-
 	nota = _.extend(nota , req.body);
 
 	nota.save(function(err) {
@@ -87,14 +86,14 @@ exports.list = function(req, res) {
 /**
  * Nota middleware
  */
-/*exports.notaByID = function(req, res, next, id) {
+exports.notaByID = function(req, res, next, id) {
 	Nota.findById(id).populate('user', 'displayName').exec(function(err, nota) {
 		if (err) return next(err);
 		if (! nota) return next(new Error('Failed to load Nota ' + id));
 		req.nota = nota ;
 		next();
 	});
-};*/
+};
 
 exports.notaByCedula = function(req, res, next, cedula_estudiante){
     Nota.find({ cedula_estudiante: cedula_estudiante}).populate('user', 'displayName').exec(function(err, nota) {

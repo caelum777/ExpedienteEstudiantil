@@ -15,8 +15,8 @@ angular.module('estudiantes').factory('Estudiantes', ['$resource',
 //Notas service used to communicate Notas REST endpoints
 angular.module('estudiantes').factory('Notas', ['$resource',
     function($resource) {
-        return $resource('notas/:notaId', { notaId: '@_id'
-        }, {
+        return $resource('/notas/:notaId', null,
+        {
             update: {
                 method: 'PUT'
             }

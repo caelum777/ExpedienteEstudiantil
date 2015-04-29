@@ -1,4 +1,4 @@
-<section data-ng-controller="EstudiantesController" data-ng-init="findOne()">
+<section data-ng-controller="EstudiantesController" data-ng-init="findOne(true)">
     <div class="page-header">
         <h1>Edit Estudiante</h1>
     </div>
@@ -21,6 +21,18 @@
                     <label class="control-label" for="name">Fecha de nacimiento</label>
                     <div class="controls">
                         <input type="text" data-ng-model="estudiante.fecha_de_nacimiento" id="fecha_de_nacimiento" class="form-control" placeholder="Fecha de nacimiento" required>
+                    </div>
+                    <div class="controls">
+                        <label class="control-label" for="name">Notas de septimo</label>
+                        <div class="gridStyle" ng-grid="gridOptionsS"></div>
+                    </div>
+                    <div class="controls">
+                        <label class="control-label" for="name">Notas de octavo</label>
+                        <div class="gridStyle" ng-grid="gridOptionsO"></div>
+                    </div>
+                    <div class="controls">
+                        <label class="control-label" for="name">Notas de noveno</label>
+                        <div class="gridStyle" ng-grid="gridOptionsN"></div>
                     </div>
                 </div>
                 <div class="form-group">
