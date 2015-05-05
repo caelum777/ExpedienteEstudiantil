@@ -31,12 +31,14 @@ angular.module('estudiantes').factory('Notas', ['$resource',
         {
             update: {
                 method: 'PUT'
+            },
+            detele: {
+                method: 'DELETE'
             }
         });
     }
 ]);
 
-//Notas service used to communicate Notas REST endpoints
 angular.module('estudiantes').factory('GetNotas', ['$resource',
     function($resource) {
         return $resource('/notas/:cedula_estudiante', { cedula_estudiante: '@cedula_estudiante'

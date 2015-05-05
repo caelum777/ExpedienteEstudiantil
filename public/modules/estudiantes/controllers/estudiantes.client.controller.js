@@ -399,7 +399,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
 				});
                 var notas = $scope.notas;
                 angular.forEach(notas, function (nota) {
-                    nota.$remove({ notaId: nota._id });
+                    Notas.remove({ notaId: nota._id }, nota);
                 });
 			}
 		};
