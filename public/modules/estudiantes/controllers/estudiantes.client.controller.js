@@ -397,6 +397,10 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
 				$scope.estudiante.$remove(function() {
 					$location.path('estudiantes');
 				});
+                var notas = $scope.notas;
+                angular.forEach(notas, function (nota) {
+                    nota.$remove({ notaId: nota._id });
+                });
 			}
 		};
 
@@ -425,10 +429,11 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             });
 
 		};
-
+        $scope.estudiantes = [];
 		// Find a list of Estudiantes
 		$scope.find = function() {
 			$scope.estudiantes = Estudiantes.query();
+            $scope.ngGridEstudiantes();
 		};
 
 		// Find existing Estudiante
@@ -521,6 +526,18 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 enableCellEditOnFocus: $scope.editable,
                 columnDefs: [{field: 'curso', displayName: 'Curso', enableCellEdit: false},
                     {field:'nota', displayName:'Nota', enableCellEdit: $scope.editable}]
+            };
+        };
+        $scope.ngGridEstudiantes = function(){
+            //Gridoptions en el view "list-estudiantes.cliente.view.html"
+            $scope.gridOptionsList = {
+                data: 'estudiantes',
+                enableCellSelection: true,
+                enableRowSelection: false,
+                enableCellEditOnFocus: false,
+                columnDefs: [{ field: "name", displayName:'Nombre'},
+                    { field: "nacionalidad", displayName:'Cédula'},
+                    { field: "admitido", displayName:"Admitido", cellTemplate: '<input type="checkbox" ng-model="row.entity.admitido">'}]
             };
         };
 	}
