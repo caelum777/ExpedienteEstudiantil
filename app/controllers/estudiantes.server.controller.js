@@ -97,6 +97,18 @@ exports.estudianteByID = function(req, res, next, id) {
 };
 
 /**
+ * Estudiante middleware
+ */
+exports.admitidoss = function(req, res, next, admitido) {
+    Estudiante.find({admitido: admitido}).populate('user', 'displayName').exec(function(err, estudiante) {
+        if (err) return next(err);
+        if (! estudiante) return next(new Error('Failed to load Estudiante '));
+        req.estudiante = estudiante ;
+        next();
+    });
+};
+
+/**
  * Estudiante authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {

@@ -5,10 +5,14 @@ angular.module('estudiantes').config(['$stateProvider',
 	function($stateProvider) {
 		// Estudiantes state routing
 		$stateProvider.
-		state('listEstudiantes', {
-			url: '/estudiantes',
-			templateUrl: 'modules/estudiantes/views/list-estudiantes.client.view.html'
+		state('listEstudiantesEnAdmicion', {
+			url: '/estudiantes_en_admicion',
+			templateUrl: 'modules/estudiantes/views/list-estudiantes-en-admicion.client.view.html'
 		}).
+        state('listEstudiantesAdmitidos', {
+            url: '/estudiantes_admitidos',
+            templateUrl: 'modules/estudiantes/views/list-estudiantes-admitidos.client.view.html'
+        }).
 		state('createEstudiante', {
 			url: '/estudiantes/create',
 			templateUrl: 'modules/estudiantes/views/create-estudiante.client.view.html'

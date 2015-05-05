@@ -1,8 +1,8 @@
 'use strict';
 
 // Estudiantes controller
-angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Estudiantes', '$upload', 'Notas',
-	function($scope, $stateParams, $location, Authentication, Estudiantes, $upload, Notas) {
+angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Estudiantes', '$upload', 'Notas', 'GetNotas', 'GetAdmitidos',
+	function($scope, $stateParams, $location, Authentication, Estudiantes, $upload, Notas, GetNotas, GetAdmitidos) {
 		$scope.authentication = Authentication;
         $scope.options =
         [{
@@ -180,15 +180,19 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
 
 		};
         $scope.estudiantes = [];
-		// Find a list of Estudiantes
-		$scope.find = function() {
+		// Find a list of Estudiantes/Cuando el parametro viene en true es para los estudiantes matriculados
+		$scope.find = function(matriculado) {
 			$scope.estudiantes = Estudiantes.query();
-            $scope.ngGridEstudiantes();
+            $scope.ngGridEstudiantes(matriculado);
 		};
+
+        $scope.admitidos = function(admitido) {
+            $scope.estudiantes = GetAdmitidos.query({admitido: admitido});
+            $scope.ngGridEstudiantes(admitido);
+        };
 
 		// Find existing Estudiante
 		$scope.findOne = function(edit) {
-
             $scope.notas_septimo = [];
             $scope.notas_octavo =[];
             $scope.notas_noveno = [];
@@ -197,7 +201,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
 				estudianteId: $stateParams.estudianteId
 			});
             $scope.estudiante.$promise.then(function(estudiante) {
-                $scope.notas = Notas.query({
+                $scope.notas = GetNotas.query({
                     cedula_estudiante: estudiante.nacionalidad
                 });
                 $scope.notas.$promise.then(function(notas) {
@@ -278,17 +282,42 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     {field:'nota', displayName:'Nota', enableCellEdit: $scope.editable}]
             };
         };
-        $scope.ngGridEstudiantes = function(){
+        $scope.ngGridEstudiantes = function(matriculado){
             //Gridoptions en el view "list-estudiantes.cliente.view.html"
-            $scope.gridOptionsList = {
-                data: 'estudiantes',
-                enableCellSelection: true,
-                enableRowSelection: false,
-                enableCellEditOnFocus: false,
-                columnDefs: [{ field: "name", displayName:'Nombre'},
-                    { field: "nacionalidad", displayName:'Cédula'},
-                    { field: "admitido", displayName:"Admitido", cellTemplate: '<input type="checkbox" ng-model="row.entity.admitido">'}]
-            };
+            if(!matriculado)
+            {
+                $scope.gridOptionsList = {
+                    data: 'estudiantes',
+                    enableCellSelection: true,
+                    enableRowSelection: false,
+                    enableCellEditOnFocus: false,
+                    columnDefs: [{ field: 'name', displayName:'Nombre'},
+                        { field: 'nacionalidad', displayName:'Cédula'},
+                        { field: 'admitido', displayName:'Admitido', cellTemplate: '<input type="checkbox" ng-model="row.entity.admitido">'},
+                        { field: '_id', displayName:'Ver', cellTemplate: '<a data-ng-href="#!/estudiantes/{{row.entity._id}}">ver</a>'}]
+                };
+            }
+            else{
+                $scope.gridOptionsList = {
+                    data: 'estudiantes',
+                    enableCellSelection: true,
+                    enableRowSelection: false,
+                    enableCellEditOnFocus: false,
+                    columnDefs: [{ field: 'name', displayName:'Nombre'},
+                        { field: 'nacionalidad', displayName:'Cédula'},
+                        { field: '_id', displayName:'Ver', cellTemplate: '<a data-ng-href="#!/estudiantes/{{row.entity._id}}">ver</a>'}]
+                };
+            }
+        };
+
+        $scope.matricular = function(){
+            var estudiantes = $scope.estudiantes;
+            angular.forEach(estudiantes, function (estudiante) {
+                if(estudiante.admitido)
+                    Estudiantes.update({ estudianteId: estudiante._id }, estudiante).$promise.then(function(estudiante) {
+                        location.reload();
+                    });
+            });
         };
 	}
 ]);

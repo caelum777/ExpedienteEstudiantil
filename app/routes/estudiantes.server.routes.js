@@ -14,6 +14,11 @@ module.exports = function(app) {
 		.put(users.requiresLogin, estudiantes.update)
 		.delete(users.requiresLogin, estudiantes.delete);
 
+    app.route('/admitidos/:admitido')
+        .get(estudiantes.read);
+
 	// Finish by binding the Estudiante middleware
 	app.param('estudianteId', estudiantes.estudianteByID);
+
+    app.param('admitido', estudiantes.admitidoss);
 };
