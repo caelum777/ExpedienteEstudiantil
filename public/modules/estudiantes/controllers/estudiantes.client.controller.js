@@ -7,8 +7,8 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         $scope.options =
         [{
             nombre: 'San Jose',
-            cantones: [{
-                nombre: 'San Jose',
+            cantones: [
+                {nombre: 'San Jose',
                     distritos: [{nombre: 'Carmen'}, {nombre: 'Merced'}, {nombre: 'Hospital'}, {nombre: 'Catedral'}, {nombre: 'Zapote'}, {nombre: 'San Francisco de Dos Ríos'}, {nombre: 'La Uruca'}, {nombre: 'Mata Redonda'}, {nombre: 'Pavas'}, {nombre: 'Hatillo'}, {nombre: 'San Sebastián'}]
                 }, {
                     nombre: 'Escazú',
@@ -69,8 +69,8 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     distritos: [{nombre: 'San Pablo'}, {nombre: 'San Andrés'}, {nombre: 'Llano Bonito'}, {nombre: 'San Isidro'}, {nombre: 'Santa Cruz'}, {nombre: 'San Antonio'}]
                 }
             ]
-        }, {
-            nombre: 'Alajuela',
+        },
+            {nombre: 'Alajuela',
             cantones: [{
                 nombre: 'Alajuela',
                 distritos: [{nombre: 'Alajuela'},{nombre: 'San José'},{nombre: 'Carrizal'},{nombre: 'San Antonio'},{nombre: 'Guácima'},{nombre: 'San Isidro'},{nombre: 'Sabanilla'},{nombre: 'San Rafael'},{nombre: 'Río Segundo'},{nombre: 'Desamparados'},{nombre: 'Turrúcares'},{nombre: 'Tambor'},{nombre: 'Garita'}]
@@ -117,7 +117,8 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 nombre: 'Guatuso',
                 distritos: [{nombre: 'San Rafael'},{nombre: 'Buenavista'},{nombre: 'Cote'},{nombre: 'Katira'}]
             }]
-        }, {
+        },
+            {
             nombre: 'Cartago',
             cantones: [{
                 nombre: 'Cartago',
@@ -144,8 +145,8 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 nombre: 'El Guarco',
                 distritos: [{nombre: 'El Tejar'},{nombre: 'San Isidro'},{nombre: 'Tobosi'},{nombre: 'Patio de Agua'}]
             }]
-        }, {
-            nombre: 'Heredia',
+        },
+            {nombre: 'Heredia',
             cantones: [{
                 nombre: 'Heredia',
                 distritos: [{nombre: 'Heredia'}, {nombre: 'Mercedes'},{nombre: 'San Francisco'},{nombre: 'Ulloa'},{nombre: 'Varablanca'}]
@@ -177,8 +178,8 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 nombre: 'Sarapiquí',
                 distritos: [{nombre: 'Puerto Viejo'}, {nombre: 'La Virgen'},{nombre: 'Horquetas'},{nombre: 'Llanuras del Gaspar'},{nombre: 'Cureña'}]
             }]
-        }, {
-            nombre: 'Puntarenas',
+        },
+            {nombre: 'Puntarenas',
             cantones: [{
                 nombre: 'Puntarenas',
                 distritos: [{nombre: 'Puntarenas'}, {nombre: 'Pitahaya'},{nombre: 'Chomes'},{nombre: 'Lepanto'},{nombre: 'Paquera'},{nombre: 'Manzanillo'},{nombre: 'Guacimal'},{nombre: 'Barranca'},{nombre: 'Monteverde'},{nombre: 'Isla del Coco'},{nombre: 'Cóbano'},{nombre: 'Chacarita'},{nombre: 'Chira'},{nombre: 'Acapulco'},{nombre: 'El Roble'},{nombre: 'Arancibia'}]
@@ -213,8 +214,8 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 nombre: 'Garabito',
                 distritos: [{nombre: 'Jacó'}, {nombre: 'Tárcoles'}]
             }]
-        }, {
-            nombre: 'Guanacaste',
+        },
+            {nombre: 'Guanacaste',
             cantones: [{
                 nombre: 'Liberia',
                 distritos: [{nombre: 'Liberia'},{nombre: 'Cañas Dulces'},{nombre: 'Mayorga'},{nombre: 'Nacascolo'},{nombre: 'Curubandé'}]
@@ -249,8 +250,8 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 nombre: 'Hojancha',
                 distritos: [{nombre: 'Hojancha'},{nombre: 'Monte Romo'},{nombre: 'Puerto Carrillo'},{nombre: 'Huacas'}]
             }]
-        }, {
-            nombre: 'Limón',
+        },
+            {nombre: 'Limón',
             cantones: [{
                 nombre: 'Limón',
                 distritos: [{nombre: 'Limón'},{nombre: 'Valle de La Estrella'},{nombre: 'Río Blanco'},{nombre: 'Matama'}]
@@ -271,12 +272,17 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 distritos: [{nombre: 'Guácimo'},{nombre: 'Mercedes'},{nombre: 'Pocora'},{nombre: 'Río Jiménez'},{nombre: 'Duacarí'}]
             }]
         }];
-        $scope.sexos = [{nombre: 'Masculino'}, {nombre: 'Femenino'}];
 
+
+
+        $scope.sexos = [{nombre: 'Masculino'}, {nombre: 'Femenino'}];
+        $scope.adecuaciones = [{nombre: 'Tiene'}, {nombre: 'No tiene'}];
         $scope.provincia = $scope.options[0];
         $scope.canton =  $scope.provincia.cantones[0];
         $scope.distrito = $scope.canton.distritos[0];
         $scope.sexo = $scope.sexos[0];
+        $scope.adSignificativa = $scope.adecuaciones[0];
+        $scope.adNoSignificativa = $scope.adecuaciones[0];
         $scope.foto = '';
         $scope.editable = false;
         $scope.selectedFile = [];
@@ -406,12 +412,46 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
 
 		// Update existing Estudiante
 		$scope.update = function() {
-			var estudiante = $scope.estudiante;
-			estudiante.$update(function() {
-				$location.path('estudiantes/' + estudiante._id);
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
+            var file = $scope.selectedFile[0];
+            $scope.upload = $upload.upload({
+                url: '/upload',
+                method: 'POST',
+                file: file
+            }).success(function(data) {
+                $scope.foto = data.name;
+                $scope.updateEstudiantes();
+            });
+		};
+
+        $scope.updateEstudiantes = function() {
+            var estudiante = $scope.estudiante;
+            estudiante.foto = $scope.foto;
+            if($scope.sexo == 'Masculino'){
+                estudiante.sexo = true;
+            }
+            else{
+                estudiante.sexo = false;
+            }
+            if($scope.adSignificativa == 'Tiene'){
+                estudiante.sexo = true;
+            }
+            else{
+                estudiante.sexo = false;
+            }
+            if($scope.adNoSignificativa == 'Tiene'){
+                estudiante.sexo = true;
+            }
+            else{
+                estudiante.sexo = false;
+            }
+            //estudiante.provincia = $scope.provincia;
+            //estudiante.canton = $scope.canton;
+            //estudiante.distrito = $scope.distrito;
+            estudiante.$update(function() {
+                $location.path('estudiantes/' + estudiante._id);
+            }, function(errorResponse) {
+                $scope.error = errorResponse.data.message;
+            });
             var notas = $scope.notas;
             angular.forEach(notas, function (nota) {
                 for(var i = 0;i < $scope.notas_septimo.length; i++){
@@ -427,8 +467,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 }
                 Notas.update({ notaId: nota._id }, nota);
             });
-
-		};
+        }
         $scope.estudiantes = [];
 		// Find a list of Estudiantes/Cuando el parametro viene en true es para los estudiantes matriculados
 		$scope.find = function(matriculado) {
@@ -443,14 +482,26 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
 
 		// Find existing Estudiante
 		$scope.findOne = function(edit) {
+            $scope.estudiante = Estudiantes.get({
+                estudianteId: $stateParams.estudianteId
+            });
             $scope.notas_septimo = [];
             $scope.notas_octavo =[];
             $scope.notas_noveno = [];
             $scope.editable = edit;
-			$scope.estudiante = Estudiantes.get({ 
-				estudianteId: $stateParams.estudianteId
-			});
             $scope.estudiante.$promise.then(function(estudiante) {
+                if(edit){
+                    //console.log($scope.estudiante.sexo);
+                    //console.log($scope.find($scope.sexos, $scope.estudiante.sexo, 0));
+                    //console.log($scope.estudiante.sexo);
+                    $scope.sexo = $scope.sexos[$scope.find($scope.sexos, $scope.estudiante.sexo, 0)];
+                    $scope.adSignificativa = $scope.adecuaciones[$scope.find($scope.adecuaciones,$scope.estudiante.adecuacion_sig, 1)];
+                    $scope.adNoSignificativa = $scope.adecuaciones[$scope.find($scope.adecuaciones,$scope.estudiante.adecuacion_nsig, 1)];
+                    //$scope.provincia = $scope.options[$scope.find($scope.options,$scope.estudiante.provincia, 2)];
+                    //$scope.provincia = $scope.estudiante.provincia;
+                    //$scope.canton = $scope.estudiante.canton;
+                    //$scope.distrito = $scope.estudiante.distrito;
+                }
                 $scope.notas = GetNotas.query({
                     cedula_estudiante: estudiante.nacionalidad
                 });
@@ -474,6 +525,34 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             });
             $scope.initGridOptions();
 		};
+
+        $scope.find = function(arr, obj, val){
+            var com = '';
+            if(val == 0){
+                if(obj){
+                    com = 'Masculino'
+                }
+                else{
+                    com = 'Femenino'
+                }
+            }
+            else if(val == 1){
+                if(obj){
+                    com = 'Tiene'
+                }
+                else{
+                    com = 'No Tiene'
+                }
+            }
+            else{
+                com = obj;
+            }
+            for(var i = 0;i < arr.length; i++){
+                if(arr[i].nombre==com){
+                    return i;
+                }
+            }
+        };
 
         //Notas de los cursos
         $scope.initNotas = function(){

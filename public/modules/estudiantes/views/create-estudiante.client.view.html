@@ -78,23 +78,20 @@
                     <div class="controls">
                         <input type="text" data-ng-model="direccion_exacta" id="direccion_exacta" class="form-control" placeholder="Dirección exacta" required>
                     </div>
-                    <!--FALTA FOTO-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
                     <label class="control-label" for="name">Colegio de procedencia</label>
                     <div class="controls">
                         <input type="text" data-ng-model="colegio_procedencia" id="colegio_procedencia" class="form-control" placeholder="Colegio de procedencia" required>
                     </div>
                     <label class="control-label" for="name">Adecuación significativa</label>
                     <div class="controls">
-                        <select class="form-control" data-ng-model="adecuacion_sig" id="adecuacion_sig">
-                            <option value=1 selected>Tiene</option>
-                            <option value=0>No tiene</option>
+                        <select class="form-control" data-ng-model="adSignificativa" id="adecuacion_significativa"
+                                ng-options="opt as opt.nombre for opt in adecuaciones">
                         </select>
                     </div>
                     <label class="control-label" for="name">Adecuación no significativa</label>
                     <div class="controls">
-                        <select class="form-control" data-ng-model="adecuacion_nsig" id="adecuacion_nsig">
-                            <option value=1 selected>Tiene</option>
-                            <option value=0>No tiene</option>
+                        <select class="form-control" data-ng-model="adNoSignificativa" id="adecuacion_nsignificativa"
+                                ng-options="opt as opt.nombre for opt in adecuaciones">
                         </select>
                     </div>
                     <div class="controls">

@@ -24,76 +24,69 @@
                     </div>
                     <label class="control-label" for="name">Cédula o número de pasaporte</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="nacionalidad" id="nacionalidad" class="form-control" placeholder="Cédula o numero de pasaporte" title="Formato: 0-0000-0000" pattern="[0-9]{1}-[0-9]{4}-[0-9]{4}" required>
+                        <input type="text" data-ng-model="estudiante.nacionalidad" id="nacionalidad" class="form-control" placeholder="Cédula o numero de pasaporte" title="Formato: 0-0000-0000" pattern="[0-9]{1}-[0-9]{4}-[0-9]{4}" required>
                     </div>
                     <label class="control-label" for="name">Sexo</label>
                     <div class="controls">
                         <select class="form-control" data-ng-model="sexo" id="sexo"
                                 ng-options="opt as opt.nombre for opt in sexos">
                         </select>
-                        <!--<select class="form-control" data-ng-model="sexo" id="sexo">
-                            <option value=1 selected>Masculino</option>
-                            <option value=0>Femenino</option>
-                        </select>-->
                     </div>
                     <label class="control-label" for="name">Telefono Hogar</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="telefono_casa" id="telefono_casa" class="form-control" placeholder="Telefono Hogar" pattern="[0-9]{4}-[0-9]{4}" title="Formato: 0000-0000" required>
+                        <input type="text" data-ng-model="estudiante.telefono_casa" id="telefono_casa" class="form-control" placeholder="Telefono Hogar" pattern="[0-9]{4}-[0-9]{4}" title="Formato: 0000-0000" required>
                     </div>
                     <label class="control-label" for="name">Celular</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="celular" id="celular" class="form-control" placeholder="Celular" pattern="[0-9]{4}-[0-9]{4}" title="Formato: 0000-0000" required>
+                        <input type="text" data-ng-model="estudiante.celular" id="celular" class="form-control" placeholder="Celular" pattern="[0-9]{4}-[0-9]{4}" title="Formato: 0000-0000" required>
                     </div>
                     <label class="control-label" for="name">Correo electronico</label>
                     <div class="controls">
-                        <input type="email" data-ng-model="correo" id="correo" class="form-control" placeholder="Correo" required>
+                        <input type="email" data-ng-model="estudiante.correo" id="correo" class="form-control" placeholder="Correo" required>
                     </div>
                     <label class="control-label" for="name">Provincia</label>
                     <div class="controls">
-                        <select class="form-control" data-ng-model="provincia" id="provincia" ng-change="provincia_change()"
+                        <select class="form-control" data-ng-model="estudiante.provincia" id="provincia" ng-change="provincia_change()"
                                 ng-options="opt as opt.nombre for opt in options">
                         </select>
                         <!--<input type="text" data-ng-model="provincia" id="provincia" class="form-control" placeholder="Provincia" required>-->
                     </div>
                     <label class="control-label" for="name">Cantón</label>
                     <div class="controls">
-                        <select class="form-control" data-ng-model="canton" id="canton" ng-disabled="!provincia" ng-change="canton_change()"
+                        <select class="form-control" data-ng-model="estudiante.canton" id="canton" ng-disabled="!provincia" ng-change="canton_change()"
                                 ng-options="opt as opt.nombre for opt in provincia.cantones">
                         </select>
                         <!--<input type="text" data-ng-model="canton" id="canton" class="form-control" placeholder="Cantón" required>-->
                     </div>
                     <label class="control-label" for="name">Distrito</label>
                     <div class="controls">
-                        <select class="form-control" data-ng-model="distrito" id="distrito" ng-disabled="!canton"
+                        <select class="form-control" data-ng-model="estudiante.distrito" id="distrito" ng-disabled="!canton"
                                 ng-options="opt as opt.nombre for opt in canton.distritos">
                         </select>
                         <!--<input type="text" data-ng-model="distrito" id="distrito" class="form-control" placeholder="Distrito" required>-->
                     </div>
                     <label class="control-label" for="name">Barrio</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="barrio" id="barrio" class="form-control" placeholder="Barrio" required>
+                        <input type="text" data-ng-model="estudiante.barrio" id="barrio" class="form-control" placeholder="Barrio" required>
                     </div>
                     <label class="control-label" for="name">Dirección exacta</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="direccion_exacta" id="direccion_exacta" class="form-control" placeholder="Dirección exacta" required>
+                        <input type="text" data-ng-model="estudiante.direccion_exacta" id="direccion_exacta" class="form-control" placeholder="Dirección exacta" required>
                     </div>
-                    <!--FALTA FOTO-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
                     <label class="control-label" for="name">Colegio de procedencia</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="colegio_procedencia" id="colegio_procedencia" class="form-control" placeholder="Colegio de procedencia" required>
+                        <input type="text" data-ng-model="estudiante.colegio_procedencia" id="colegio_procedencia" class="form-control" placeholder="Colegio de procedencia" required>
                     </div>
                     <label class="control-label" for="name">Adecuación significativa</label>
                     <div class="controls">
-                        <select class="form-control" data-ng-model="adecuacion_sig" id="adecuacion_sig">
-                            <option value=1 selected>Tiene</option>
-                            <option value=0>No tiene</option>
+                        <select class="form-control" data-ng-model="adSignificativa" id="adecuacion_significativa"
+                                ng-options="opt as opt.nombre for opt in adecuaciones">
                         </select>
                     </div>
                     <label class="control-label" for="name">Adecuación no significativa</label>
                     <div class="controls">
-                        <select class="form-control" data-ng-model="adecuacion_nsig" id="adecuacion_nsig">
-                            <option value=1 selected>Tiene</option>
-                            <option value=0>No tiene</option>
+                        <select class="form-control" data-ng-model="adNoSignificativa" id="adecuacion_nsignificativa"
+                                ng-options="opt as opt.nombre for opt in adecuaciones">
                         </select>
                     </div>
                     <div class="controls">
