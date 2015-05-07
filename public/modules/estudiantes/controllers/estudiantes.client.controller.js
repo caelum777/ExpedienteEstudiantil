@@ -286,6 +286,10 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         $scope.foto = '';
         $scope.editable = false;
         $scope.selectedFile = [];
+        $scope.selected_cer_nacimiento = [];
+        $scope.selected_cer_notas = [];
+        $scope.selected_inf_hogar = [];
+        $scope.selected_vacunas = [];
 
         $scope.provincia_change = function() {
             $scope.canton =  $scope.provincia.cantones[0];
@@ -300,6 +304,23 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             if($files !== [])
                 $scope.selectedFile = $files;
         };
+        $scope.on_select_cer_nacimiento = function ($files) {
+            if($files !== [])
+                $scope.selected_cer_nacimiento = $files;
+        };
+        $scope.on_select_cer_notas = function ($files) {
+            if($files !== [])
+                $scope.selected_cer_notas = $files;
+        };
+        $scope.on_select_infor_hogar = function ($files) {
+            if($files !== [])
+                $scope.selected_inf_hogar = $files;
+        };
+        $scope.on_select_tarje_vacunas = function ($files) {
+            if($files !== [])
+                $scope.selected_vacunas = $files;
+        };
+
 
 		// Create new Estudiante
 		$scope.create = function() {
@@ -553,7 +574,6 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             var retorno = [];
             var arr = $scope.options;
             var i = 0;
-
             for(i;i<arr.length;i++){
                 if(arr[i].nombre == prov){
                     var j = 0;
@@ -666,6 +686,66 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     Estudiantes.update({ estudianteId: estudiante._id }, estudiante).$promise.then(function(estudiante) {
                         location.reload();
                     });
+            });
+        };
+
+        $scope.subir_archivos = function(){
+            var file = $scope.selected_cer_nacimiento[0];
+            $scope.upload = $upload.upload({
+                url: '/upload',
+                method: 'POST',
+                file: file
+            }).success(function(data) {
+                var estudiante = $scope.estudiante;
+                console.log($scope.cer_nacimiento+'asdasd');
+                estudiante.certificacion_nacimiento = data.name;
+                estudiante.$update(function() {
+                    $location.path('estudiantes/' + estudiante._id);
+                }, function(errorResponse) {
+                    $scope.error = errorResponse.data.message;
+                });
+            });
+            $scope.selected_cer_notas[0];
+            $scope.upload = $upload.upload({
+                url: '/upload',
+                method: 'POST',
+                file: file
+            }).success(function(data) {
+                var estudiante = $scope.estudiante;
+                estudiante.certificacion_notas = data.name;
+                estudiante.$update(function() {
+                    $location.path('estudiantes/' + estudiante._id);
+                }, function(errorResponse) {
+                    $scope.error = errorResponse.data.message;
+                });
+            });
+            file = $scope.selected_inf_hogar[0];
+            $scope.upload = $upload.upload({
+                url: '/upload',
+                method: 'POST',
+                file: file
+            }).success(function(data) {
+                var estudiante = $scope.estudiante;
+                estudiante.informe_hogar = data.name;
+                estudiante.$update(function() {
+                    $location.path('estudiantes/' + estudiante._id);
+                }, function(errorResponse) {
+                    $scope.error = errorResponse.data.message;
+                });
+            });
+            file = $scope.selected_vacunas[0];
+            $scope.upload = $upload.upload({
+                url: '/upload',
+                method: 'POST',
+                file: file
+            }).success(function(data) {
+                var estudiante = $scope.estudiante;
+                estudiante.tarjeta_vacunas = data.name;
+                estudiante.$update(function() {
+                    $location.path('estudiantes/' + estudiante._id);
+                }, function(errorResponse) {
+                    $scope.error = errorResponse.data.message;
+                });
             });
         };
 	}

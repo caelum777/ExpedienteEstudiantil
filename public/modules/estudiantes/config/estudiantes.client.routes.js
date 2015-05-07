@@ -24,6 +24,10 @@ angular.module('estudiantes').config(['$stateProvider',
 		state('editEstudiante', {
 			url: '/estudiantes/:estudianteId/edit',
 			templateUrl: 'modules/estudiantes/views/edit-estudiante.client.view.html'
-		});
+		})
+        .state('datosEstudiante', {
+            url: '/estudiantes/:estudianteId/archivosadjuntos',
+            templateUrl: 'modules/estudiantes/views/archivos-adjuntos.view.html'
+        });
 	}
 ]);

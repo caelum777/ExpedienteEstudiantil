@@ -1,0 +1,31 @@
+<section data-ng-controller="EstudiantesController" data-ng-init="findOne(false)">
+    <form class="form-horizontal" novalidate>
+        <div class="page-header">
+            <h1>Datos adjuntos del estudiante: {{estudiante.name + ' ' + estudiante.primer_apellido + ' ' + estudiante.segundo_apellido}}</h1>
+        </div>
+        <div class="controls">
+            <label class="control-label" for="name">Foto del estudiante</label>
+            <input name="filefield" type="file" ng-file-select ng-file-change="on_select_cer_nacimiento($files)">
+            <img ng-src="{{estudiante.foto}}" height="200px"/>
+        </div>
+        <div class="controls">
+            <label class="control-label" for="name">Certificación de notas</label>
+            <input name="filefield" type="file" ng-file-select ng-file-change="on_select_cer_notas($files)">
+            <img ng-src="{{estudiante.foto}}" height="200px"/>
+        </div>
+        <div class="controls">
+            <label class="control-label" for="name">Copia de la tarjeta del informe al hogar</label>
+            <input name="filefield" type="file" ng-file-select ng-file-change="on_select_infor_hogar($files)">
+            <img ng-src="{{estudiante.foto}}" height="200px"/>
+        </div>
+        <div class="controls">
+            <label class="control-label" for="name">Copia tarjeta de vacunas</label>
+            <input name="filefield" type="file" ng-file-select ng-file-change="on_select_tarje_vacunas($files)">
+            <img ng-src="{{estudiante.foto}}" height="200px"/>
+        </div>
+
+        <div>
+            <input type="submit" value="Subir Archivos" class="btn btn-default" ng-click="subir_archivos()">
+        </div>
+    </form>
+</section>
