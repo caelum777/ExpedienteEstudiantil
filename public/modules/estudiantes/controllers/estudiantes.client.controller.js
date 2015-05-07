@@ -444,9 +444,9 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             else{
                 estudiante.sexo = false;
             }
-            //estudiante.provincia = $scope.provincia;
-            //estudiante.canton = $scope.canton;
-            //estudiante.distrito = $scope.distrito;
+            estudiante.provincia = $scope.provincia.nombre;
+            estudiante.canton = $scope.canton.nombre;
+            estudiante.distrito = $scope.distrito.nombre;
             estudiante.$update(function() {
                 $location.path('estudiantes/' + estudiante._id);
             }, function(errorResponse) {
@@ -491,16 +491,14 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             $scope.editable = edit;
             $scope.estudiante.$promise.then(function(estudiante) {
                 if(edit){
-                    //console.log($scope.estudiante.sexo);
-                    //console.log($scope.find($scope.sexos, $scope.estudiante.sexo, 0));
-                    //console.log($scope.estudiante.sexo);
                     $scope.sexo = $scope.sexos[$scope.find($scope.sexos, $scope.estudiante.sexo, 0)];
                     $scope.adSignificativa = $scope.adecuaciones[$scope.find($scope.adecuaciones,$scope.estudiante.adecuacion_sig, 1)];
                     $scope.adNoSignificativa = $scope.adecuaciones[$scope.find($scope.adecuaciones,$scope.estudiante.adecuacion_nsig, 1)];
-                    //$scope.provincia = $scope.options[$scope.find($scope.options,$scope.estudiante.provincia, 2)];
-                    //$scope.provincia = $scope.estudiante.provincia;
-                    //$scope.canton = $scope.estudiante.canton;
-                    //$scope.distrito = $scope.estudiante.distrito;
+                    var arr = $scope.findprovincia($scope.estudiante.provincia,$scope.estudiante.canton,$scope.estudiante.distrito);
+                    $scope.provincia = $scope.options[arr[0]];
+                    $scope.canton = $scope.options[arr[0]].cantones[arr[1]];
+                    $scope.distrito = $scope.options[arr[0]].cantones[arr[1]].distritos[arr[2]];
+
                 }
                 $scope.notas = GetNotas.query({
                     cedula_estudiante: estudiante.nacionalidad
@@ -544,12 +542,34 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     com = 'No Tiene'
                 }
             }
-            else{
-                com = obj;
-            }
             for(var i = 0;i < arr.length; i++){
                 if(arr[i].nombre==com){
                     return i;
+                }
+            }
+        };
+
+        $scope.findprovincia = function(prov, can, dis){
+            var retorno = [];
+            var arr = $scope.options;
+            var i = 0;
+
+            for(i;i<arr.length;i++){
+                if(arr[i].nombre == prov){
+                    var j = 0;
+                    for(j;j<arr[i].cantones.length;j++){
+                        if(arr[i].cantones[j].nombre == can){
+                            var g = 0;
+                            for(g;g<arr[i].cantones[j].distritos.length;g++){
+                                if(arr[i].cantones[j].distritos[g].nombre == dis){
+                                    retorno.push(i);
+                                    retorno.push(j);
+                                    retorno.push(g);
+                                    return retorno;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         };
