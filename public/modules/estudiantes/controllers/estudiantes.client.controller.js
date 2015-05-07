@@ -742,7 +742,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 var estudiante = $scope.estudiante;
                 estudiante.tarjeta_vacunas = data.name;
                 estudiante.$update(function() {
-                    $location.path('estudiantes/' + estudiante._id);
+                    location.reload();
                 }, function(errorResponse) {
                     $scope.error = errorResponse.data.message;
                 });
