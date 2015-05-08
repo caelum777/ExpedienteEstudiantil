@@ -353,58 +353,108 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     barrio: $scope.barrio,
                     direccion_exacta: $scope.direccion_exacta,
                     foto: $scope.foto,
+                    anno_ingreso: new Date().getFullYear(),
                     colegio_procedencia: $scope.colegio_procedencia,
                     adecuacion_sig: $scope.adecuacion_sig,
                     adecuacion_nsig: $scope.adecuacion_nsig
                 });
 
-                for(var i = 0; i < $scope.notas_septimo.length; i++) {
-                    //Septimo
-                    var notaS = new Notas ({
-                        cedula_estudiante: $scope.nacionalidad,
-                        grado: 'septimo',
-                        curso: $scope.notas_septimo[i].curso,
-                        nota: $scope.notas_septimo[i].nota,
-                        anno: $scope.fecha_septimo,
-                        semestre: 0
-                    });
-                    //Octavo
-                    var notaO = new Notas ({
-                        cedula_estudiante: $scope.nacionalidad,
-                        grado: 'octavo',
-                        curso: $scope.notas_octavo[i].curso,
-                        nota: $scope.notas_octavo[i].nota,
-                        anno: $scope.fecha_septimo,
-                        semestre: 0
-                    });
-                    //Noveno
-                    var notaN = new Notas ({
-                        cedula_estudiante: $scope.nacionalidad,
-                        grado: 'noveno',
-                        curso: $scope.notas_noveno[i].curso,
-                        nota: $scope.notas_noveno[i].nota,
-                        anno: $scope.fecha_septimo,
-                        semestre: 0
-                    });
-                    notaS.$save(function(response) {
-                    }, function(errorResponse) {
-                        $scope.error = errorResponse.data.message;
-                    });
-                    notaO.$save(function(response) {
-                    }, function(errorResponse) {
-                        $scope.error = errorResponse.data.message;
-                    });
-                    notaN.$save(function(response) {
-                    }, function(errorResponse) {
-                        $scope.error = errorResponse.data.message;
-                    });
-                }
 
                 // Redirect after save
                 estudiante.$save(function(response) {
+                    for(var i = 0; i < $scope.notas_septimo.length; i++) {
+                        //Septimo
+                        var notaS = new Notas ({
+                            cedula_estudiante: $scope.nacionalidad,
+                            grado: 'septimo',
+                            curso: $scope.notas_septimo[i].curso,
+                            nota: $scope.notas_septimo[i].nota,
+                            anno: estudiante.anno_ingreso-3,
+                            semestre: 0
+                        });
+                        //Octavo
+                        var notaO = new Notas ({
+                            cedula_estudiante: $scope.nacionalidad,
+                            grado: 'octavo',
+                            curso: $scope.notas_octavo[i].curso,
+                            nota: $scope.notas_octavo[i].nota,
+                            anno: estudiante.anno_ingreso-2,
+                            semestre: 0
+                        });
+                        //Noveno
+                        var notaN = new Notas ({
+                            cedula_estudiante: $scope.nacionalidad,
+                            grado: 'noveno',
+                            curso: $scope.notas_noveno[i].curso,
+                            nota: $scope.notas_noveno[i].nota,
+                            anno: estudiante.anno_ingreso-1,
+                            semestre: 0
+                        });
+                        notaS.$save(function(response) {
+                        }, function(errorResponse) {
+                            $scope.error = errorResponse.data.message;
+                        });
+                        notaO.$save(function(response) {
+                        }, function(errorResponse) {
+                            $scope.error = errorResponse.data.message;
+                        });
+                        notaN.$save(function(response) {
+                        }, function(errorResponse) {
+                            $scope.error = errorResponse.data.message;
+                        });
+                    }
+                    for(var j = 0; j < $scope.notas_decimo_1.length; j++) {
+                        var notaD1 = new Notas ({
+                            cedula_estudiante: $scope.nacionalidad,
+                            grado: 'decimo',
+                            curso: $scope.notas_decimo_1[j].curso,
+                            nota: $scope.notas_decimo_1[j].nota,
+                            anno: estudiante.anno_ingreso,
+                            semestre: 1
+                        });
+                        var notaD2 = new Notas ({
+                            cedula_estudiante: $scope.nacionalidad,
+                            grado: 'decimo',
+                            curso: $scope.notas_decimo_2[j].curso,
+                            nota: $scope.notas_decimo_2[j].nota,
+                            anno: estudiante.anno_ingreso,
+                            semestre: 2
+                        });
+                        var notaU1 = new Notas ({
+                            cedula_estudiante: $scope.nacionalidad,
+                            grado: 'undecimo',
+                            curso: $scope.notas_undecimo_1[j].curso,
+                            nota: $scope.notas_undecimo_1[j].nota,
+                            anno: estudiante.anno_ingreso + 1,
+                            semestre: 1
+                        });
+                        var notaU2 = new Notas ({
+                            cedula_estudiante: $scope.nacionalidad,
+                            grado: 'undecimo',
+                            curso: $scope.notas_undecimo_2[j].curso,
+                            nota: $scope.notas_undecimo_2[j].nota,
+                            anno: estudiante.anno_ingreso + 1,
+                            semestre: 2
+                        });
+                        notaD1.$save(function(response) {
+                        }, function(errorResponse) {
+                            $scope.error = errorResponse.data.message;
+                        });
+                        notaD2.$save(function(response) {
+                        }, function(errorResponse) {
+                            $scope.error = errorResponse.data.message;
+                        });
+                        notaU1.$save(function(response) {
+                        }, function(errorResponse) {
+                            $scope.error = errorResponse.data.message;
+                        });
+                        notaU2.$save(function(response) {
+                        }, function(errorResponse) {
+                            $scope.error = errorResponse.data.message;
+                        });
+                    }
                     $location.path('estudiantes/' + response._id);
                     // Clear form fields
-                    $scope.name = '';
                 }, function(errorResponse) {
                     $scope.error = errorResponse.data.message;
                 });
@@ -596,31 +646,124 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
 
         //Notas de los cursos
         $scope.initNotas = function(){
+            var estudiante = $scope.estudiante;
             $scope.editable = true;
             $scope.notas_septimo = [
-                {curso: 'Inglés', nota: 0},
-                {curso: 'Matemática', nota: 0},
-                {curso: 'Ciencias', nota: 0},
-                {curso: 'Cívica', nota: 0},
-                {curso: 'Español', nota: 0},
-                {curso: 'Estudios Sociales', nota: 0},
-                {curso: 'Conducta', nota: 0}];
+                {curso: 'Inglés', nota: 0, semestre: 0},
+                {curso: 'Matemática', nota: 0, semestre: 0},
+                {curso: 'Ciencias', nota: 0, semestre: 0},
+                {curso: 'Cívica', nota: 0, semestre: 0},
+                {curso: 'Español', nota: 0, semestre: 0},
+                {curso: 'Estudios Sociales', nota: 0, semestre: 0},
+                {curso: 'Conducta', nota: 0, semestre: 0}];
             $scope.notas_octavo = [
-                {curso: 'Inglés', nota: 0},
-                {curso: 'Matemática', nota: 0},
-                {curso: 'Ciencias', nota: 0},
-                {curso: 'Cívica', nota: 0},
-                {curso: 'Español', nota: 0},
-                {curso: 'Estudios Sociales', nota: 0},
-                {curso: 'Conducta', nota: 0}];
+                {curso: 'Inglés', nota: 0, semestre: 0},
+                {curso: 'Matemática', nota: 0, semestre: 0},
+                {curso: 'Ciencias', nota: 0, semestre: 0},
+                {curso: 'Cívica', nota: 0, semestre: 0},
+                {curso: 'Español', nota: 0, semestre: 0},
+                {curso: 'Estudios Sociales', nota: 0, semestre: 0},
+                {curso: 'Conducta', nota: 0, semestre: 0}];
             $scope.notas_noveno = [
-                {curso: 'Inglés', nota: 0},
-                {curso: 'Matemática', nota: 0},
-                {curso: 'Ciencias', nota: 0},
-                {curso: 'Cívica', nota: 0},
-                {curso: 'Español', nota: 0},
-                {curso: 'Estudios Sociales', nota: 0},
+                {curso: 'Inglés', nota: 0, semestre: 0},
+                {curso: 'Matemática', nota: 0, semestre: 0},
+                {curso: 'Ciencias', nota: 0, semestre: 0},
+                {curso: 'Cívica', nota: 0, semestre: 0},
+                {curso: 'Español', nota: 0, semestre: 0},
+                {curso: 'Estudios Sociales', nota: 0, semestre: 0},
                 {curso: 'Conducta', nota: 0}];
+            $scope.notas_decimo_1 = [
+                {curso: 'Español', nota: 0, semestre: 1},
+                {curso: 'Matemáticas', nota: 0, semestre: 1},
+                {curso: 'Física', nota: 0, semestre: 1},
+                {curso: 'Química', nota: 0, semestre: 1},
+                {curso: 'Biología', nota: 0, semestre: 1},
+                {curso: 'Bioteclogía', nota: 0, semestre: 1},
+                {curso: 'Computación', nota: 0, semestre: 1},
+                {curso: 'Robótica', nota: 0, semestre: 1},
+                {curso: 'Dibujo Técnico', nota: 0, semestre: 1},
+                {curso: 'Inglés', nota: 0, semestre: 1},
+                {curso: 'Investigación', nota: 0, semestre: 1},
+                {curso: 'Historia', nota: 0, semestre: 1},
+                {curso: 'Geografía', nota: 0, semestre: 1},
+                {curso: 'Educ. Religiosa', nota: 0, semestre: 1},
+                {curso: 'Educ. Cívica', nota: 0, semestre: 1},
+                {curso: 'Educ. Física', nota: 0, semestre: 1},
+                {curso: 'Matemática(PROF.)', nota: 0, semestre: 1},
+                {curso: 'Física(PROF.)', nota: 0, semestre: 1},
+                {curso: 'Química(PROF.)', nota: 0, semestre: 1},
+                {curso: 'Biología(PROF.)', nota: 0, semestre: 1},
+                {curso: 'Conducta', nota: 0, semestre: 1},
+                {curso: 'Promedio', nota: 0, semestre: 1}];
+            $scope.notas_decimo_2 = [
+                {curso: 'Español', nota: 0, semestre: 2},
+                {curso: 'Matemáticas', nota: 0, semestre: 2},
+                {curso: 'Física', nota: 0, semestre: 2},
+                {curso: 'Química', nota: 0, semestre: 2},
+                {curso: 'Biología', nota: 0, semestre: 2},
+                {curso: 'Bioteclogía', nota: 0, semestre: 2},
+                {curso: 'Computación', nota: 0, semestre: 2},
+                {curso: 'Robótica', nota: 0, semestre: 2},
+                {curso: 'Dibujo Técnico', nota: 0, semestre: 2},
+                {curso: 'Inglés', nota: 0, semestre: 2},
+                {curso: 'Investigación', nota: 0, semestre: 2},
+                {curso: 'Historia', nota: 0, semestre: 2},
+                {curso: 'Geografía', nota: 0, semestre: 2},
+                {curso: 'Educ. Religiosa', nota: 0, semestre: 2},
+                {curso: 'Educ. Cívica', nota: 0, semestre: 2},
+                {curso: 'Educ. Física', nota: 0, semestre: 2},
+                {curso: 'Matemática(PROF.)', nota: 0, semestre: 2},
+                {curso: 'Física(PROF.)', nota: 0, semestre: 2},
+                {curso: 'Química(PROF.)', nota: 0, semestre: 2},
+                {curso: 'Biología(PROF.)', nota: 0, semestre: 2},
+                {curso: 'Conducta', nota: 0, semestre: 2},
+                {curso: 'Promedio', nota: 0, semestre: 2}];
+            $scope.notas_undecimo_1 = [
+                {curso: 'Español', nota: 0, semestre: 1},
+                {curso: 'Matemáticas', nota: 0, semestre: 1},
+                {curso: 'Física', nota: 0, semestre: 1},
+                {curso: 'Química', nota: 0, semestre: 1},
+                {curso: 'Biología', nota: 0, semestre: 1},
+                {curso: 'Bioteclogía', nota: 0, semestre: 1},
+                {curso: 'Computación', nota: 0, semestre: 1},
+                {curso: 'Robótica', nota: 0, semestre: 1},
+                {curso: 'Dibujo Técnico', nota: 0, semestre: 1},
+                {curso: 'Inglés', nota: 0, semestre: 1},
+                {curso: 'Investigación', nota: 0, semestre: 1},
+                {curso: 'Historia', nota: 0, semestre: 1},
+                {curso: 'Geografía', nota: 0, semestre: 1},
+                {curso: 'Educ. Religiosa', nota: 0, semestre: 1},
+                {curso: 'Educ. Cívica', nota: 0, semestre: 1},
+                {curso: 'Educ. Física', nota: 0, semestre: 1},
+                {curso: 'Matemática(PROF.)', nota: 0, semestre: 1},
+                {curso: 'Física(PROF.)', nota: 0, semestre: 1},
+                {curso: 'Química(PROF.)', nota: 0, semestre: 1},
+                {curso: 'Biología(PROF.)', nota: 0, semestre: 1},
+                {curso: 'Conducta', nota: 0, semestre: 1},
+                {curso: 'Promedio', nota: 0, semestre: 1}];
+            $scope.notas_undecimo_2 = [
+                {curso: 'Español', nota: 0, semestre: 2},
+                {curso: 'Matemáticas', nota: 0, semestre: 2},
+                {curso: 'Física', nota: 0, semestre: 2},
+                {curso: 'Química', nota: 0, semestre: 2},
+                {curso: 'Biología', nota: 0, semestre: 2},
+                {curso: 'Bioteclogía', nota: 0, semestre: 2},
+                {curso: 'Computación', nota: 0, semestre: 2},
+                {curso: 'Robótica', nota: 0, semestre: 2},
+                {curso: 'Dibujo Técnico', nota: 0, semestre: 2},
+                {curso: 'Inglés', nota: 0, semestre: 2},
+                {curso: 'Investigación', nota: 0, semestre: 2},
+                {curso: 'Historia', nota: 0, semestre: 2},
+                {curso: 'Geografía', nota: 0, semestre: 2},
+                {curso: 'Educ. Religiosa', nota: 0, semestre: 2},
+                {curso: 'Educ. Cívica', nota: 0, semestre: 2},
+                {curso: 'Educ. Física', nota: 0, semestre: 2},
+                {curso: 'Matemática(PROF.)', nota: 0, semestre: 2},
+                {curso: 'Física(PROF.)', nota: 0, semestre: 2},
+                {curso: 'Química(PROF.)', nota: 0, semestre: 2},
+                {curso: 'Biología(PROF.)', nota: 0, semestre: 2},
+                {curso: 'Conducta', nota: 0, semestre: 2},
+                {curso: 'Promedio', nota: 0, semestre: 2}];
             $scope.initGridOptions();
         };
         $scope.initGridOptions = function(){
@@ -650,7 +793,79 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 columnDefs: [{field: 'curso', displayName: 'Curso', enableCellEdit: false},
                     {field:'nota', displayName:'Nota', enableCellEdit: $scope.editable}]
             };
+
+            $scope.gridOptionsD1 = {
+                data: 'notas_decimo_1',
+                enableCellSelection: true,
+                enableRowSelection: false,
+                enableCellEditOnFocus: $scope.editable,
+                columnDefs: [{field: 'curso', displayName: 'Curso', enableCellEdit: false},
+                    {field:'nota', displayName:'Nota', enableCellEdit: $scope.editable}]
+            };
+
+            $scope.gridOptionsD2 = {
+                data: 'notas_decimo_2',
+                enableCellSelection: true,
+                enableRowSelection: false,
+                enableCellEditOnFocus: $scope.editable,
+                columnDefs: [{field: 'curso', displayName: 'Curso', enableCellEdit: false},
+                    {field:'nota', displayName:'Nota', enableCellEdit: $scope.editable}]
+            };
+
+            $scope.gridOptionsU1 = {
+                data: 'notas_undecimo_1',
+                enableCellSelection: true,
+                enableRowSelection: false,
+                enableCellEditOnFocus: $scope.editable,
+                columnDefs: [{field: 'curso', displayName: 'Curso', enableCellEdit: false},
+                    {field:'nota', displayName:'Nota', enableCellEdit: $scope.editable}]
+            };
+
+            $scope.gridOptionsU2 = {
+                data: 'notas_undecimo_2',
+                enableCellSelection: true,
+                enableRowSelection: false,
+                enableCellEditOnFocus: $scope.editable,
+                columnDefs: [{field: 'curso', displayName: 'Curso', enableCellEdit: false},
+                    {field:'nota', displayName:'Nota', enableCellEdit: $scope.editable}]
+            };
         };
+
+        $scope.notes_c_c = function(){
+            $scope.notas_decimo_1 = [];
+            $scope.notas_decimo_2 = [];
+            $scope.notas_undecimo_1 = [];
+            $scope.notas_undecimo_2 = [];
+            $scope.editable = true;
+            var estudiante = Estudiantes.get({
+                estudianteId: $stateParams.estudianteId
+            });
+            estudiante.$promise.then(function(estudiante) {
+                $scope.notas = GetNotas.query({
+                    cedula_estudiante: estudiante.nacionalidad
+                });
+                $scope.notas.$promise.then(function (notas) {
+                    angular.forEach(notas, function (nota) {
+                        if ((nota.grado === 'decimo') && (nota.semestre == 1)) {
+                            $scope.notas_decimo_1.push(nota);
+                        }
+                        else if ((nota.grado === 'decimo') && (nota.semestre == 2)) {
+                            $scope.notas_decimo_2.push(nota);
+                        }
+                        else if ((nota.grado === 'undecimo') && (nota.semestre == 1)) {
+                            $scope.notas_undecimo_1.push(nota);
+                        }
+                        else if ((nota.grado === 'undecimo') && (nota.semestre == 2)) {
+                            $scope.notas_undecimo_2.push(nota);
+                        }
+                    });
+                }, function (error) {
+                    console.log('Failed: ' + error);
+                });
+            });
+            $scope.initGridOptions();
+        };
+
         $scope.ngGridEstudiantes = function(matriculado){
             //Gridoptions en el view "list-estudiantes.cliente.view.html"
             if(!matriculado)
@@ -687,6 +902,59 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         location.reload();
                     });
             });
+        };
+
+        $scope.asignar_notas = function(){
+            for(var j = 0; j < $scope.notas_decimo_1.length; j++) {
+                var notaD1 = new Notas ({
+                    cedula_estudiante: $scope.nacionalidad,
+                    grado: 'decimo',
+                    curso: $scope.notas_decimo_1[j].curso,
+                    nota: $scope.notas_decimo_1[j].nota,
+                    anno: estudiante.anno_ingreso,
+                    semestre: 1
+                });
+                var notaD2 = new Notas ({
+                    cedula_estudiante: $scope.nacionalidad,
+                    grado: 'decimo',
+                    curso: $scope.notas_decimo_2[j].curso,
+                    nota: $scope.notas_decimo_2[j].nota,
+                    anno: estudiante.anno_ingreso,
+                    semestre: 2
+                });
+                var notaU1 = new Notas ({
+                    cedula_estudiante: $scope.nacionalidad,
+                    grado: 'undecimo',
+                    curso: $scope.notas_undecimo_1[j].curso,
+                    nota: $scope.notas_undecimo_1[j].nota,
+                    anno: estudiante.anno_ingreso + 1,
+                    semestre: 1
+                });
+                var notaU2 = new Notas ({
+                    cedula_estudiante: $scope.nacionalidad,
+                    grado: 'undecimo',
+                    curso: $scope.notas_undecimo_2[j].curso,
+                    nota: $scope.notas_undecimo_2[j].nota,
+                    anno: estudiante.anno_ingreso + 1,
+                    semestre: 2
+                });
+                notaD1.$save(function(response) {
+                }, function(errorResponse) {
+                    $scope.error = errorResponse.data.message;
+                });
+                notaD2.$save(function(response) {
+                }, function(errorResponse) {
+                    $scope.error = errorResponse.data.message;
+                });
+                notaU1.$save(function(response) {
+                }, function(errorResponse) {
+                    $scope.error = errorResponse.data.message;
+                });
+                notaU2.$save(function(response) {
+                }, function(errorResponse) {
+                    $scope.error = errorResponse.data.message;
+                });
+            }
         };
 
         $scope.subir_archivos = function(){

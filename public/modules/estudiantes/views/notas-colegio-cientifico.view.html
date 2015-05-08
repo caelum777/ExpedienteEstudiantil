@@ -1,0 +1,19 @@
+<section data-ng-controller="EstudiantesController" data-ng-init="notes_c_c()">
+    <form class="form-horizontal" novalidate>
+        <div>
+            <div class="gridStyle" ng-grid="gridOptionsD1"></div>
+        </div>
+        <div>
+            <div class="gridStyle" ng-grid="gridOptionsD2"></div>
+        </div>
+        <div>
+            <div class="gridStyle" ng-grid="gridOptionsU1"></div>
+        </div>
+        <div>
+            <div class="gridStyle" ng-grid="gridOptionsU2"></div>
+        </div>
+        <div>
+            <input type="submit" value="Asignar notas" class="btn btn-default" ng-click="asignar_notas()">
+        </div>
+    </form>
+</section>
