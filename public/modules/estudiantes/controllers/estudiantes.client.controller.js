@@ -905,6 +905,9 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         };
 
         $scope.asignar_notas = function(){
+            var estudiante = Estudiantes.get({
+                estudianteId: $stateParams.estudianteId
+            });
             for(var j = 0; j < $scope.notas_decimo_1.length; j++) {
                 var notaD1 = new Notas ({
                     cedula_estudiante: $scope.nacionalidad,
