@@ -36,7 +36,7 @@
             <label class="control-label">Notas de noveno</label>
             <div class="gridStyle" ng-grid="gridOptionsN"></div>
         </div>
-        <a href="/#!/encargados/create/{{estudiante._id}}"><input type="button" value="Asignar encargados" ng-show="estudiante.admitido" class="btn btn-primary" href=""></a>
+        <a href="/#!/encargados/create/{{estudiante._id}}/{{estudiante.nacionalidad}}"><input type="button" value="Asignar encargados" ng-show="estudiante.admitido" class="btn btn-primary" href=""></a>
         <a href="/#!/estudiantes/{{estudiante._id}}/archivosadjuntos"><input type="button" value="Asignar datos adicionales" ng-show="estudiante.admitido" class="btn btn-primary" ></a>
         <a href="/#!/estudiantes/{{estudiante._id}}/notas_c_c"><input type="button" value="Asignar notas" ng-show="estudiante.admitido" class="btn btn-primary"></a>
     </div>

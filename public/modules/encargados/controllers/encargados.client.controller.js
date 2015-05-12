@@ -25,7 +25,7 @@ angular.module('encargados').controller('EncargadosController', ['$scope', '$sta
             if ($scope.eleccion === 'Si')
                 $scope.responsable = true;
 			var encargado = new Encargados ({
-                estudiante: $scope.estudiante,
+                estudiante: $stateParams.cedulaEstudiante,
 				name: $scope.name,
                 primer_apellido:$scope.primer_apellido,
                 segundo_apellido: $scope.segundo_apellido,
