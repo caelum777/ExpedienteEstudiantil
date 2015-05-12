@@ -11,3 +11,27 @@ angular.module('encargados').factory('Encargados', ['$resource',
 		});
 	}
 ]);
+
+
+/*angular.module('encargados',['estudiantes']).factory('getEstudiante', ['$resource',
+    function($resource) {
+        return{
+            get:function(){
+                return passEstudiante.get()
+            }
+        }
+    }
+]);*/
+
+/*angular.module('encargados').factory('moveEstudiante', function(){
+    estudiante = '';
+    return{
+        set:function(cedula){
+            return estudiante = cedula;
+        },
+        get:function(){
+            return estudiante;
+        }
+    }
+
+});*/

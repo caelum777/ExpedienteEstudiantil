@@ -16,13 +16,16 @@ angular.module('encargados').controller('EncargadosController', ['$scope', '$sta
         $scope.correo = '';
         $scope.direccion = '';
         $scope.opciones = [{opcion: 'No'}, {opcion: 'Si'}];
-        $scope.responsable = $scope.opciones[0];
+        $scope.eleccion = $scope.opciones[0];
+        $scope.responsable = false;
 
         // Create new Encargado
 		$scope.create = function() {
 			// Create new Encargado object
+            if ($scope.eleccion === 'Si')
+                $scope.responsable = true;
 			var encargado = new Encargados ({
-                estudiante: $scope.estudiante,
+                estudiante: $stateParams.cedulaEstudiante,
 				name: $scope.name,
                 primer_apellido:$scope.primer_apellido,
                 segundo_apellido: $scope.segundo_apellido,
@@ -38,7 +41,9 @@ angular.module('encargados').controller('EncargadosController', ['$scope', '$sta
 
 			// Redirect after save
 			encargado.$save(function(response) {
-				$location.path('encargados/' + response._id);
+				//$location.path('encargados/' + response._id);
+                $location.path('estudiantes/' + $stateParams.estudianteId);
+                //print ('#################################################################################################################'+$routeParams.id);
 
 				// Clear form fields
 				$scope.name = '';

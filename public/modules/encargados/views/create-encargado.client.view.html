@@ -6,53 +6,49 @@
         <form class="form-horizontal" data-ng-submit="create()" novalidate>
             <fieldset>
                 <div class="form-group">
-                    <label class="control-label" for="estudiante">Cédula del estudiante</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="estudiante" id="estudiante" class="form-control" placeholder="0-0000-0000" required>
-                    </div>
-                    <label class="control-label" for="estudiante">Nombre del encargado</label>
+                    <label class="control-label" for="name">Nombre del encargado</label>
                     <div class="controls">
                         <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Rodrigo" required>
                     </div>
-                    <label class="control-label" for="estudiante">Primer apellido</label>
+                    <label class="control-label" for="name">Primer apellido</label>
                     <div class="controls">
                         <input type="text" data-ng-model="primer_apellido" id="primer_apellido" class="form-control" placeholder="Mora" required>
                     </div>
-                    <label class="control-label" for="estudiante">Segundo apellido</label>
+                    <label class="control-label" for="name">Segundo apellido</label>
                     <div class="controls">
                         <input type="text" data-ng-model="segundo_apellido" id="segundo_apellido" class="form-control" placeholder="Porras" required>
                     </div>
-                    <label class="control-label" for="estudiante">Cédula del encargado</label>
+                    <label class="control-label" for="name">Cédula del encargado</label>
                     <div class="controls">
                         <input type="text" data-ng-model="cedula" id="cedula" class="form-control" placeholder="0-0000-0000" required>
                     </div>
-                    <label class="control-label" for="estudiante">Ocupación</label>
+                    <label class="control-label" for="name">Ocupación</label>
                     <div class="controls">
                         <input type="text" data-ng-model="ocupacion" id="ocupacion" class="form-control" placeholder="Empresario, Panadero, Profesor..." required>
                     </div>
-                    <label class="control-label" for="estudiante">Estado Civil</label>
+                    <label class="control-label" for="name">Estado Civil</label>
                     <div class="controls">
                         <input type="text" data-ng-model="estado_civil" id="estado_civil" class="form-control" placeholder="Soltero, Casado, Divorciado..." required>
                     </div>
-                    <label class="control-label" for="estudiante">Nacionalidad</label>
+                    <label class="control-label" for="name">Nacionalidad</label>
                     <div class="controls">
                         <input type="text" data-ng-model="nacionalidad" id="nacionalidad" class="form-control" placeholder="Costarricense, Nicaragüense..." required>
                     </div>
-                    <label class="control-label" for="estudiante">Teléfono</label>
+                    <label class="control-label" for="name">Teléfono</label>
                     <div class="controls">
                         <input type="text" data-ng-model="telefono" id="telefono" class="form-control" placeholder="0000-0000" required>
                     </div>
-                    <label class="control-label" for="estudiante">Correo electrónico</label>
+                    <label class="control-label" for="name">Correo electrónico</label>
                     <div class="controls">
                         <input type="text" data-ng-model="correo" id="correo" class="form-control" placeholder="usuario@hotmail.com" required>
                     </div>
-                    <label class="control-label" for="estudiante">Dirección</label>
+                    <label class="control-label" for="name">Dirección</label>
                     <div class="controls">
                         <input type="text" data-ng-model="direccion" id="direccion" class="form-control" placeholder="Alajuela, San Carlos, Santa Rosa de Pocosol, 300 m norte de la entrada principal de Barrio Paraíso" required>
                     </div>
                     <label class="control-label" for="name">Es quien autoriza el ingreso</label>
                     <div class="controls">
-                        <select class="form-control" data-ng-model="responsable" id="responsable"
+                        <select class="form-control" data-ng-model="eleccion" id="eleccion"
                                 ng-options="opt as opt.opcion for opt in opciones">
                         </select>
                     </div>

@@ -49,3 +49,17 @@ angular.module('estudiantes').factory('GetNotas', ['$resource',
             });
     }
 ]);
+
+/*angular.module('estudiantes').service('passEstudiante',
+    function($resource) {
+        estudiante = '';
+        return{
+            set:function(cedula){
+                return estudiante = cedula;
+            },
+            get:function(){
+                return estudiante;
+            }
+        }
+    }
+);*/
