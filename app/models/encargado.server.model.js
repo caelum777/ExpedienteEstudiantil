@@ -10,7 +10,12 @@ var mongoose = require('mongoose'),
  * Encargado Schema
  */
 var EncargadoSchema = new Schema({
-	name: {
+    estudiante: {
+        type: String,
+        required: 'Cédula o número de pasaporte del estudiante',
+        trim: true
+    },
+    name: {
 		type: String,
 		default: '',
 		required: 'Nombre del padre, madre o encargado',
@@ -59,6 +64,11 @@ var EncargadoSchema = new Schema({
     direccion: {
         type: String,
         required: 'direción exacta de la vivienda',
+        trim: true
+    },
+    responsable: {
+        type: Boolean,
+        required: 'Es quien autoriza al estudiante de ingresar el Colegio Científico',
         trim: true
     }
 });

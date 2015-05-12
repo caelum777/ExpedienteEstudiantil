@@ -4,12 +4,36 @@
 angular.module('encargados').controller('EncargadosController', ['$scope', '$stateParams', '$location', 'Authentication', 'Encargados',
 	function($scope, $stateParams, $location, Authentication, Encargados) {
 		$scope.authentication = Authentication;
+        $scope.estudiante = '';
+        $scope.name = '';
+        $scope.primer_apellido = '';
+        $scope.segundo_apellido = '';
+        $scope.cedula = '';
+        $scope.ocupacion = '';
+        $scope.estado_civil = '';
+        $scope.nacionalidad = '';
+        $scope.telefono = '';
+        $scope.correo = '';
+        $scope.direccion = '';
+        $scope.opciones = [{opcion: 'No'}, {opcion: 'Si'}];
+        $scope.responsable = $scope.opciones[0];
 
-		// Create new Encargado
+        // Create new Encargado
 		$scope.create = function() {
 			// Create new Encargado object
 			var encargado = new Encargados ({
-				name: this.name
+                estudiante: $scope.estudiante,
+				name: $scope.name,
+                primer_apellido:$scope.primer_apellido,
+                segundo_apellido: $scope.segundo_apellido,
+                cedula: $scope.cedula,
+                ocupacion: $scope.ocupacion,
+                estado_civil: $scope.estado_civil,
+                nacionalidad: $scope.nacionalidad,
+                telefono: $scope.telefono,
+                correo: $scope.correo,
+                direccion: $scope.direccion,
+                responsable: $scope.responsable
 			});
 
 			// Redirect after save
