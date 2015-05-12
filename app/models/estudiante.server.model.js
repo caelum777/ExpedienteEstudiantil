@@ -29,7 +29,8 @@ var EstudianteSchema = new Schema({
     nacionalidad: {
         type: String,
         required: 'Cédula o número de pasaporte del estudiante',
-        trim: true
+        trim: true,
+        unique: true
     },
     sexo: {
         type: Boolean,
