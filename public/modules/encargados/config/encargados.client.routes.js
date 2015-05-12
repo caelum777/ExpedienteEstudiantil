@@ -10,7 +10,7 @@ angular.module('encargados').config(['$stateProvider',
 			templateUrl: 'modules/encargados/views/list-encargados.client.view.html'
 		}).
 		state('createEncargado', {
-			url: '/encargados/create',
+			url: '/encargados/create/:estudianteId',
 			templateUrl: 'modules/encargados/views/create-encargado.client.view.html'
 		}).
 		state('viewEncargado', {
