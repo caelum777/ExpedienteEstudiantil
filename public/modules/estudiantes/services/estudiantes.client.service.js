@@ -50,6 +50,17 @@ angular.module('estudiantes').factory('GetNotas', ['$resource',
     }
 ]);
 
+angular.module('estudiantes').factory('GetEstudiantesGeneracion', ['$resource',
+    function($resource) {
+        return $resource('/estudiantes_generacion/:generacion', { generacion: '@generacion'
+        }, {
+            update: {
+                method: 'GET'
+            }
+        });
+    }
+]);
+
 /*angular.module('estudiantes').service('passEstudiante',
     function($resource) {
         estudiante = '';

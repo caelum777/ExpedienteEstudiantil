@@ -17,8 +17,15 @@ module.exports = function(app) {
     app.route('/admitidos/:admitido')
         .get(estudiantes.read);
 
+    app.route('/estudiantes_generacion/:generacion')
+        .get(estudiantes.read)
+
 	// Finish by binding the Estudiante middleware
 	app.param('estudianteId', estudiantes.estudianteByID);
 
     app.param('admitido', estudiantes.admitidoss);
+
+    app.param('generacion', estudiantes.get_estudiantes_generacion);
+
+
 };

@@ -32,6 +32,14 @@ angular.module('estudiantes').config(['$stateProvider',
         .state('datosEstudiante', {
             url: '/estudiantes/:estudianteId/notas_c_c',
             templateUrl: 'modules/estudiantes/views/notas-colegio-cientifico.view.html'
+        })
+        .state('generacionEstudiante', {
+            url: '/estudiantes_generacion/',
+            templateUrl: 'modules/estudiantes/views/estudiantes-generacion.view.html'
+        })
+        .state('generacionEstudiantes', {
+            url: '/estudiantes_generacion/:generacion',
+            templateUrl: 'modules/estudiantes/views/estudiantes-generacion.view.html'
         });
 	}
 ]);
