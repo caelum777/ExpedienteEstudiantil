@@ -3,7 +3,7 @@
         <h1>Encargados</h1>
     </div>
     <div class="list-group">
-        <a data-ng-repeat="encargado in encargadosE" ng-href="/#!/encargados/{{encargado._id}}" class="list-group-item">
+        <a data-ng-repeat="encargado in encargadosE" ng-href="/#!/encargados/{{estudianteID}}/{{encargado.estudiante}}/{{encargado._id}}" class="list-group-item">
 			<small class="list-group-item-text">
 				Posted on
 				<span data-ng-bind="encargado.created | date:'medium'"></span>
@@ -12,7 +12,7 @@
     			</small>
 
 			<h4 class="list-group-item-heading" data-ng-bind="encargado.name"></h4>
-            <h4 class="list-group-item-heading" data-ng-bind="encargado.estudiante"></h4>
+            <h4 class="list-group-item-heading" data-ng-bind="encargado.cedula"></h4>
         </a>
 
     </div>
