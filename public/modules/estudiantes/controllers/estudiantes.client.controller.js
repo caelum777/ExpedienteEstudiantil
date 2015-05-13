@@ -1,8 +1,8 @@
 'use strict';
 
 // Estudiantes controller
-angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Estudiantes', '$upload', 'Notas', 'GetNotas', 'GetAdmitidos',
-	function($scope, $stateParams, $location, Authentication, Estudiantes, $upload, Notas, GetNotas, GetAdmitidos) {
+angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Estudiantes', '$upload', 'Notas', 'GetNotas', 'GetAdmitidos','GetEstudiantesGeneracion',
+	function($scope, $stateParams, $location, Authentication, Estudiantes, $upload, Notas, GetNotas, GetAdmitidos,GetEstudiantesGeneracion) {
 		$scope.authentication = Authentication;
         $scope.options =
         [{
@@ -290,6 +290,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         $scope.selected_cer_notas = [];
         $scope.selected_inf_hogar = [];
         $scope.selected_vacunas = [];
+        $scope.generacion = 0;
 
         $scope.provincia_change = function() {
             $scope.canton =  $scope.provincia.cantones[0];
@@ -988,6 +989,31 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     $scope.error = errorResponse.data.message;
                 });
             });
+        };
+        //-----------------------------------------------------------------CONSULTAS DE ESTUDIANTES-------------------------------------------------------------------------
+        $scope.init_generaciones = function(){
+            $scope.generaciones = [];
+            for(var i = 1994;i <= new Date().getFullYear();i++){
+                $scope.generaciones.push({generacion: i});
+            }
+            $scope.gridOptionsGeneracion = {
+                data: 'estudiantes',
+                filterOptions: $scope.filterOptions,
+                enableCellSelection: true,
+                enableRowSelection: false,
+                enableCellEditOnFocus: false,
+                columnDefs: [{ field: 'name', displayName:'Nombre'},
+                    { field: 'nacionalidad', displayName:'Cédula'},
+                    { field: 'anno_ingreso', displayName:'Generación'}]
+            };
+        };
+        $scope.on_generacion_chanche = function(){
+            $scope.estudiantes = Estudiantes.query();
+            $scope.filterOptions = {
+                filterText: $scope.generacion.generacion,
+                filterTittle: 'Generacion'
+            };
+            console.log( $scope.filterOptions.filterText);
         };
 	}
 ]);
