@@ -6,7 +6,7 @@ angular.module('encargados').config(['$stateProvider',
 		// Encargados state routing
 		$stateProvider.
 		state('listEncargados', {
-			url: '/encargados',
+			url: '/encargados/:estudianteId/:cedulaEstudiante',
 			templateUrl: 'modules/encargados/views/list-encargados.client.view.html'
 		}).
 		state('createEncargado', {

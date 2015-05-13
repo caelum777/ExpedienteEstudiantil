@@ -9,6 +9,9 @@ module.exports = function(app) {
 		.get(encargados.list)
 		.post(users.requiresLogin, encargados.create);
 
+    app.route('/encargados/estudiante/:cedula')
+        .get(encargados.read)
+
 	app.route('/encargados/:encargadoId')
 		.get(encargados.read)
 		.put(users.requiresLogin, encargados.update)
@@ -16,4 +19,5 @@ module.exports = function(app) {
 
 	// Finish by binding the Encargado middleware
 	app.param('encargadoId', encargados.encargadoByID);
+    app.param('cedula', encargados.encargadoByCedula);
 };

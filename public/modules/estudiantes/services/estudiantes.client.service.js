@@ -32,7 +32,7 @@ angular.module('estudiantes').factory('Notas', ['$resource',
             update: {
                 method: 'PUT'
             },
-            detele: {
+            detele: {//ERROR
                 method: 'DELETE'
             }
         });

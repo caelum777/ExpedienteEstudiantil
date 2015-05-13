@@ -1,8 +1,8 @@
 'use strict';
 
 // Encargados controller
-angular.module('encargados').controller('EncargadosController', ['$scope', '$stateParams', '$location', 'Authentication', 'Encargados',
-	function($scope, $stateParams, $location, Authentication, Encargados) {
+angular.module('encargados').controller('EncargadosController', ['$scope', '$stateParams', '$location', 'Authentication', 'Encargados','GetEncargado',
+	function($scope, $stateParams, $location, Authentication, Encargados, GetEncargado) {
 		$scope.authentication = Authentication;
         $scope.estudiante = '';
         $scope.name = '';
@@ -18,6 +18,7 @@ angular.module('encargados').controller('EncargadosController', ['$scope', '$sta
         $scope.opciones = [{opcion: 'No'}, {opcion: 'Si'}];
         $scope.eleccion = $scope.opciones[0];
         $scope.responsable = false;
+
 
         // Create new Encargado
 		$scope.create = function() {
@@ -43,7 +44,6 @@ angular.module('encargados').controller('EncargadosController', ['$scope', '$sta
 			encargado.$save(function(response) {
 				//$location.path('encargados/' + response._id);
                 $location.path('estudiantes/' + $stateParams.estudianteId);
-                //print ('#################################################################################################################'+$routeParams.id);
 
 				// Clear form fields
 				$scope.name = '';
@@ -65,6 +65,7 @@ angular.module('encargados').controller('EncargadosController', ['$scope', '$sta
 			} else {
 				$scope.encargado.$remove(function() {
 					$location.path('encargados');
+                    //$location.path('encargados/' + estudianteId+'/'+cedulaEstudiante);
 				});
 			}
 		};
@@ -74,7 +75,8 @@ angular.module('encargados').controller('EncargadosController', ['$scope', '$sta
 			var encargado = $scope.encargado;
 
 			encargado.$update(function() {
-				$location.path('encargados/' + encargado._id);
+				//$location.path('encargados/' + encargado._id);
+                $location.path('encargados/' + $stateParams.estudianteId+'/'+$stateParams.cedulaEstudiante);
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -84,6 +86,14 @@ angular.module('encargados').controller('EncargadosController', ['$scope', '$sta
 		$scope.find = function() {
 			$scope.encargados = Encargados.query();
 		};
+
+        $scope.findByEstudiante = function() {
+            $scope.cedula = $stateParams.cedulaEstudiante,
+            $scope.estudianteID = $stateParams.estudianteId,
+            $scope.encargadosE = GetEncargado.query({
+                cedula:$scope.cedula
+            });
+        };
 
 		// Find existing Encargado
 		$scope.findOne = function() {
