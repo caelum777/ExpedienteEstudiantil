@@ -6,7 +6,7 @@ angular.module('encargados').config(['$stateProvider',
 		// Encargados state routing
 		$stateProvider.
 		state('listEncargados', {
-			url: '/encargados',
+			url: '/encargados/:estudianteId/:cedulaEstudiante',
 			templateUrl: 'modules/encargados/views/list-encargados.client.view.html'
 		}).
 		state('createEncargado', {
@@ -14,11 +14,11 @@ angular.module('encargados').config(['$stateProvider',
 			templateUrl: 'modules/encargados/views/create-encargado.client.view.html'
 		}).
 		state('viewEncargado', {
-			url: '/encargados/:encargadoId',
+			url: '/encargados/:estudianteId/:cedulaEstudiante/:encargadoId',
 			templateUrl: 'modules/encargados/views/view-encargado.client.view.html'
 		}).
 		state('editEncargado', {
-			url: '/encargados/:encargadoId/edit',
+			url: '/encargados/:estudianteId/:cedulaEstudiante/:encargadoId/edit',
 			templateUrl: 'modules/encargados/views/edit-encargado.client.view.html'
 		});
 	}

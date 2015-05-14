@@ -1,20 +1,22 @@
-<section data-ng-controller="EncargadosController" data-ng-init="find()">
+<section data-ng-controller="EncargadosController" data-ng-init="findByEstudiante()">
     <div class="page-header">
         <h1>Encargados</h1>
     </div>
     <div class="list-group">
-        <a data-ng-repeat="encargado in encargados" data-ng-href="#!/encargados/{{encargado._id}}" class="list-group-item">
+        <a data-ng-repeat="encargado in encargadosE" ng-href="/#!/encargados/{{estudianteID}}/{{encargado.estudiante}}/{{encargado._id}}" class="list-group-item">
 			<small class="list-group-item-text">
 				Posted on
 				<span data-ng-bind="encargado.created | date:'medium'"></span>
 				by
 				<span data-ng-bind="encargado.user.displayName"></span>
-			</small>
+    			</small>
+
 			<h4 class="list-group-item-heading" data-ng-bind="encargado.name"></h4>
-            <h4 class="list-group-item-heading" data-ng-bind="encargado.estudiante"></h4>
+            <h4 class="list-group-item-heading" data-ng-bind="encargado.cedula"></h4>
         </a>
+
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!encargados.$resolved || encargados.length">
-    	No Encargados yet, why don't you <a href="/#!/encargados/create">create one</a>?
+    	<h4> Aún no hay encargados para este estudiante </h4>
     </div>
 </section>

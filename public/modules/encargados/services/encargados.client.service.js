@@ -12,6 +12,17 @@ angular.module('encargados').factory('Encargados', ['$resource',
 	}
 ]);
 
+angular.module('encargados').factory('GetEncargado', ['$resource',
+    function($resource) {
+        return $resource('/encargados/estudiante/:cedula', { cedula: '@cedula'
+        }, {
+            update: {
+                method: 'GET'
+            }
+        });
+    }
+]);
+
 
 /*angular.module('encargados',['estudiantes']).factory('getEstudiante', ['$resource',
     function($resource) {

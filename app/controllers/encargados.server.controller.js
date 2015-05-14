@@ -96,6 +96,16 @@ exports.encargadoByID = function(req, res, next, id) {
 	});
 };
 
+exports.encargadoByCedula = function(req, res, next, cedula){
+    Encargado.find({ estudiante: cedula}).populate('user', 'displayName').exec(function(err, encargado) {
+        if (err) return next(err);
+        if (! encargado) return next(new Error('Error al cargar los encargados '));
+        req.encargado = encargado ;
+        next();
+    });
+};
+
+
 /**
  * Encargado authorization middleware
  */
@@ -105,3 +115,5 @@ exports.hasAuthorization = function(req, res, next) {
 	}
 	next();
 };
+
+

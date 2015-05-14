@@ -67,7 +67,7 @@ var EncargadoSchema = new Schema({
         trim: true
     },
     responsable: {
-        type: Boolean,
+        type: String,
         required: 'Es quien autoriza al estudiante de ingresar el Colegio Científico',
         trim: true
     }

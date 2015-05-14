@@ -1,21 +1,25 @@
 <section data-ng-controller="EncargadosController" data-ng-init="findOne()">
 	<div class="page-header">
-		<h1 data-ng-bind="encargado.name"></h1>
+		<h1>{{encargado.name}}</h1>
 	</div>
-	<div class="pull-right" data-ng-show="(authentication.user)">
-		<a class="btn btn-primary" href="/#!/encargados/{{encargado._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="encargado.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="encargado.user.displayName"></span>
-		</em>
-	</small>
+    <div class="pull-right" data-ng-show="(authentication.user)">
+        <a class="btn btn-primary" href="/#!/encargados/{{idEstudianteUrl}}/{{cedulaEstudianteUrl}}/{{encargado._id}}/edit">
+            <i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn btn-primary" data-ng-click="remove();">
+            <i class="glyphicon glyphicon-trash"></i>
+        </a>
+    </div>
+    <div>
+        <h4 class="list-group-item-heading">{{'Primer apellido: '+encargado.primer_apellido}}</h4>
+        <h4 class="list-group-item-heading">{{'Segundo apellido: '+encargado.segundo_apellido}}</h4>
+        <h4 class="list-group-item-heading">{{'Cédula: '+encargado.cedula}}</h4>
+        <h4 class="list-group-item-heading">{{'Ocupación: '+ncargado.ocupacion}}</h4>
+        <h4 class="list-group-item-heading">{{'Estado Civil: '+encargado.estado_civil}}</h4>
+        <h4 class="list-group-item-heading">{{'Nacionalidad: '+encargado.nacionalidad}}</h4>
+        <h4 class="list-group-item-heading">{{'Teléfono/Celular: '+encargado.telefono}}</h4>
+        <h4 class="list-group-item-heading">{{'Correo electrónico: '+encargado.correo}}</h4>
+        <h4 class="list-group-item-heading">{{'Dirección: '+encargado.direccion}}</h4>
+        <h4 class="list-group-item-heading" >{{'Es responsable: '+encargado.responsable}}</h4>
+    </div>
 </section>
