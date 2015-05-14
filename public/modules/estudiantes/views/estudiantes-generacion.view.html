@@ -1,14 +1,12 @@
-<section data-ng-controller="EstudiantesController" data-ng-init="init_generaciones()">
+<section data-ng-controller="EstudiantesController" ng-init="init_generaciones()">
     <form class="form-horizontal" novalidate>
         <br>
         <br>
-        <br>
-        <br>
         <div class="controls">
-            <select class="form-control" data-ng-model="generacion" id="generacion" ng-change="on_generacion_chanche()"
-                    ng-options="opt as opt.generacion for opt in generaciones">
-            </select>
+            <input type="text" ng-model="filterOptions.filterText" class="form-control" placeholder="Generación o Número de Cédula o Colegio de Procedencia"/>
         </div>
+        <br>
+        <br>
         <div>
             <div class="gridStyleList" ng-grid="gridOptionsGeneracion"></div>
         </div>

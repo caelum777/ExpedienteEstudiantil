@@ -1,8 +1,8 @@
 'use strict';
 
 // Estudiantes controller
-angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Estudiantes', '$upload', 'Notas', 'GetNotas', 'GetAdmitidos','GetEstudiantesGeneracion',
-	function($scope, $stateParams, $location, Authentication, Estudiantes, $upload, Notas, GetNotas, GetAdmitidos,GetEstudiantesGeneracion) {
+angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Estudiantes', '$upload', 'Notas', 'GetNotas', 'GetAdmitidos',
+	function($scope, $stateParams, $location, Authentication, Estudiantes, $upload, Notas, GetNotas, GetAdmitidos) {
 		$scope.authentication = Authentication;
         $scope.options =
         [{
@@ -992,28 +992,25 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         };
         //-----------------------------------------------------------------CONSULTAS DE ESTUDIANTES-------------------------------------------------------------------------
         $scope.init_generaciones = function(){
-            $scope.generaciones = [];
-            for(var i = 1994;i <= new Date().getFullYear();i++){
-                $scope.generaciones.push({generacion: i});
-            }
-            $scope.gridOptionsGeneracion = {
-                data: 'estudiantes',
-                filterOptions: $scope.filterOptions,
-                enableCellSelection: true,
-                enableRowSelection: false,
-                enableCellEditOnFocus: false,
-                columnDefs: [{ field: 'name', displayName:'Nombre'},
-                    { field: 'nacionalidad', displayName:'Cédula'},
-                    { field: 'anno_ingreso', displayName:'Generación'}]
-            };
-        };
-        $scope.on_generacion_chanche = function(){
             $scope.estudiantes = Estudiantes.query();
-            $scope.filterOptions = {
-                filterText: $scope.generacion.generacion,
-                filterTittle: 'Generacion'
-            };
-            console.log( $scope.filterOptions.filterText);
         };
+
+        $scope.filterOptions = {
+            filterText: ''
+        };
+        $scope.gridOptionsGeneracion = {
+            data: 'estudiantes',
+            enableCellSelection: true,
+            enableRowSelection: false,
+            enableCellEditOnFocus: false,
+            columnDefs: [{ field: 'name', displayName:'Nombre'},
+                { field: 'primer_apellido', displayName:'Primer Apellido'},
+                { field: 'segundo_apellido', displayName:'Segundo Apellido'},
+                { field: 'nacionalidad', displayName:'Cédula'},
+                { field: 'anno_ingreso', displayName:'Generación'},
+                { field: 'colegio_procedencia', displayName:'Colegio de Procedencia'}],
+            filterOptions: $scope.filterOptions
+        };
+
 	}
 ]);
