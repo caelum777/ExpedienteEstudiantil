@@ -3,7 +3,14 @@
         <br>
         <br>
         <div class="controls">
-            <input type="text" ng-model="filterOptions.filterText" class="form-control" placeholder="Generación o Número de Cédula o Colegio de Procedencia"/>
+            <select class="form-control" data-ng-model="consulta" id="consulta"
+                    ng-options="opt as opt.nombre for opt in consultas">
+            </select>
+            <br>
+        </div>
+        <div class="controls">
+            <input type="text" ng-model="filteringText" class="form-control" placeholder="Generación o Número de Cédula o Colegio de Procedencia"/>
+            {{filteringText}}
         </div>
         <br>
         <br>

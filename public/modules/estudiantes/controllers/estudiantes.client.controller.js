@@ -277,7 +277,9 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
 
         $scope.sexos = [{nombre: 'Masculino'}, {nombre: 'Femenino'}];
         $scope.adecuaciones = [{nombre: 'Tiene'}, {nombre: 'No tiene'}];
+        $scope.consultas = [{nombre: 'Nombre'}, {nombre: 'Cedula'}, {nombre: 'Colegio de Procedencia'}];
         $scope.provincia = $scope.options[0];
+        $scope.consulta = $scope.consultas[0];
         $scope.canton =  $scope.provincia.cantones[0];
         $scope.distrito = $scope.canton.distritos[0];
         $scope.sexo = $scope.sexos[0];
@@ -979,7 +981,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             $scope.upload = $upload.upload({
                 url: '/upload',
                 method: 'POST',
-                file: file
+                file: fileimg.save("crop_image2.png", "PNG")
             }).success(function(data) {
                 var estudiante = $scope.estudiante;
                 estudiante.tarjeta_vacunas = data.name;
@@ -995,9 +997,12 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             $scope.estudiantes = Estudiantes.query();
         };
 
+        $scope.column = '';
         $scope.filterOptions = {
-            filterText: ''
+            filterText:'',
+            useExternalFilter: false
         };
+
         $scope.gridOptionsGeneracion = {
             data: 'estudiantes',
             enableCellSelection: true,
@@ -1011,6 +1016,28 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 { field: 'colegio_procedencia', displayName:'Colegio de Procedencia'}],
             filterOptions: $scope.filterOptions
         };
+
+
+        $scope.$watch('filteringText', function(searchText) {
+            if(searchText === ''){
+                $scope.filterOptions.filterText = '';
+            }
+            else if (searchText) {
+                // console.log(searchText);
+                var searchQuery = '';
+                if($scope.consulta.nombre === 'Nombre') {
+                    searchQuery = 'name: ' + searchText + ';';
+                }
+                else if($scope.consulta.nombre === 'Cedula') {
+                    searchQuery = 'nacionalidad: ' + searchText + ';';
+                }
+                else if($scope.consulta.nombre === 'Colegio de Procedencia') {
+                    searchQuery = 'colegio_procedencia: ' + searchText + ';';
+                }
+                $scope.filterOptions.filterText = searchQuery;
+                console.log(searchQuery);
+            }
+        });
 
 	}
 ]);
