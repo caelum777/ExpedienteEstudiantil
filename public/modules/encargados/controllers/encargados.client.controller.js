@@ -40,17 +40,27 @@ angular.module('encargados').controller('EncargadosController', ['$scope', '$sta
                 direccion: $scope.direccion,
                 responsable: $scope.eleccion.opcion
 			});
-            console.log($scope.eleccion)
-			// Redirect after save
-			encargado.$save(function(response) {
-				//$location.path('encargados/' + response._id);
-                $location.path('estudiantes/' + $stateParams.estudianteId);
+            $scope.cedula = $stateParams.cedulaEstudiante;
+            $scope.idEstudianteUrl = $stateParams.estudianteId;
+            $scope.encargadosE = GetEncargado.query({
+                    cedula:$scope.cedula
+            });
+            $scope.encargadosE.$promise.then(function(){
+                if($scope.encargadosE.length < 2){
+                    encargado.$save(function (response) {
+                        //$location.path('encargados/' + response._id);
+                        $location.path('estudiantes/' + $stateParams.estudianteId);
 
-				// Clear form fields
-				$scope.name = '';
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
+                        // Clear form fields
+                        $scope.name = '';
+                    }, function (errorResponse) {
+                        $scope.error = errorResponse.data.message;
+                    });
+                }
+                else{
+                    $scope.error = 'Ya hay más de dos encargados';
+                }
+            });
 		};
 
 		// Remove existing Encargado
@@ -89,8 +99,8 @@ angular.module('encargados').controller('EncargadosController', ['$scope', '$sta
 		};
 
         $scope.findByEstudiante = function() {
-            $scope.cedula = $stateParams.cedulaEstudiante,
-            $scope.estudianteID = $stateParams.estudianteId,
+            $scope.cedula = $stateParams.cedulaEstudiante;
+            $scope.estudianteID = $stateParams.estudianteId;
             $scope.encargadosE = GetEncargado.query({
                 cedula:$scope.cedula
             });
@@ -98,8 +108,8 @@ angular.module('encargados').controller('EncargadosController', ['$scope', '$sta
 
 		// Find existing Encargado
 		$scope.findOne = function() {
-            $scope.cedulaEstudianteUrl = $stateParams.cedulaEstudiante
-            $scope.idEstudianteUrl = $stateParams.estudianteId
+            $scope.cedulaEstudianteUrl = $stateParams.cedulaEstudiante;
+            $scope.idEstudianteUrl = $stateParams.estudianteId;
 			$scope.encargado = Encargados.get({ 
 				encargadoId: $stateParams.encargadoId
 			});

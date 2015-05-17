@@ -18,57 +18,58 @@ var EncargadoSchema = new Schema({
     name: {
 		type: String,
 		default: '',
-		required: 'Nombre del padre, madre o encargado',
+		required: 'Debe ingresar el nombre del encargado',
 		trim: true
 	},
     primer_apellido: {
         type: String,
-        required: 'Primer apellido del encargado',
+        required: 'Debe ingresar el primer apellido del encargado',
         trim: true
     },
     segundo_apellido: {
         type: String,
-        required: 'Segundo apellido del encargado',
+        required: 'Debe ingresar el segundo apellido del encargado ',
         trim: true
     },
     cedula: {
         type: String,
-        required: 'Cédula o número de pasaporte del encargado',
+        unique: true,
+        required: 'Debe ingresar la cédula o número de pasaporte del encargado',
         trim: true
     },
     ocupacion: {
         type: String,
-        required: 'Profesión u ocupación del encargado',
+        required: 'Debe ingresar la prrofesión u ocupación del encargado',
         trim: true
     },
     estado_civil: {
         type: String,
-        required: 'Casado, soltero, divorciado..',
+        required: 'Debe ingresar el estado civil del encargado',
         trim: true
     },
     nacionalidad: {
         type: String,
-        required: 'Costarricense, Nicaragüense',
+        required: 'Debe ingresar la nacionalidad del encargado',
         trim: true
     },
     telefono: {
         type: String,
-        required: '8854-8724',
+        required: 'Debe ingresar el teléfono del encargado',
         trim: true
     },
     correo: {
         type: String,
-        required: 'usuario@hotmail.com',
+        required: 'Debe ingresar el correo electrónico del encargado',
         trim: true
     },
     direccion: {
         type: String,
-        required: 'direción exacta de la vivienda',
+        required: 'Debe ingresar la direción exacta de la vivienda del encargado',
         trim: true
     },
     responsable: {
         type: String,
-        required: 'Es quien autoriza al estudiante de ingresar el Colegio Científico',
+        required: 'Debe especificar si este encargado es quien autoriza el ingreso del estudiante al Colegio Científico',
         trim: true
     }
 });
