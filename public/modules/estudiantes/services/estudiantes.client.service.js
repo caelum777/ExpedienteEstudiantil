@@ -50,16 +50,36 @@ angular.module('estudiantes').factory('GetNotas', ['$resource',
     }
 ]);
 
-/*angular.module('estudiantes').service('passEstudiante',
+angular.module('estudiantes').factory('Decimo', ['$resource',
     function($resource) {
-        estudiante = '';
-        return{
-            set:function(cedula){
-                return estudiante = cedula;
-            },
-            get:function(){
-                return estudiante;
+        return $resource('/estudiantes_decimo/', null,
+        {
+            update: {
+                method: 'GET'
             }
-        }
+        });
     }
-);*/
+]);
+
+angular.module('estudiantes').factory('Undecimo', ['$resource',
+    function($resource) {
+        return $resource('/estudiantes_undecimo/', null,
+        {
+            update: {
+                method: 'GET'
+            }
+        });
+    }
+]);
+
+//Estudiantes service used to communicate Estudiantes REST endpoints
+angular.module('estudiantes').factory('Nacionalidad', ['$resource',
+    function($resource) {
+        return $resource('estudiantes/nacionaldad/:nacionalidad', { nacionalidad: '@nacionalidad'
+        }, {
+            update: {
+                method: 'GET'
+            }
+        });
+    }
+]);

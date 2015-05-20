@@ -1,8 +1,8 @@
 'use strict';
 
 // Estudiantes controller
-angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Estudiantes', '$upload', 'Notas', 'GetNotas', 'GetAdmitidos',
-	function($scope, $stateParams, $location, Authentication, Estudiantes, $upload, Notas, GetNotas, GetAdmitidos) {
+angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Estudiantes', '$upload', 'Notas', 'GetNotas', 'GetAdmitidos', 'Decimo', 'Undecimo', 'Nacionalidad',
+	function($scope, $stateParams, $location, Authentication, Estudiantes, $upload, Notas, GetNotas, GetAdmitidos, Decimo, Undecimo, Nacionalidad) {
 		$scope.authentication = Authentication;
         $scope.options =
         [{
@@ -542,7 +542,8 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 }
                 Notas.update({ notaId: nota._id }, nota);
             });
-        }
+        };
+
         $scope.estudiantes = [];
 		// Find a list of Estudiantes/Cuando el parametro viene en true es para los estudiantes matriculados
 		$scope.find = function(matriculado) {
@@ -1035,9 +1036,157 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     searchQuery = 'colegio_procedencia: ' + searchText + ';';
                 }
                 $scope.filterOptions.filterText = searchQuery;
-                console.log(searchQuery);
+                //console.log(searchQuery);
             }
         });
 
+
+        //-----------------------------------------------------------------REPORTE DE ESTUDIANTES-------------------------------------------------------------------------
+        $scope.nombre_reporte_notas_undecimo = '';
+        $scope.nombre_reporte_notas_decimo = '';
+        $scope.id_estudiante = '';
+
+        $scope.specialElementHandlers = {
+            '#editor': function(element, renderer){
+                return true;
+            }
+        };
+
+        $scope.generatePDF = function(html, filename){
+            var doc = jsPDF();
+            doc.fromHTML(
+                html, // HTML string or DOM elem ref.
+                15, // x coord
+                15, {// y coord
+                    'width': 170, // max width of content on PDF
+                    'elementHandlers': $scope.specialElementHandlers
+                });
+            doc.save(filename+'.pdf');
+        };
+
+        $scope.reporte_estudiantes_decimo = function(){
+            var estudiantes_decimo = Decimo.query();
+            estudiantes_decimo.$promise.then(function(estudiantes){
+                    var specialElementHandlers = {
+                        '#editor': function(element, renderer){
+                            return true;
+                        }
+                    };
+                    console.log(estudiantes_decimo);
+
+                    var html = '';
+                    html += '<!DOCTYPE html>\n<html>\n<head>\n';
+                    html += '<style>\n'+
+                        'table, th, td {\n'+
+                        'border: 1px solid black;\n'+
+                        'border-collapse: collapse;\n'+
+                        '}\n'+
+                        'th, td {\n'+
+                        'padding: 5px;\n'+
+                        'text-align: left;\n'+
+                        '}\n'+
+                        '</style>;\n';
+                    html += '</head>\n<body>\n';
+                    html += '<table style="width:100%">\n';
+                    html += '<tr>\n' + '<th>Nombre</th>\n' + '</tr>\n';
+                    angular.forEach(estudiantes, function(estudiante_decimo){
+                        html += '<tr>\n';
+                        html += '<td>'+ estudiante_decimo.segundo_apellido + ' '+ estudiante_decimo.primer_apellido + ' ' + estudiante_decimo.name + '</td>\n';
+                        html += '</tr>\n';
+                    });
+                    html += '</table>';
+                    html += '</body>\n</html>';
+                    $scope.generatePDF(html,$scope.nombre_reporte_notas_decimo);
+                    //doc.save($scope.nombre_reporte_notas_decimo+'.pdf');
+                    console.log($scope.nombre_reporte_notas_decimo);
+
+
+                }
+            );
+        };
+
+        $scope.reporte_estudiantes_undecimo = function(){
+            var estudiantes_undecimo = Undecimo.query().$promise.then;
+            estudiantes_undecimo.$promise.then(function(estudiantes){
+                    var specialElementHandlers = {
+                        '#editor': function(element, renderer){
+                            return true;
+                        }
+                    };
+                    var html = '';
+                    html += '<!DOCTYPE html>\n<html>\n<head>\n';
+                    html += '<style>\n'+
+                        'table, th, td {\n'+
+                        'border: 1px solid black;\n'+
+                        'border-collapse: collapse;\n'+
+                        '}\n'+
+                        'th, td {\n'+
+                        'padding: 5px;\n'+
+                        'text-align: left;\n'+
+                        '}\n'+
+                        '</style>;\n';
+                    html += '</head>\n<body>\n';
+                    html += '<table style="width:100%">\n';
+                    html += '<tr>\n' + '<th>Nombre</th>\n' + '</tr>\n';
+                    angular.forEach(estudiantes, function(estudiante_decimo){
+                        html += '<tr>\n';
+                        html += '<td>'+ estudiante_decimo.segundo_apellido + ' '+ estudiante_decimo.primer_apellido + ' ' + estudiante_decimo.name + '</td>\n';
+                        html += '</tr>\n';
+                    });
+                    html += '</table>';
+                    html += '</body>\n</html>';
+                    $scope.generatePDF(html,$scope.nombre_reporte_notas_undecimo);
+                });
+        };
+
+        $scope.reporte_notas = function(){
+            //console.log(estudiante);
+            var notas_estudiante = GetNotas.query({
+                cedula_estudiante: $scope.id_estudiante
+            });
+            var html = '';
+            var table1 = '';
+            var table2= '';
+            html += '<!DOCTYPE html>\n<html>\n<head>\n';
+            html += '<style>\n'+
+                'table, th, td {\n'+
+                'border: 1px solid black;\n'+
+                'border-collapse: collapse;\n'+
+                '}\n'+
+                'th, td {\n'+
+                'padding: 5px;\n'+
+                'text-align: left;\n'+
+                '}\n'+
+                '</style>;\n';
+            html += '</head>\n<body>\n';
+            table1 += '<table style="width:100%">\n';
+            table1 += '<tr>\n' + '<th>Curso</th>\n' + '</tr>\n';
+            table1 += '<tr>\n' + '<th>Nota</th>\n' + '</tr>\n';
+            table2 += '<table style="width:100%">\n';
+            table2 += '<tr>\n' + '<th>Curso</th>\n' + '</tr>\n';
+            table2 += '<tr>\n' + '<th>Nota</th>\n' + '</tr>\n';
+            notas_estudiante.$promise.then(function(notas) {
+                angular.forEach(notas, function (nota) {
+
+                    if(nota.grado==='decimo'){
+                        table1 += '<tr>\n' + '<td>'+ nota.curso + '</td>\n';
+                        table1 += '<td>'+ nota.nota + '</td>\n' + '</tr>\n';
+                    }
+                    else if(nota.grado==='undecimo'){
+                        table2 += '<tr>\n' + '<td>'+ nota.curso + '</td>\n';
+                        table2 += '<td>'+ nota.nota + '</td>\n' + '</tr>\n';
+                    }
+                });
+
+                html += table1;
+                html += table2;
+                html += '</table>';
+                html += '</body>\n</html>';
+                console.log(html);
+                $scope.generatePDF(html, 'random');
+            }, function(error) {
+                console.log('Failed: ' + error);
+            });
+        };
 	}
 ]);

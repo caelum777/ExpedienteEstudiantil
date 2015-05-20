@@ -14,12 +14,21 @@ module.exports = function(app) {
 		.put(users.requiresLogin, estudiantes.update)
 		.delete(users.requiresLogin, estudiantes.delete);
 
+    app.route('/estudiantes/nacionalidad/:nacionalidad')
+        .get(estudiantes.read),
+
     app.route('/admitidos/:admitido')
         .get(estudiantes.read);
 
+    app.route('/estudiantes_decimo/')
+        .get(estudiantes.decimo);
+
+    app.route('/estudiantes_undecimo/')
+        .get(estudiantes.undecimo);
+
 	// Finish by binding the Estudiante middleware
 	app.param('estudianteId', estudiantes.estudianteByID);
-
+    app.param('nacionalidad', estudiantes.estudianteByCedula);
     app.param('admitido', estudiantes.admitidoss);
 
 

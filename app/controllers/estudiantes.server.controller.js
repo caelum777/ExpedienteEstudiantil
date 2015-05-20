@@ -96,6 +96,7 @@ exports.estudianteByID = function(req, res, next, id) {
 	});
 };
 
+
 /**
  * Estudiante middleware
  */
@@ -105,6 +106,42 @@ exports.admitidoss = function(req, res, next, admitido) {
         if (! estudiante) return next(new Error('Failed to load Estudiante '));
         req.estudiante = estudiante ;
         next();
+    });
+};
+
+/**
+ * Estudiante middleware
+ */
+exports.estudianteByCedula = function(req, res, next, nacionalidad) {
+    Estudiante.find({nacionalidad: nacionalidad}).populate('user', 'displayName').exec(function(err, estudiante) {
+        if (err) return next(err);
+        if (! estudiante) return next(new Error('Failed to load Estudiante '));
+        req.estudiante = estudiante ;
+        next();
+    });
+};
+
+/**
+ * Estudiante middleware
+ */
+exports.decimo = function(req, res, next) {
+    Estudiante.find({anno_ingreso: new Date().getFullYear()}).populate('user', 'displayName').exec(function(err, estudiante) {
+        if (err) return next(err);
+        if (! estudiante) return next(new Error('Failed to load Estudiante '));
+        req.estudiante = estudiante ;
+        res.jsonp(req.estudiante);
+    });
+}
+
+/**
+ * Estudiante middleware
+ */
+exports.undecimo = function(req, res, next) {
+    Estudiante.find({anno_ingreso: new Date().getFullYear()-1}).populate('user', 'displayName').exec(function(err, estudiante) {
+        if (err) return next(err);
+        if (! estudiante) return next(new Error('Failed to load Estudiante '));
+        req.estudiante = estudiante ;
+        res.jsonp(req.estudiante);
     });
 };
 

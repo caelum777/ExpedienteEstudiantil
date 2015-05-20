@@ -8,6 +8,7 @@ angular.module('estudiantes').run(['Menus',
         Menus.addSubMenuItem('topbar', 'estudiantes', 'Insertar Estudiante', 'estudiantes/create', true);
 		Menus.addSubMenuItem('topbar', 'estudiantes', 'Mostrar Estudiantes en Admisión', 'estudiantes_en_admicion', true);
         Menus.addSubMenuItem('topbar', 'estudiantes', 'Mostrar Estudiantes Admitidos', 'estudiantes_admitidos', true);
-        Menus.addSubMenuItem('topbar', 'estudiantes', 'Consultas de Estudiantes', 'estudiantes_generacion/', true);
+        Menus.addSubMenuItem('topbar', 'estudiantes', 'Consultas de Estudiantes', 'consultas_estudiantes/', true);
+        Menus.addSubMenuItem('topbar', 'estudiantes', 'Reportes de Estudiantes', 'reportes_estudiantes/', true);
 	}
 ]);

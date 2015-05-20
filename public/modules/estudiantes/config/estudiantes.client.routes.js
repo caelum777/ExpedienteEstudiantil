@@ -33,9 +33,13 @@ angular.module('estudiantes').config(['$stateProvider',
             url: '/estudiantes/:estudianteId/notas_c_c',
             templateUrl: 'modules/estudiantes/views/notas-colegio-cientifico.view.html'
         })
-        .state('generacionEstudiantes', {
-            url: '/estudiantes_generacion/',
-            templateUrl: 'modules/estudiantes/views/estudiantes-generacion.view.html'
+        .state('consultasEstudiantes', {
+            url: '/consultas_estudiantes/',
+            templateUrl: 'modules/estudiantes/views/consultas-estudiantes.view.html'
+        })
+        .state('reportesEstudiantes', {
+            url: '/reportes_estudiantes/',
+            templateUrl: 'modules/estudiantes/views/repotes-estudiantes.view.html'
         });
 	}
 ]);
