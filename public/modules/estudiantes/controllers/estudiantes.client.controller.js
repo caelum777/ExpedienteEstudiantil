@@ -914,11 +914,12 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             var estudiantes = $scope.estudiantes;
             angular.forEach(estudiantes, function (estudiante) {
                 console.log(estudiante._id);
-                if(estudiante.traladado)
+                if(estudiante.traladado) {
+                    estudiante.fecha_traladado = new Date(). getDate();
                     Estudiantes.update({ estudianteId: estudiante._id }, estudiante).$promise.then(function (estudiante) {
-                        console.log(estudiante.traladado);
                         location.reload();
                     });
+                }
             });
         };
 
