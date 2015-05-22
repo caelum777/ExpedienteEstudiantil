@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/expedienteestudiantil-test',
+	db: 'mongodb://admin:DeezNuts77@ds031832.mongolab.com:31832/expedienteestudiantil-test',
 	port: 3001,
 	app: {
 		title: 'ExpedienteEstudiantil - Test Environment'
