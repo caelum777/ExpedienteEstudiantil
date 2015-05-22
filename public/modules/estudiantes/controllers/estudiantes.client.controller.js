@@ -894,6 +894,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     enableCellEditOnFocus: false,
                     columnDefs: [{ field: 'name', displayName:'Nombre'},
                         { field: 'nacionalidad', displayName:'Cédula'},
+                        { field: 'traladado', displayName:'Trasladar', cellTemplate: '<input type="checkbox" ng-model="row.entity.traladado">'},
                         { field: '_id', displayName:'Ver', cellTemplate: '<a data-ng-href="#!/estudiantes/{{row.entity._id}}">ver</a>'}]
                 };
             }
@@ -904,6 +905,18 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             angular.forEach(estudiantes, function (estudiante) {
                 if(estudiante.admitido)
                     Estudiantes.update({ estudianteId: estudiante._id }, estudiante).$promise.then(function(estudiante) {
+                        location.reload();
+                    });
+            });
+        };
+
+        $scope.trasladar = function(){
+            var estudiantes = $scope.estudiantes;
+            angular.forEach(estudiantes, function (estudiante) {
+                console.log(estudiante._id);
+                if(estudiante.traladado)
+                    Estudiantes.update({ estudianteId: estudiante._id }, estudiante).$promise.then(function (estudiante) {
+                        console.log(estudiante.traladado);
                         location.reload();
                     });
             });
@@ -1109,10 +1122,12 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     html += '<table style="width:100%">\n';
                     html += '<tr>\n' + '<th>Cédula</th>\n<th>Nombre</th>\n' + '</tr>\n';
                     angular.forEach(estudiantes, function(estudiante_decimo){
-                        html += '<tr>\n';
-                        html += '<td>'+ estudiante_decimo.nacionalidad + '</td>\n' +
-                            '<td>'+ estudiante_decimo.segundo_apellido + ' '+ estudiante_decimo.primer_apellido + ' ' + estudiante_decimo.name + '</td>\n';
-                        html += '</tr>\n';
+                        if((estudiante_decimo.admitido) && (!estudiante_decimo.trasladado)) {
+                            html += '<tr>\n';
+                            html += '<td>' + estudiante_decimo.nacionalidad + '</td>\n' +
+                                '<td>' + estudiante_decimo.segundo_apellido + ' ' + estudiante_decimo.primer_apellido + ' ' + estudiante_decimo.name + '</td>\n';
+                            html += '</tr>\n';
+                        }
                     });
                     html += '</table>';
                     html += '</body>\n</html>';
@@ -1149,10 +1164,12 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 html += '<table style="width:100%">\n';
                 html += '<tr>\n' + '<th>Cédula</th>\n<th>Nombre</th>\n' + '</tr>\n';
                 angular.forEach(estudiantes, function(estudiante_undecimo){
-                    html += '<tr>\n';
-                    html += '<td>'+ estudiante_undecimo.nacionalidad + '</td>\n' +
-                        '<td>'+ estudiante_undecimo.segundo_apellido + ' '+ estudiante_undecimo.primer_apellido + ' ' + estudiante_undecimo.name + '</td>\n';
-                    html += '</tr>\n';
+                    if((estudiante_undecimo.admitido) && (!estudiante_undecimo.trasladado)) {
+                        html += '<tr>\n';
+                        html += '<td>' + estudiante_undecimo.nacionalidad + '</td>\n' +
+                            '<td>' + estudiante_undecimo.segundo_apellido + ' ' + estudiante_undecimo.primer_apellido + ' ' + estudiante_undecimo.name + '</td>\n';
+                        html += '</tr>\n';
+                    }
                 });
                 html += '</table>';
                 html += '</body>\n</html>';

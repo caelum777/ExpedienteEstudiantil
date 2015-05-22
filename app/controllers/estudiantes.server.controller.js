@@ -101,7 +101,20 @@ exports.estudianteByID = function(req, res, next, id) {
  * Estudiante middleware
  */
 exports.admitidoss = function(req, res, next, admitido) {
-    Estudiante.find({admitido: admitido}).populate('user', 'displayName').exec(function(err, estudiante) {
+    Estudiante.find({admitido: admitido, traladado: false}).populate('user', 'displayName').exec(function(err, estudiante) {
+        if (err) return next(err);
+        if (! estudiante) return next(new Error('Failed to load Estudiante '));
+        req.estudiante = estudiante ;
+        next();
+    });
+};
+
+
+/**
+ * Estudiante middleware
+ */
+exports.trasladados = function(req, res, next, trasladado) {
+    Estudiante.find({traladado: trasladado}).populate('user', 'displayName').exec(function(err, estudiante) {
         if (err) return next(err);
         if (! estudiante) return next(new Error('Failed to load Estudiante '));
         req.estudiante = estudiante ;
