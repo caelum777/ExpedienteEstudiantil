@@ -4,22 +4,22 @@
             <h1>Datos adjuntos del estudiante: {{estudiante.name + ' ' + estudiante.primer_apellido + ' ' + estudiante.segundo_apellido}}</h1>
         </div>
         <div class="controls">
-            <label class="control-label" for="name">Foto del estudiante</label>
+            <label class="control-label">Certificado de nacimiento</label>
             <input name="filefield" type="file" ng-file-select ng-file-change="on_select_cer_nacimiento($files)">
             <img ng-src="{{estudiante.certificacion_nacimiento}}" height="200px"/>
         </div>
         <div class="controls">
-            <label class="control-label" for="name">Certificación de notas</label>
+            <label class="control-label">Certificación de notas</label>
             <input name="filefield" type="file" ng-file-select ng-file-change="on_select_cer_notas($files)">
             <img ng-src="{{estudiante.certificacion_notas}}" height="200px"/>
         </div>
         <div class="controls">
-            <label class="control-label" for="name">Copia de la tarjeta del informe al hogar</label>
+            <label class="control-label">Copia de la tarjeta del informe al hogar</label>
             <input name="filefield" type="file" ng-file-select ng-file-change="on_select_infor_hogar($files)">
             <img ng-src="{{estudiante.informe_hogar}}" height="200px"/>
         </div>
         <div class="controls">
-            <label class="control-label" for="name">Copia tarjeta de vacunas</label>
+            <label class="control-label">Copia tarjeta de vacunas</label>
             <input name="filefield" type="file" ng-file-select ng-file-change="on_select_tarje_vacunas($files)">
             <img ng-src="{{estudiante.tarjeta_vacunas}}" height="200px"/>
         </div>

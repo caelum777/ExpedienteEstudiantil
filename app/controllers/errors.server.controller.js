@@ -10,7 +10,7 @@ var getUniqueErrorMessage = function(err) {
 		var fieldName = err.err.substring(err.err.lastIndexOf('.$') + 2, err.err.lastIndexOf('_1'));
         var field = fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
         if(field === 'Nacionalidad'){
-            output = 'El estudiante ya existe'
+            output = 'El estudiante ya existe';
         }else{
             output = field + ' ya existe';
         }

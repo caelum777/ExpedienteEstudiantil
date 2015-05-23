@@ -101,12 +101,22 @@ exports.estudianteByID = function(req, res, next, id) {
  * Estudiante middleware
  */
 exports.admitidoss = function(req, res, next, admitido) {
-    Estudiante.find({admitido: admitido, traladado: false, anno_ingreso: {$in: [new Date().getFullYear(), new Date().getFullYear()-1]}}).populate('user', 'displayName').exec(function(err, estudiante) {
-        if (err) return next(err);
-        if (! estudiante) return next(new Error('Failed to load Estudiante '));
-        req.estudiante = estudiante ;
-        next();
-    });
+    if(!admitido) {
+        Estudiante.find({admitido: admitido, traladado: false, anno_ingreso: {$in: [new Date().getFullYear(), new Date().getFullYear() - 1]}}).populate('user', 'displayName').exec(function (err, estudiante) {
+            if (err) return next(err);
+            if (!estudiante) return next(new Error('Failed to load Estudiante '));
+            req.estudiante = estudiante;
+            next();
+        });
+    }
+    else{
+        Estudiante.find({admitido: admitido, traladado: false, anno_ingreso: new Date().getFullYear()}).populate('user', 'displayName').exec(function(err, estudiante) {
+            if (err) return next(err);
+            if (! estudiante) return next(new Error('Failed to load Estudiante '));
+            req.estudiante = estudiante ;
+            next();
+        });
+    }
 };
 
 
@@ -144,7 +154,7 @@ exports.decimo = function(req, res, next) {
         req.estudiante = estudiante ;
         res.jsonp(req.estudiante);
     });
-}
+};
 
 /**
  * Estudiante middleware

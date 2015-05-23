@@ -604,18 +604,18 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             var com = '';
             if(val === 0){
                 if(obj){
-                    com = 'Masculino'
+                    com = 'Masculino';
                 }
                 else{
-                    com = 'Femenino'
+                    com = 'Femenino';
                 }
             }
             else if(val === 1){
                 if(obj){
-                    com = 'Tiene'
+                    com = 'Tiene';
                 }
                 else{
-                    com = 'No Tiene'
+                    com = 'No Tiene';
                 }
             }
             for(var i = 0;i < arr.length; i++){
@@ -931,16 +931,16 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             angular.forEach(notas, function (nota) {
                 for(var i = 0;i < $scope.notas_decimo_1.length; i++){
                     if(($scope.notas_decimo_1.grado===nota.grado)&&($scope.notas_decimo_1.curso===nota.curso)){
-                        nota.nota = $scope.notas_septimo.nota;
+                        nota.nota = $scope.notas_decimo_1.nota;
                     }
                     else if(($scope.notas_decimo_2.grado===nota.grado)&&($scope.notas_decimo_2.curso===nota.curso)){
-                        nota.nota = $scope.notas_octavo.nota;
+                        nota.nota = $scope.notas_decimo_2.nota;
                     }
                     else if(($scope.notas_undecimo_1.grado===nota.grado)&&($scope.notas_undecimo_1.curso===nota.curso)){
-                        nota.nota = $scope.notas_noveno.nota;
+                        nota.nota = $scope.notas_undecimo_1.nota;
                     }
                     else if(($scope.notas_undecimo_2.grado===nota.grado)&&($scope.notas_undecimo_2.curso===nota.curso)){
-
+                        nota.nota = $scope.notas_undecimo_2.nota;
                     }
                 }
                 Notas.update({ notaId: nota._id }, nota);
@@ -964,7 +964,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     $scope.error = errorResponse.data.message;
                 });
             });
-            $scope.selected_cer_notas[0];
+            file = $scope.selected_cer_notas[0];
             $scope.upload = $upload.upload({
                 url: '/upload',
                 method: 'POST',
@@ -996,7 +996,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             $scope.upload = $upload.upload({
                 url: '/upload',
                 method: 'POST',
-                file: fileimg.save("crop_image2.png", "PNG")
+                file: file
             }).success(function(data) {
                 var estudiante = $scope.estudiante;
                 estudiante.tarjeta_vacunas = data.name;
@@ -1079,19 +1079,6 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 47, {// y coord
                     'width': 170, // max width of content on PDF
                     'elementHandlers': $scope.specialElementHandlers
-                },
-                function(dispose) {
-                    // dispose: object with X, Y of the last line add to the PDF
-                    //          this allow the insertion of new lines after html
-                    // pdf.save('Test.pdf');
-
-                    if (navigator.msSaveBlob) {
-                        var string = doc.output('datauristring');
-                    } else {
-                        var string = doc.output('bloburi');
-                    }
-
-                    $('.previewIFRAME').attr('src', string);
                 });
             doc.save(filename+'.pdf');
         };
