@@ -10,7 +10,7 @@ module.exports = function(app) {
 		.post(users.requiresLogin, encargados.create);
 
     app.route('/encargados/estudiante/:cedula')
-        .get(encargados.read)
+        .get(encargados.read);
 
 	app.route('/encargados/:encargadoId')
 		.get(encargados.read)
