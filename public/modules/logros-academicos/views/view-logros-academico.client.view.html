@@ -2,20 +2,17 @@
 	<div class="page-header">
 		<h1 data-ng-bind="logrosAcademico.name"></h1>
 	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == logrosAcademico.user._id))">
-		<a class="btn btn-primary" href="/#!/logros-academicos/{{logrosAcademico._id}}/edit">
+	<div class="pull-right" data-ng-show="(authentication.user)">
+		<a class="btn btn-primary" href="/#!/logros-academicos/{{idEstudianteUrl}}/{{cedulaEstudianteUrl}}/{{logrosAcademico._id}}/edit">
 			<i class="glyphicon glyphicon-edit"></i>
 		</a>
 		<a class="btn btn-primary" data-ng-click="remove();">
 			<i class="glyphicon glyphicon-trash"></i>
 		</a>
 	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="logrosAcademico.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="logrosAcademico.user.displayName"></span>
-		</em>
-	</small>
+    <div>
+        <h4 class="list-group-item-heading">{{'Descripción: '+logrosAcademico.descripcion}}</h4>
+        <h4 class="list-group-item-heading">{{'Premio: '+logrosAcademico.premio}}</h4>
+        <h4 class="list-group-item-heading">{{'Año: '+logrosAcademico.anno}}</h4>
+    </div>
 </section>

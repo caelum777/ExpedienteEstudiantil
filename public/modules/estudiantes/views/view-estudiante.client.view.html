@@ -40,5 +40,7 @@
         <a href="/#!/encargados/{{estudiante._id}}/{{estudiante.nacionalidad}}"><input type="button" value="Mostrar encargados" ng-show="estudiante.admitido" class="btn btn-primary" href=""></a>
         <a href="/#!/estudiantes/{{estudiante._id}}/archivosadjuntos"><input type="button" value="Asignar datos adicionales" ng-show="estudiante.admitido" class="btn btn-primary" ></a>
         <a href="/#!/estudiantes/{{estudiante._id}}/notas_c_c"><input type="button" value="Asignar notas" ng-show="estudiante.admitido" class="btn btn-primary"></a>
+        <a href="/#!/logros-academicos/create/{{estudiante._id}}/{{estudiante.nacionalidad}}"><input type="button" value="Asignar Logro Académico" ng-show="estudiante.admitido" class="btn btn-primary" href=""></a>
+        <a href="/#!/logros-academicos/{{estudiante._id}}/{{estudiante.nacionalidad}}"><input type="button" value="Mostrar Logros Académicos" ng-show="estudiante.admitido" class="btn btn-primary" href=""></a>
     </div>
 </section>

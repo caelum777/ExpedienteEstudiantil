@@ -12,18 +12,31 @@ var mongoose = require('mongoose'),
 var LogrosAcademicoSchema = new Schema({
 	name: {
 		type: String,
-		default: '',
-		required: 'Please fill Logros academico name',
+		required: 'Debe escribir el nombre del logro académico',
 		trim: true
 	},
-	created: {
-		type: Date,
-		default: Date.now
-	},
-	user: {
-		type: Schema.ObjectId,
-		ref: 'User'
-	}
+    estudiante: {
+        type: String,
+        required: 'Debe escribir la cédula del estudiante que recibió el premio',
+        trim: true
+    },
+    descripcion: {
+        type: String,
+        default: '',
+        required: 'Debe escribir la descripción del logro académico',
+        trim: true
+    },
+    premio: {
+        type: String,
+        default: '',
+        required: 'Debe escribir el premio que recibió el estudiante',
+        trim: true
+    },
+    anno: {
+        type: Number,
+        trim: true
+    }
+
 });
 
 mongoose.model('LogrosAcademico', LogrosAcademicoSchema);

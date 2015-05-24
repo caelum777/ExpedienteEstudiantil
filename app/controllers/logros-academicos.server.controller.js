@@ -96,6 +96,15 @@ exports.logrosAcademicoByID = function(req, res, next, id) {
 	});
 };
 
+exports.logroByCedula = function(req, res, next, cedula){
+    LogrosAcademico.find({ estudiante: cedula}).populate('user', 'displayName').exec(function(err, logrosAcademico) {
+        if (err) return next(err);
+        if (! logrosAcademico) return next(new Error('Error al cargar los logros académicos '));
+        req.logrosAcademico = logrosAcademico ;
+        next();
+    });
+};
+
 /**
  * Logros academico authorization middleware
  */

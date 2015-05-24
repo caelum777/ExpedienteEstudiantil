@@ -1,9 +1,9 @@
-<section data-ng-controller="LogrosAcademicosController" data-ng-init="find()">
+<section data-ng-controller="LogrosAcademicosController" data-ng-init="findByEstudiante()">
     <div class="page-header">
         <h1>Logros academicos</h1>
     </div>
     <div class="list-group">
-        <a data-ng-repeat="logrosAcademico in logrosAcademicos" data-ng-href="#!/logros-academicos/{{logrosAcademico._id}}" class="list-group-item">
+        <a data-ng-repeat="logrosAcademico in logrosAcademicosE" data-ng-href="#!/logros-academicos/{{estudianteID}}/{{logrosAcademicos.estudiante}}/{{logrosAcademico._id}}" class="list-group-item">
 			<small class="list-group-item-text">
 				Posted on
 				<span data-ng-bind="logrosAcademico.created | date:'medium'"></span>

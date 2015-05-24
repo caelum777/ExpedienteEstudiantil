@@ -9,11 +9,15 @@ module.exports = function(app) {
 		.get(logrosAcademicos.list)
 		.post(users.requiresLogin, logrosAcademicos.create);
 
+    app.route('/logros-academicos/estudiante/:cedula')
+        .get(logrosAcademicos.read);
+
 	app.route('/logros-academicos/:logrosAcademicoId')
 		.get(logrosAcademicos.read)
-		.put(users.requiresLogin, logrosAcademicos.hasAuthorization, logrosAcademicos.update)
-		.delete(users.requiresLogin, logrosAcademicos.hasAuthorization, logrosAcademicos.delete);
+		.put(users.requiresLogin, logrosAcademicos.update)
+		.delete(users.requiresLogin, logrosAcademicos.delete);
 
 	// Finish by binding the Logros academico middleware
 	app.param('logrosAcademicoId', logrosAcademicos.logrosAcademicoByID);
+    app.param('cedula', logrosAcademicos.logroByCedula);
 };

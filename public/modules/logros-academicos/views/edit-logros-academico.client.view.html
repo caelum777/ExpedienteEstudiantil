@@ -6,9 +6,17 @@
         <form class="form-horizontal" data-ng-submit="update()" novalidate>
             <fieldset>
                 <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
+                    <label class="control-label" for="name">Nombre</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="logrosAcademico.name" id="name" class="form-control" placeholder="Name" required>
+                        <input type="text" data-ng-model="logrosAcademico.name" id="name" class="form-control" placeholder="Feria científica" required>
+                    </div>
+                    <label class="control-label" for="name">Descripción</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="logrosAcademico.descripcion" id="name" class="form-control" placeholder="Participación en la feria científica a nivel nacional" required>
+                    </div>
+                    <label class="control-label" for="name">Premio</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="logrosAcademico.premio" id="name" class="form-control" placeholder="Medalla de oro" required>
                     </div>
                 </div>
                 <div class="form-group">

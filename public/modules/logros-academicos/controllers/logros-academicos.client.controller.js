@@ -1,20 +1,28 @@
 'use strict';
 
 // Logros academicos controller
-angular.module('logros-academicos').controller('LogrosAcademicosController', ['$scope', '$stateParams', '$location', 'Authentication', 'LogrosAcademicos',
-	function($scope, $stateParams, $location, Authentication, LogrosAcademicos) {
+angular.module('logros-academicos').controller('LogrosAcademicosController', ['$scope', '$stateParams', '$location', 'Authentication', 'LogrosAcademicos','GetLogro',
+	function($scope, $stateParams, $location, Authentication, LogrosAcademicos, GetLogro) {
 		$scope.authentication = Authentication;
+        $scope.name = '';
+        $scope.estudiante = '';
+        $scope.descripcion = '';
+        $scope.premio = '';
 
 		// Create new Logros academico
 		$scope.create = function() {
 			// Create new Logros academico object
 			var logrosAcademico = new LogrosAcademicos ({
-				name: this.name
+				name: $scope.name,
+                estudiante: $stateParams.cedulaEstudiante,
+                descripcion: $scope.descripcion,
+                premio: $scope.premio,
+                anno: new Date().getFullYear()
 			});
 
 			// Redirect after save
 			logrosAcademico.$save(function(response) {
-				$location.path('logros-academicos/' + response._id);
+                $location.path('estudiantes/' + $stateParams.estudianteId);
 
 				// Clear form fields
 				$scope.name = '';
@@ -35,7 +43,8 @@ angular.module('logros-academicos').controller('LogrosAcademicosController', ['$
 				}
 			} else {
 				$scope.logrosAcademico.$remove(function() {
-					$location.path('logros-academicos');
+					//$location.path('logros-academicos');
+                    $location.path('logros-academicos/' + $stateParams.estudianteId+'/'+$stateParams.cedulaEstudiante);
 				});
 			}
 		};
@@ -45,7 +54,8 @@ angular.module('logros-academicos').controller('LogrosAcademicosController', ['$
 			var logrosAcademico = $scope.logrosAcademico;
 
 			logrosAcademico.$update(function() {
-				$location.path('logros-academicos/' + logrosAcademico._id);
+				//$location.path('logros-academicos/' + logrosAcademico._id);
+                $location.path('logros-academicos/' + $stateParams.estudianteId+'/'+$stateParams.cedulaEstudiante+'/'+logrosAcademico._id);
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -58,9 +68,19 @@ angular.module('logros-academicos').controller('LogrosAcademicosController', ['$
 
 		// Find existing Logros academico
 		$scope.findOne = function() {
+            $scope.cedulaEstudianteUrl = $stateParams.cedulaEstudiante;
+            $scope.idEstudianteUrl = $stateParams.estudianteId;
 			$scope.logrosAcademico = LogrosAcademicos.get({ 
 				logrosAcademicoId: $stateParams.logrosAcademicoId
 			});
 		};
+
+        $scope.findByEstudiante = function() {
+            $scope.cedula = $stateParams.cedulaEstudiante;
+            $scope.estudianteID = $stateParams.estudianteId;
+            $scope.logrosAcademicosE = GetLogro.query({
+                cedula:$scope.cedula
+            });
+        };
 	}
 ]);

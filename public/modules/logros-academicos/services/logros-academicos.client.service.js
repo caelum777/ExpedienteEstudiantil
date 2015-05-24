@@ -11,3 +11,14 @@ angular.module('logros-academicos').factory('LogrosAcademicos', ['$resource',
 		});
 	}
 ]);
+
+angular.module('logros-academicos').factory('GetLogro', ['$resource',
+    function($resource) {
+        return $resource('/logros-academicos/estudiante/:cedula', { cedula: '@cedula'
+        }, {
+            update: {
+                method: 'GET'
+            }
+        });
+    }
+]);
