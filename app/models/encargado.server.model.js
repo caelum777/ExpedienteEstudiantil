@@ -66,11 +66,6 @@ var EncargadoSchema = new Schema({
         type: String,
         required: 'Debe ingresar la direción exacta de la vivienda del encargado',
         trim: true
-    },
-    responsable: {
-        type: String,
-        required: 'Debe especificar si este encargado es quien autoriza el ingreso del estudiante al Colegio Científico',
-        trim: true
     }
 });
 

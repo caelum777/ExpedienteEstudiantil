@@ -278,8 +278,13 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         $scope.sexos = [{nombre: 'Masculino'}, {nombre: 'Femenino'}];
         $scope.adecuaciones = [{nombre: 'Tiene'}, {nombre: 'No tiene'}];
         $scope.consultas = [{nombre: 'Nombre'}, {nombre: 'Cedula'}, {nombre: 'Colegio de Procedencia'}];
+        $scope.consultas_genero = [{sexo: 'Masculino'}, {sexo: 'Femenino'}, {sexo: 'Ambos'}];
+        $scope.consultas_grado = [{grado: 'Décimo'}, {grado: 'Undécimo'}, {grado: 'Ambos'}];
+
         $scope.provincia = $scope.options[0];
         $scope.consulta = $scope.consultas[0];
+        $scope.consulta_sexo = $scope.consultas_genero[0];
+        $scope.consulta_grado = $scope.consultas_grado[0];
         $scope.canton =  $scope.provincia.cantones[0];
         $scope.distrito = $scope.canton.distritos[0];
         $scope.sexo = $scope.sexos[0];
@@ -1028,27 +1033,40 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 { field: 'segundo_apellido', displayName:'Segundo Apellido'},
                 { field: 'nacionalidad', displayName:'Cédula'},
                 { field: 'anno_ingreso', displayName:'Generación'},
-                { field: 'colegio_procedencia', displayName:'Colegio de Procedencia'}],
+                { field: 'colegio_procedencia', displayName:'Colegio de Procedencia'},
+                { field: 'anno_ingreso', displayName:'Año de ingreso'},
+                { field: 'sexo', displayName:'Sexo'}],
             filterOptions: $scope.filterOptions
         };
 
-
-        $scope.$watch('filteringText', function(searchText) {
-            if(searchText === ''){
+        $scope.filterOptions.filterText = '';
+        $scope.$watchCollection('[filteringText,consulta_sexo,consulta_grado]', function(values) {
+            if(values[0] === ''){
                 $scope.filterOptions.filterText = '';
             }
-            else if (searchText) {
-                // console.log(searchText);
+            else if (values[0]) {
+                // console.log(values);
                 var searchQuery = '';
                 if($scope.consulta.nombre === 'Nombre') {
-                    searchQuery = 'name: ' + searchText + ';';
+                    searchQuery = 'name: ' + values[0] + ';';
                 }
                 else if($scope.consulta.nombre === 'Cedula') {
-                    searchQuery = 'nacionalidad: ' + searchText + ';';
+                    searchQuery = 'nacionalidad: ' + values[0] + ';';
                 }
                 else if($scope.consulta.nombre === 'Colegio de Procedencia') {
-                    searchQuery = 'colegio_procedencia: ' + searchText + ';';
+                    searchQuery = 'colegio_procedencia: ' + values[0] + ';';
                 }
+                if ($scope.consulta_sexo.sexo === 'Masculino')
+                    searchQuery = searchQuery + 'sexo: ' + false +';';
+                else if ($scope.consulta_sexo.sexo === 'Femenino')
+                    searchQuery = searchQuery + 'sexo: ' + true +';';
+                if ($scope.consulta_grado.grado === 'Décimo')
+                    searchQuery = searchQuery + 'anno_ingreso: ' + new Date().getFullYear() +';';
+                else if ($scope.consulta_grado.grado === 'Undécimo')
+                    searchQuery = searchQuery + 'anno_ingreso: ' + (new Date().getFullYear() - 1) +';';
+                else
+                    searchQuery = searchQuery + 'anno_ingreso: ' + (new Date().getFullYear() - 1) +'|'+ new Date().getFullYear()+';';
+                console.log(searchQuery);
                 $scope.filterOptions.filterText = searchQuery;
                 //console.log(searchQuery);
             }

@@ -15,8 +15,8 @@ angular.module('encargados').controller('EncargadosController', ['$scope', '$sta
         $scope.telefono = '';
         $scope.correo = '';
         $scope.direccion = '';
-        $scope.opciones = [{opcion: 'No'}, {opcion: 'Si'}];
-        $scope.eleccion = $scope.opciones[0];
+        //$scope.opciones = [{opcion: 'No'}, {opcion: 'Si'}];
+        //$scope.eleccion = $scope.opciones[0];
 
         //Datos para las URL
         $scope.idEstudianteUrl = '';
@@ -37,11 +37,11 @@ angular.module('encargados').controller('EncargadosController', ['$scope', '$sta
                 nacionalidad: $scope.nacionalidad,
                 telefono: $scope.telefono,
                 correo: $scope.correo,
-                direccion: $scope.direccion,
-                responsable: $scope.eleccion.opcion
+                direccion: $scope.direccion
+                //responsable: $scope.eleccion.opcion
 			});
             $scope.cedula = $stateParams.cedulaEstudiante;
-            $scope.idEstudianteUrl = $stateParams.estudianteId;
+            $scope.idEtudianteUrl = $stateParams.estudianteId;
             $scope.encargadosE = GetEncargado.query({
                     cedula:$scope.cedula
             });
@@ -84,7 +84,7 @@ angular.module('encargados').controller('EncargadosController', ['$scope', '$sta
 		// Update existing Encargado
 		$scope.update = function() {
 			var encargado = $scope.encargado;
-            encargado.responsable = $scope.eleccion.opcion;
+            //encargado.responsable = $scope.eleccion.opcion;
 			encargado.$update(function() {
 				//$location.path('encargados/' + encargado._id);
                 $location.path('encargados/' + $stateParams.estudianteId+'/'+$stateParams.cedulaEstudiante+'/'+encargado._id);
