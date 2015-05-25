@@ -1,8 +1,8 @@
 'use strict';
 
 // Estudiantes controller
-angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Estudiantes', '$upload', 'Notas', 'GetNotas', 'GetAdmitidos', 'Decimo', 'Undecimo', 'Nacionalidad',
-	function($scope, $stateParams, $location, Authentication, Estudiantes, $upload, Notas, GetNotas, GetAdmitidos, Decimo, Undecimo, Nacionalidad) {
+angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$stateParams', '$location', '$filter', 'Authentication', 'Estudiantes', '$upload', 'Notas', 'GetNotas', 'GetAdmitidos', 'Decimo', 'Undecimo', 'Nacionalidad',
+	function($scope, $stateParams, $location, $filter, Authentication, Estudiantes, $upload, Notas, GetNotas, GetAdmitidos, Decimo, Undecimo, Nacionalidad) {
 		$scope.authentication = Authentication;
         $scope.options =
         [{
@@ -280,11 +280,13 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         $scope.consultas = [{nombre: 'Nombre'}, {nombre: 'Cedula'}, {nombre: 'Colegio de Procedencia'}];
         $scope.consultas_genero = [{sexo: 'Masculino'}, {sexo: 'Femenino'}, {sexo: 'Ambos'}];
         $scope.consultas_grado = [{grado: 'Décimo'}, {grado: 'Undécimo'}, {grado: 'Ambos'}];
+        $scope.consultas_estado = [{estado: 'Todos'}, {estado: 'Egresado'}, {estado: 'Trasladado'}];
 
         $scope.provincia = $scope.options[0];
         $scope.consulta = $scope.consultas[0];
         $scope.consulta_sexo = $scope.consultas_genero[0];
         $scope.consulta_grado = $scope.consultas_grado[0];
+        $scope.consulta_estado = $scope.consultas_estado[0];
         $scope.canton =  $scope.provincia.cantones[0];
         $scope.distrito = $scope.canton.distritos[0];
         $scope.sexo = $scope.sexos[0];
@@ -1035,18 +1037,19 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 { field: 'anno_ingreso', displayName:'Generación'},
                 { field: 'colegio_procedencia', displayName:'Colegio de Procedencia'},
                 { field: 'anno_ingreso', displayName:'Año de ingreso'},
-                { field: 'sexo', displayName:'Sexo'}],
+                { field: 'sexo', displayName:'Sexo'},
+                { field: 'traladado', displayName:'Trasladado'}],
             filterOptions: $scope.filterOptions
         };
 
         $scope.filterOptions.filterText = '';
-        $scope.$watchCollection('[filteringText,consulta_sexo,consulta_grado]', function(values) {
+        $scope.$watchCollection('[filteringText, consulta_sexo, consulta_grado, consulta_estado]', function(values) {
+            console.log(values);
+            var searchQuery = '';
             if(values[0] === ''){
                 $scope.filterOptions.filterText = '';
             }
             else if (values[0]) {
-                // console.log(values);
-                var searchQuery = '';
                 if($scope.consulta.nombre === 'Nombre') {
                     searchQuery = 'name: ' + values[0] + ';';
                 }
@@ -1056,20 +1059,36 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 else if($scope.consulta.nombre === 'Colegio de Procedencia') {
                     searchQuery = 'colegio_procedencia: ' + values[0] + ';';
                 }
+                else if($scope.consulta.nombre === 'Trasladado') {
+                    searchQuery = 'traladado: '+ true +';';
+                }
+            }
+
+            if(values[1]){
                 if ($scope.consulta_sexo.sexo === 'Masculino')
                     searchQuery = searchQuery + 'sexo: ' + false +';';
                 else if ($scope.consulta_sexo.sexo === 'Femenino')
                     searchQuery = searchQuery + 'sexo: ' + true +';';
+            }
+
+            if(values[2]){
                 if ($scope.consulta_grado.grado === 'Décimo')
                     searchQuery = searchQuery + 'anno_ingreso: ' + new Date().getFullYear() +';';
                 else if ($scope.consulta_grado.grado === 'Undécimo')
                     searchQuery = searchQuery + 'anno_ingreso: ' + (new Date().getFullYear() - 1) +';';
                 else
                     searchQuery = searchQuery + 'anno_ingreso: ' + (new Date().getFullYear() - 1) +'|'+ new Date().getFullYear()+';';
-                console.log(searchQuery);
-                $scope.filterOptions.filterText = searchQuery;
-                //console.log(searchQuery);
             }
+
+            if(values[3]){
+                if($scope.consulta_estado.estado === 'Egresado'){
+                    searchQuery = searchQuery + 'graduado: ' + true +';';
+                }
+                else if($scope.consulta_estado.estado === 'Trasladado')
+                    searchQuery = searchQuery + 'traladado: ' + true +';';
+            }
+
+            $scope.filterOptions.filterText = searchQuery;
         });
 
 
