@@ -14,7 +14,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         $scope.adecuaciones = [{nombre: 'Tiene'}, {nombre: 'No tiene'}];
         $scope.consultas = [{nombre: 'Nombre'}, {nombre: 'Cedula'}, {nombre: 'Colegio de Procedencia'}];
         $scope.consultas_genero = [{sexo: 'Masculino'}, {sexo: 'Femenino'}, {sexo: 'Ambos'}];
-        $scope.consultas_grado = [{grado: 'Décimo'}, {grado: 'Undécimo'}, {grado: 'Ambos'}];
+        $scope.consultas_grado = [{grado: 'Décimo'}, {grado: 'Undécimo'}, {grado: 'Décimo y Undécimo'}];
         $scope.consultas_estado = [{estado: 'Todos'}, {estado: 'Egresado'}, {estado: 'Trasladado'}];
         $scope.consulta = $scope.consultas[0];
         $scope.consulta_sexo = $scope.consultas_genero[0];
