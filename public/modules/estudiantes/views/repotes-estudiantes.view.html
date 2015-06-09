@@ -1,9 +1,15 @@
-<section data-ng-controller="EstudiantesController">
+<section data-ng-controller="EstudiantesController" data-ng-init="get_all_students()">
     <div class="page-header">
         <h1>Reportes de estudiantes de décimo y undécimo</h1>
     </div>
-    <form class="form-horizontal" data-ng-submit="reporte_estudiantes_decimo()">
-        <label class="control-label" >Nombre del archivo, para el reporte de nodas de décimo</label>
+    <form class="form-horizontal" data-ng-submit="generar_reporte()">
+        <div class="controls">
+            <select class="form-control" data-ng-model="reporte" id="reporte"
+                    ng-options="opt as opt.nombre for opt in lista_reportes">
+            </select>
+        </div>
+
+        <!--<label class="control-label" >Nombre del archivo, para el reporte de nodas de décimo</label>
         <div class="controls">
             <input type="text" data-ng-model="nombre_reporte_notas_decimo" id="decimo" class="form-control" required>
         </div>
@@ -27,7 +33,7 @@
         <label class="control-label">Cédula o número de pasaporte</label>
         <div class="controls">
             <input type="text" data-ng-model="id_estudiante" id="nacionalidad" class="form-control" placeholder="Cédula o numero de pasaporte" title="Formato: 0-0000-0000" pattern="[0-9]{1}-[0-9]{4}-[0-9]{4}" required>
-        </div>
+        </div>-->
         <div class="form-group">
             <input type="submit" value="Generar reporte" class="btn btn-default">
         </div>
