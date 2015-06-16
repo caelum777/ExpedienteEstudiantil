@@ -822,6 +822,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 if($scope.consulta_estado.estado === 'Egresado'){
                     searchQuery = searchQuery + 'graduado: ' + true +';';
                 }
+
                 else if($scope.consulta_estado.estado === 'Trasladado')
                     searchQuery = searchQuery + 'traladado: ' + true +';';
             }
@@ -835,9 +836,19 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             $scope.estudiantes = Estudiantes.query();
         };
 
-        $scope.lista_reportes = [{nombre: 'Lista ausencias', val : 1}, {nombre: 'Lista cédula, carné, apellidos, nombre, telefono, correo', val : 2}, {nombre: 'Lista ciencia para bachillerato', val : 3}, {nombre: 'Lista Correos', val : 4}, {nombre: 'Lista escogencia de la ciencia para bachillerato', val : 5}, {nombre: 'Lista para la biblioteca', val: 6}, {nombre: 'Lista participación en olimpiadas', val : 7}];
-        $scope.reporte = $scope.lista_reportes[0].nombre;
+        $scope.lista_reportes = [{nombre: 'Lista ausencias', val : 1}, {nombre: 'Lista cédula, carné, apellidos, nombre, telefono, correo', val : 2}, {nombre: 'Lista ciencia para bachillerato', val : 3}, {nombre: 'Lista Correos', val : 4}, {nombre: 'Lista escogencia de la ciencia para bachillerato', val : 5}, {nombre: 'Lista para la biblioteca', val: 6}, {nombre: 'Lista participación en olimpiadas', val : 7}, {nombre: 'Reporte de notas', val : 8}];
+        $scope.reporte = $scope.lista_reportes[0];
+        $scope.ced_estudiante = ''
+        $scope.visibl = false;
 
+        $scope.$watch('reporte', function(reporte){
+            if(reporte.val === 8){
+                $scope.visibl = true;
+            }
+            else{
+                $scope.visibl = false;
+            }
+        });
 
         $scope.generar_reporte = function(){
             var htmlheader = '';
@@ -1106,12 +1117,15 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             else if(reporte.val === 7){
 
             }
+            else if(reporte.val ===8){
+                $scope.reporte_notas();
+            }
         };
 
 
         $scope.nombre_reporte_notas_undecimo = '';
         $scope.nombre_reporte_notas_decimo = '';
-        $scope.id_estudiante = '';
+
 
         $scope.specialElementHandlers = {
             '#editor': function(element, renderer){
@@ -1139,7 +1153,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         $scope.reporte_notas = function(){
             //console.log(estudiante);
             var notas_estudiante = GetNotas.query({
-                cedula_estudiante: $scope.id_estudiante
+                cedula_estudiante: $scope.ced_estudiante
             });
             var html = '';
             var table1 = '';
@@ -1163,9 +1177,19 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             table2 += '<tr>\n' + '<th>Curso</th>\n' + '</tr>\n';
             table2 += '<tr>\n' + '<th>Nota</th>\n' + '</tr>\n';
             notas_estudiante.$promise.then(function(notas) {
-                angular.forEach(notas, function (nota) {
+                angular.forEach($scope.notas_decimo_1, function (curso) {
+                    var notas_cursos = [];
+                    for(var i = 0;i<notas.length;i++){
+                        if(notas[i].curso == curso){
+                            notas_cursos.push(notas[i]);
+                        }
+                        if(notas_cursos.length === 2){
 
-                    if(nota.grado==='decimo'){
+                            break;
+                        }
+                    }
+
+                    /*if(nota.grado==='decimo'){
                         table1 += '<tr>\n' + '<td>'+ nota.curso + '\n';
                         if(nota.semestre == 1){
 
@@ -1185,6 +1209,9 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         }
                         table2 += '<tr>\n' + '<td>'+ nota.curso + '</td>\n';
                         table2 += '<td>'+ nota.nota + '</td>\n' + '</tr>\n';
+                    }*/
+                    if(true){
+                        console.log('hola');
                     }
                 });
 

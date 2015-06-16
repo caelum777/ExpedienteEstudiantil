@@ -8,6 +8,11 @@
                     ng-options="opt as opt.nombre for opt in lista_reportes">
             </select>
         </div>
+        <br/>
+        <br/>
+        <div>
+            <input type="text" data-ng-model="ced_estudiante" id="ced" class="form-control" placeholder="Cédula de estudiante" title="Formato: 0-0000-0000" pattern="[0-9]{1}-[0-9]{4}-[0-9]{4}" ng-show="visibl" required>
+        </div>
 
         <!--<label class="control-label" >Nombre del archivo, para el reporte de nodas de décimo</label>
         <div class="controls">
@@ -34,6 +39,8 @@
         <div class="controls">
             <input type="text" data-ng-model="id_estudiante" id="nacionalidad" class="form-control" placeholder="Cédula o numero de pasaporte" title="Formato: 0-0000-0000" pattern="[0-9]{1}-[0-9]{4}-[0-9]{4}" required>
         </div>-->
+        <br/>
+        <br/>
         <div class="form-group">
             <input type="submit" value="Generar reporte" class="btn btn-default">
         </div>
