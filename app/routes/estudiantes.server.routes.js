@@ -14,7 +14,7 @@ module.exports = function(app) {
 		.put(users.requiresLogin, estudiantes.update)
 		.delete(users.requiresLogin, estudiantes.delete);
 
-    app.route('/estudiantes/nacionalidad/:nacionalidad')
+    app.route('/nacionalidad/:cedula')
         .get(estudiantes.read),
 
     app.route('/admitidos/:admitido')
@@ -28,7 +28,7 @@ module.exports = function(app) {
 
 	// Finish by binding the Estudiante middleware
 	app.param('estudianteId', estudiantes.estudianteByID),
-    app.param('nacionalidad', estudiantes.estudianteByCedula),
+    app.param('cedula', estudiantes.estudianteByCedula),
     app.param('admitido', estudiantes.admitidoss);
 
 

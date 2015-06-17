@@ -135,8 +135,8 @@ exports.trasladados = function(req, res, next, trasladado) {
 /**
  * Estudiante middleware
  */
-exports.estudianteByCedula = function(req, res, next, nacionalidad) {
-    Estudiante.find({nacionalidad: nacionalidad}).populate('user', 'displayName').exec(function(err, estudiante) {
+exports.estudianteByCedula = function(req, res, next, cedula) {
+    Estudiante.find({nacionalidad: cedula}).populate('user', 'displayName').exec(function(err, estudiante) {
         if (err) return next(err);
         if (! estudiante) return next(new Error('Failed to load Estudiante '));
         req.estudiante = estudiante ;

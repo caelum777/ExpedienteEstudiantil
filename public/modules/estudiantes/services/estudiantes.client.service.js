@@ -75,7 +75,7 @@ angular.module('estudiantes').factory('Undecimo', ['$resource',
 //Estudiantes service used to communicate Estudiantes REST endpoints
 angular.module('estudiantes').factory('Nacionalidad', ['$resource',
     function($resource) {
-        return $resource('estudiantes/nacionaldad/:nacionalidad', { nacionalidad: '@nacionalidad'
+        return $resource('/nacionalidad/:cedula', { cedula: '@cedula'
         }, {
             update: {
                 method: 'GET'
