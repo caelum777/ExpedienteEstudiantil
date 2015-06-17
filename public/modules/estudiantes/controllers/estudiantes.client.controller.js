@@ -895,7 +895,6 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                             else{
                                 m += 1;
                             }
-                            console.log({'ced': estudiante_decimo.nacionalidad, 'nom': estudiante_decimo.segundo_apellido + ' ' + estudiante_decimo.primer_apellido + ' ' + estudiante_decimo.name, 'i': '', 'ii': '', 'iii': '', 'iiii': ''});
                             data.push({'ced': estudiante_decimo.nacionalidad, 'nom': estudiante_decimo.segundo_apellido + ' ' + estudiante_decimo.primer_apellido + ' ' + estudiante_decimo.name, 'i': '', 'ii': '', 'iii': '', 'iiii': ''});
                         }
                     });
@@ -907,16 +906,18 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     var titulo = '                   CONTROL DE AUSENCIAS DÉCIMO AÑO ' + new Date().getFullYear() +'\n' +
                         'Profesor: __________________                         Mes:________________ \n' +
                         'Asignatura: ________________                         A = Ausencia, T = Tardía';
-                    $scope.generatePDF('Lista de ausencias décimo', encabezado,titulo,columns,data,130);
+                    if(data.length > 1) {
+                        $scope.generatePDF('Lista de ausencias décimo', encabezado, titulo, columns, data, 130);
+                    }
                     h, t, m = 0;
                 });
-                data = [];
-                var estudiantes_undecimo = Undecimo.query().$promise.then;
+                var data2 = [];
+                var estudiantes_undecimo = Undecimo.query();
                 estudiantes_undecimo.$promise.then(function(estudiantes){
                     var m = 0;
                     var h = 0;
                     angular.forEach(estudiantes, function(estudiante_undecimo){
-
+                        console.log(estudiante_undecimo.name+estudiante_undecimo.segundo_apellido+estudiante_undecimo.primer_apellido);
                         if((estudiante_undecimo.admitido) && (!estudiante_undecimo.traladado)) {
                             if(estudiante_undecimo.sexo === true){
                                 h++;
@@ -924,7 +925,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                             else{
                                 m++;
                             }
-                            data.push({'ced': estudiante_undecimo.nacionalidad, 'nom': estudiante_undecimo.segundo_apellido + ' ' + estudiante_undecimo.primer_apellido + ' ' + estudiante_undecimo.name, 'i': '', 'ii': '', 'iii': '', 'iiii': ''});
+                            data2.push({'ced': estudiante_undecimo.nacionalidad, 'nom': estudiante_undecimo.segundo_apellido + ' ' + estudiante_undecimo.primer_apellido + ' ' + estudiante_undecimo.name, 'i': '', 'ii': '', 'iii': '', 'iiii': ''});
                         }
                     });
                     var t = m + h;
@@ -935,7 +936,9 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     var titulo = '                   CONTROL DE AUSENCIAS UNDÉCIMO AÑO ' + new Date().getFullYear() +'\n' +
                         'Profesor: __________________                         Mes:________________ \n' +
                         'Asignatura: ________________                         A = Ausencia, T = Tardía';
-                    $scope.generatePDF('Lista de ausencias undécimo', encabezado,titulo,columns,data, 130);
+                    if(data2.length > 1) {
+                        $scope.generatePDF('Lista de ausencias undécimo', encabezado, titulo, columns, data2, 130);
+                    }
                 });
             }
             else if(reporte.val === 2){
@@ -971,11 +974,13 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         'Instituto Tecnológico de Costa Rica, Sede Regional San Carlos\n' +
                         'Telefax: 2475-7089,Tel: 2401-3122\n';
                     var titulo = '';
-                    $scope.generatePDF('Lista cedula carne y apellidos undécimo', encabezado,titulo,columns, data, 70);
+                    if(data.length > 1) {
+                        $scope.generatePDF('Lista cedula carne y apellidos undécimo', encabezado, titulo, columns, data, 70);
+                    }
                     h, t, m = 0;
                 })
-                data = [];
-                var estudiantes_undecimo = Undecimo.query().$promise.then;
+                var data2 = [];
+                var estudiantes_undecimo = Undecimo.query();
                 estudiantes_undecimo.$promise.then(function(estudiantes){
                     var m = 0;
                     var h = 0;
@@ -987,7 +992,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                             else{
                                 m++;
                             }
-                            data.push({'ced': estudiante_undecimo.nacionalidad, 'i': estudiante_undecimo.primer_apellido, 'ii': estudiante_undecimo.segundo_apellido, 'nom':estudiante_undecimo.name, 'tel': estudiante_undecimo.celular, 'mail': estudiante_undecimo.correo});
+                            data2.push({'ced': estudiante_undecimo.nacionalidad, 'i': estudiante_undecimo.primer_apellido, 'ii': estudiante_undecimo.segundo_apellido, 'nom':estudiante_undecimo.name, 'tel': estudiante_undecimo.celular, 'mail': estudiante_undecimo.correo});
                         }
                     });
                     var t = m + h;
@@ -996,7 +1001,9 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         'Instituto Tecnológico de Costa Rica, Sede Regional San Carlos\n' +
                         'Telefax: 2475-7089,Tel: 2401-3122\n';
                     var titulo = '';
-                    $scope.generatePDF('Lista cedula carne y apellidos undécimo', encabezado,titulo,columns,data,70);
+                    if(data2.length > 1) {
+                        $scope.generatePDF('Lista cedula carne y apellidos undécimo', encabezado, titulo, columns, data2, 70);
+                    }
                 });
             }
             else if(reporte.val === 3){
@@ -1029,12 +1036,14 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         'Sede Regional San Carlos                             Hombres: ' + h + '\n' +
                         'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + t + '\n';
                     var titulo = '              LISTA CIENCIA PARA BACHILLERATO DÉCIMO AÑO ' + new Date().getFullYear() +'\n';
-                    $scope.generatePDF('Lista ciencia para bachillerato décimo', encabezado,titulo,columns, data, 95);
+                    if(data.length > 1) {
+                        $scope.generatePDF('Lista ciencia para bachillerato décimo', encabezado, titulo, columns, data, 95);
+                    }
 
                     h, t, m = 0;
                 })
-                data = [];
-                var estudiantes_undecimo = Undecimo.query().$promise.then;
+                var data2 = [];
+                var estudiantes_undecimo = Undecimo.query();
                 estudiantes_undecimo.$promise.then(function(estudiantes){
                     var m = 0;
                     var h = 0;
@@ -1047,7 +1056,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                             else{
                                 m++;
                             }
-                            data.push({'ced':estudiante_undecimo.nacionalidad,'nom': estudiante_undecimo.segundo_apellido + ' ' + estudiante_undecimo.primer_apellido + ' ' + estudiante_undecimo.name, 'cie': '','fir': ''});
+                            data2.push({'ced':estudiante_undecimo.nacionalidad,'nom': estudiante_undecimo.segundo_apellido + ' ' + estudiante_undecimo.primer_apellido + ' ' + estudiante_undecimo.name, 'cie': '','fir': ''});
                         }
                     });
                     var t = m + h;
@@ -1056,7 +1065,9 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         'Sede Regional San Carlos                             Hombres: ' + h + '\n' +
                         'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + t + '\n';
                     var titulo = '              LISTA CIENCIA PARA BACHILLERATO UNDÉCIMO AÑO ' + new Date().getFullYear() +'\n';
-                    $scope.generatePDF('Lista ciencia para bachillerato undécimo', encabezado,titulo,columns, data, 95);
+                    if(data2.length > 1) {
+                        $scope.generatePDF('Lista ciencia para bachillerato undécimo', encabezado, titulo, columns, data, 95);
+                    }
                 });
             }
             else if(reporte.val === 4){
@@ -1078,14 +1089,17 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         'Instituto Tecnológico de Costa Rica, Sede Regional San Carlos\n' +
                         'Telefax: 2475-7089,Tel: 2401-3122\n';
                     var titulo = '';
-                    $scope.generatePDF('Lista correos décimo', encabezado,titulo,columns, data, 70);
+                    if(data.length > 1) {
+                        $scope.generatePDF('Lista correos décimo', encabezado, titulo, columns, data, 70);
+                    }
                     h, t, m = 0;
                 });
-                var estudiantes_undecimo = Undecimo.query().$promise.then;
+                var data2 = [];
+                var estudiantes_undecimo = Undecimo.query();
                 estudiantes_undecimo.$promise.then(function(estudiantes){
                     angular.forEach(estudiantes, function(estudiante_undecimo){
                         if((estudiante_undecimo.admitido) && (!estudiante_undecimo.traladado)) {
-                            data.push({'ced':estudiante_undecimo.nacionalidad, 'nom':estudiante_undecimo.segundo_apellido + estudiante_undecimo.primer_apellido + estudiante_undecimo.name, 'mail': estudiante_undecimo.correo});
+                            data2.push({'ced':estudiante_undecimo.nacionalidad, 'nom':estudiante_undecimo.segundo_apellido + estudiante_undecimo.primer_apellido + estudiante_undecimo.name, 'mail': estudiante_undecimo.correo});
                         }
                     });
                     var encabezado =
@@ -1093,7 +1107,9 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         'Instituto Tecnológico de Costa Rica, Sede Regional San Carlos\n' +
                         'Telefax: 2475-7089,Tel: 2401-3122\n';
                     var titulo = '';
-                    $scope.generatePDF('Lista correos undécimo', encabezado,titulo,columns,data, 70);
+                    if(data2.length > 1) {
+                        $scope.generatePDF('Lista correos undécimo', encabezado, titulo, columns, data2, 70);
+                    }
                 });
             }
             else if(reporte.val === 5){
