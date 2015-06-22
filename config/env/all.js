@@ -32,7 +32,8 @@ module.exports = {
                 'public/lib/ng-file-upload/angular-file-upload.min.js',
                 'public/lib/ng-grid/ng-grid-2.0.14.min.js',
                 'public/lib/jspdf/dist/jspdf.min.js',
-                'public/lib/jspdf-autotable/jspdf.plugin.autotable.js'
+                'public/lib/jspdf-autotable/jspdf.plugin.autotable.js',
+                'public/lib/angular-base64/angular-base64.min.js'
 			]
 		},
 		css: [
