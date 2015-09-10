@@ -3,23 +3,23 @@
         <h1>Insertar un nuevo estudiante</h1>
     </div>
     <!--action="http://localhost:3000/upload" method="post" enctype="multipart/form-data"-->
-    <div class="col-md-12">
+    <div class="col-md-8">
         <form class="form-horizontal" data-ng-submit="create()">
             <fieldset>
                 <div class="form-group">
-                    <div class="form-group col-sm-4">
+                    <div class="form-group col-xs-4">
                         <label class="control-label" for="name">Nombre del estudiante</label>
                         <div class="controls ">
                             <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Nombre" required>
                         </div>
                     </div>
-                    <div class="form-group col-sm-4">
+                    <div class="form-group col-xs-4">
                         <label class="control-label" for="name">Primer Apellido</label>
                         <div class="controls">
                             <input type="text" data-ng-model="primer_apellido" id="primer_apellido" class="form-control" placeholder="Primer apellido" required>
                         </div>
                     </div>
-                    <div class="form-group col-sm-4">
+                    <div class="form-group col-xs-4">
                         <label class="control-label" for="name">Segundo Apellido</label>
                         <div class="controls">
                             <input type="text" data-ng-model="segundo_apellido" id="segundo_apellido" class="form-control" placeholder="Segundo apellido" required>
@@ -43,42 +43,55 @@
                             <option value=0>Femenino</option>
                         </select>-->
                     </div>
-                    <label class="control-label" for="name">Telefono Hogar</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="telefono_casa" id="telefono_casa" class="form-control" placeholder="Telefono Hogar" pattern="[0-9]{4}-[0-9]{4}" title="Formato: 0000-0000" required>
+                    <div class="form-group col-lg-6">
+                        <label class="control-label" for="name">Telefono Hogar</label>
+                        <div class="controls">
+                            <input type="text" data-ng-model="telefono_casa" id="telefono_casa" class="form-control" placeholder="Telefono Hogar" pattern="[0-9]{4}-[0-9]{4}" title="Formato: 0000-0000" required>
+                        </div>
                     </div>
-                    <label class="control-label" for="name">Celular</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="celular" id="celular" class="form-control" placeholder="Celular" pattern="[0-9]{4}-[0-9]{4}" title="Formato: 0000-0000" required>
+                    <div class="form-group col-xs-6">
+                        <label class="control-label" for="name">Celular</label>
+                        <div class="controls">
+                            <input type="text" data-ng-model="celular" id="celular" class="form-control" placeholder="Celular" pattern="[0-9]{4}-[0-9]{4}" title="Formato: 0000-0000" required>
+                        </div>
                     </div>
                     <label class="control-label" for="name">Correo electronico</label>
                     <div class="controls">
                         <input type="email" data-ng-model="correo" id="correo" class="form-control" placeholder="Correo" required>
                     </div>
-                    <label class="control-label" for="name">Provincia</label>
-                    <div class="controls">
-                        <select class="form-control" data-ng-model="provincia" id="provincia" ng-change="provincia_change()"
-                                ng-options="opt as opt.nombre for opt in options">
-                        </select>
-                        <!--<input type="text" data-ng-model="provincia" id="provincia" class="form-control" placeholder="Provincia" required>-->
+
+                    <div class="form-group col-xs-3">
+                        <label class="control-label" for="name">Provincia</label>
+                        <div class="controls">
+                            <select class="form-control" data-ng-model="provincia" id="provincia" ng-change="provincia_change()"
+                                    ng-options="opt as opt.nombre for opt in options">
+                            </select>
+                            <!--<input type="text" data-ng-model="provincia" id="provincia" class="form-control" placeholder="Provincia" required>-->
+                        </div>
                     </div>
-                    <label class="control-label" for="name">Cantón</label>
-                    <div class="controls">
-                        <select class="form-control" data-ng-model="canton" id="canton" ng-disabled="!provincia" ng-change="canton_change()"
-                                ng-options="opt as opt.nombre for opt in provincia.cantones">
-                        </select>
-                        <!--<input type="text" data-ng-model="canton" id="canton" class="form-control" placeholder="Cantón" required>-->
+                    <div class="form-group col-xs-3">
+                        <label class="control-label" for="name">Cantón</label>
+                        <div class="controls">
+                            <select class="form-control" data-ng-model="canton" id="canton" ng-disabled="!provincia" ng-change="canton_change()"
+                                    ng-options="opt as opt.nombre for opt in provincia.cantones">
+                            </select>
+                            <!--<input type="text" data-ng-model="canton" id="canton" class="form-control" placeholder="Cantón" required>-->
+                        </div>
                     </div>
-                    <label class="control-label" for="name">Distrito</label>
-                    <div class="controls">
-                        <select class="form-control" data-ng-model="distrito" id="distrito" ng-disabled="!canton"
-                                ng-options="opt as opt.nombre for opt in canton.distritos">
-                        </select>
-                        <!--<input type="text" data-ng-model="distrito" id="distrito" class="form-control" placeholder="Distrito" required>-->
+                    <div class="form-group col-xs-3">
+                        <label class="control-label" for="name">Distrito</label>
+                        <div class="controls">
+                            <select class="form-control" data-ng-model="distrito" id="distrito" ng-disabled="!canton"
+                                    ng-options="opt as opt.nombre for opt in canton.distritos">
+                            </select>
+                            <!--<input type="text" data-ng-model="distrito" id="distrito" class="form-control" placeholder="Distrito" required>-->
+                        </div>
                     </div>
-                    <label class="control-label" for="name">Barrio</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="barrio" id="barrio" class="form-control" placeholder="Barrio" required>
+                    <div class="form-group col-xs-4">
+                        <label class="control-label" for="name">Barrio</label>
+                        <div class="controls">
+                            <input type="text" data-ng-model="barrio" id="barrio" class="form-control" placeholder="Barrio" required>
+                        </div>
                     </div>
                     <label class="control-label" for="name">Dirección exacta</label>
                     <div class="controls">
@@ -108,6 +121,8 @@
                        <label class="control-label" for="name">Foto del estudiante</label>
                        <input name="filefield" type="file" ng-file-select ng-file-change="onFileSelect($files)">
                     </div>
+
+
                     <div class="controls">
                         <label class="control-label" for="name">Notas de septimo</label>
                         <div class="gridStyle" ng-grid="gridOptionsS"></div>
