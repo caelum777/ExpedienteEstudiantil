@@ -9,6 +9,12 @@
             </select>
         </div>
         <br/>
+        <div class="alert alert-danger" id = "notEnoughStudentsError" role="alert" ng-show="errorDisplayed">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            No existen suficientes estudiantes para generar el reporte
+        </div>
+        <br/>
         <br/>
         <div>
             <input type="text" data-ng-model="ced_estudiante" id="ced" class="form-control" placeholder="Cédula de estudiante" title="Formato: 0-0000-0000" pattern="[0-9]{1}-[0-9]{4}-[0-9]{4}" ng-show="visibl" required>

@@ -208,7 +208,6 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     // Clear form fields
                 }, function(errorResponse) {
                     $scope.error = errorResponse.data.message;
-                    //alert($scope.error);
                 });
             }
 		};
@@ -652,7 +651,6 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 };
             }
             else{
-                console.log('random');
                 $scope.gridOptionsList = {
                     data: 'estudiantes',
                     enableCellSelection: true,
@@ -865,6 +863,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         $scope.reporte = $scope.lista_reportes[0];
         $scope.ced_estudiante = '';
         $scope.visibl = false;
+        $scope.errorDisplayed = false;
 
         $scope.$watch('ced_estudiante', function(ced_estudiante){
             if(ced_estudiante.length === 11){
@@ -887,6 +886,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             var estudiantes_undecimo = [];
             if(reporte.val === 1){
                 $scope.visibl = false;
+                $scope.errorDisplayed = false;
                 $scope.show = true;
                 columns = [
                     {title: 'Cédula', key: 'ced'},
@@ -925,7 +925,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista de ausencias décimo', encabezado, titulo, columns, data, 130, false);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
 
                     h = 0;
@@ -961,12 +961,13 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista de ausencias undécimo', encabezado, titulo, columns, data2, 130, false);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
 
                 });
             }
             else if(reporte.val === 2){
+                $scope.errorDisplayed = false;
                 $scope.visibl = false;
                 $scope.show = true;
                 columns = [
@@ -1005,7 +1006,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista cedula carne y apellidos undécimo', encabezado, titulo, columns, data, 70, false);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
 
                     h = 0;
@@ -1038,11 +1039,12 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista cedula carne y apellidos undécimo', encabezado, titulo, columns, data2, 70, false);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
                 });
             }
             else if(reporte.val === 3){
+                $scope.errorDisplayed = false;
                 $scope.visibl = false;
                 $scope.show = true;
                 columns = [
@@ -1078,7 +1080,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista ciencia para bachillerato décimo', encabezado, titulo, columns, data, 95, false);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
 
                     h = 0;
@@ -1112,11 +1114,12 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista ciencia para bachillerato undécimo', encabezado, titulo, columns, data, 95, false);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
                 });
             }
             else if(reporte.val === 4){
+                $scope.errorDisplayed = false;
                 $scope.visibl = false;
                 $scope.show = true;
                 columns = [
@@ -1141,7 +1144,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista correos décimo', encabezado, titulo, columns, data, 70, false);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
                 });
                 data2 = [];
@@ -1161,11 +1164,12 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista correos undécimo', encabezado, titulo, columns, data2, 70, false);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
                 });
             }
             else if(reporte.val === 5){
+                $scope.errorDisplayed = false;
                 $scope.visibl = false;
                 $scope.show = true;
                 columns = [
@@ -1202,11 +1206,12 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Escogencia de ciencia bachierato', encabezado, titulo, columns, data, 165, false);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
                 });
             }
             else if(reporte.val === 6){
+                $scope.errorDisplayed = false;
                 $scope.visibl = false;
                 $scope.show = true;
                 columns = [
@@ -1253,7 +1258,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista para la biblioteca décimo', encabezado, titulo, columns, data, 95 , false);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
                 });
                 estudiantes_undecimo = Undecimo.query();
@@ -1291,11 +1296,12 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista para la biblioteca undécimo', encabezado, titulo, columns, data, 95, false);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
                 });
             }
             else if(reporte.val === 7){
+                $scope.errorDisplayed = false;
                 $scope.visibl = false;
                 $scope.show = true;
                 columns = [
@@ -1333,7 +1339,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista participación olimpiadas décimo', encabezado, titulo, columns, data, 165, false);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
                 });
                 estudiantes_undecimo = Undecimo.query();
@@ -1365,11 +1371,12 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista participación olimpiadas undécimo', encabezado, titulo, columns, data, 165, false);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
                 });
             }
             else if(reporte.val === 8){
+                $scope.errorDisplayed = false;
                 $scope.visibl = true;
                 $scope.show = false;
             }
@@ -1420,7 +1427,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista de ausencias décimo', encabezado, titulo, columns, data, 130, true);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
 
                     h = 0;
@@ -1456,7 +1463,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista de ausencias undécimo', encabezado, titulo, columns, data2, 130, true);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
 
                 });
@@ -1498,7 +1505,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista cedula carne y apellidos undécimo', encabezado, titulo, columns, data, 70, true);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
 
                     h = 0;
@@ -1531,7 +1538,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista cedula carne y apellidos undécimo', encabezado, titulo, columns, data2, 70, true);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
                 });
             }
@@ -1569,7 +1576,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista ciencia para bachillerato décimo', encabezado, titulo, columns, data, 95, true);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
 
                     h = 0;
@@ -1603,7 +1610,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista ciencia para bachillerato undécimo', encabezado, titulo, columns, data, 95, true);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
                 });
             }
@@ -1630,7 +1637,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista correos décimo', encabezado, titulo, columns, data, 70, true);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
                 });
                 data2 = [];
@@ -1650,7 +1657,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista correos undécimo', encabezado, titulo, columns, data2, 70, true);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
                 });
             }
@@ -1689,7 +1696,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Escogencia de ciencia bachierato', encabezado, titulo, columns, data, 165, true);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
                 });
             }
@@ -1738,7 +1745,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista para la biblioteca décimo', encabezado, titulo, columns, data, 95 , true);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
                 });
                 estudiantes_undecimo = Undecimo.query();
@@ -1776,7 +1783,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista para la biblioteca undécimo', encabezado, titulo, columns, data, 95, true);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
                 });
             }
@@ -1816,7 +1823,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista participación olimpiadas décimo', encabezado, titulo, columns, data, 165, true);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
                 });
                 estudiantes_undecimo = Undecimo.query();
@@ -1848,7 +1855,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         $scope.generatePDF('Lista participación olimpiadas undécimo', encabezado, titulo, columns, data, 165, true);
                     }
                     else{
-                        alert('No existen suficientes estudiantes para generar el reporte');
+                        $scope.errorDisplayed = true;
                     }
                 });
             }
