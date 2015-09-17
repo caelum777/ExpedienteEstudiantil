@@ -7,86 +7,73 @@
         <form class="form-horizontal" data-ng-submit="create()">
             <fieldset>
                 <div class="form-group">
-                    <div class="form-group col-sm-4">
-                        <label class="control-label" for="name">Nombre del estudiante</label>
-                        <div class="controls ">
-                            <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Nombre" required>
-                        </div>
+                    <label class="control-label" for="name">Nombre del estudiante</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Nombre" required>
                     </div>
-                    <div class="form-group col-sm-4">
-                        <label class="control-label" for="name">Primer Apellido</label>
-                        <div class="controls">
-                            <input type="text" data-ng-model="primer_apellido" id="primer_apellido" class="form-control" placeholder="Primer apellido" required>
-                        </div>
+                    <div class="controls">
+                        <input type="text" data-ng-model="primer_apellido" id="primer_apellido" class="form-control" placeholder="Primer apellido" required>
                     </div>
-                    <div class="form-group col-sm-4">
-                        <label class="control-label" for="name">Segundo Apellido</label>
-                        <div class="controls">
-                            <input type="text" data-ng-model="segundo_apellido" id="segundo_apellido" class="form-control" placeholder="Segundo apellido" required>
-                        </div>
+                    <div class="controls">
+                        <input type="text" data-ng-model="segundo_apellido" id="segundo_apellido" class="form-control" placeholder="Segundo apellido" required>
                     </div>
                     <label class="control-label" for="name">Fecha de nacimiento</label>
                     <div class="controls">
-                        <input type="date" data-ng-model="fecha_de_nacimiento" id="fecha_de_nacimiento" class="form-control"  pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" title="Formato: dd-mm-yyyy" placeholder="Fecha de nacimiento" required>
+                        <input type="date" data-ng-model="fecha_de_nacimiento" id="fecha_de_nacimiento"  class="form-control"required >
                     </div>
                     <label class="control-label" for="name">Cédula o número de pasaporte</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="nacionalidad" id="nacionalidad" class="form-control" placeholder="Cédula o numero de pasaporte" title="Formato: 0-0000-0000" pattern="[0-9]{1}-[0-9]{4}-[0-9]{4}" required>
+                        <input type="text" data-ng-model="nacionalidad" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                               id="nacionalidad" class="form-control"required>
                     </div>
                     <label class="control-label" for="name">Sexo</label>
                     <div class="controls">
                         <select class="form-control" data-ng-model="sexo" id="sexo"
-                                ng-options="opt as opt.nombre for opt in sexos">
+                                ng-options="opt as opt.nombre for opt in sexos" >
                         </select>
-                        <!--<select class="form-control" data-ng-model="sexo" id="sexo">
-                            <option value=1 selected>Masculino</option>
-                            <option value=0>Femenino</option>
-                        </select>-->
                     </div>
-                    <label class="control-label" for="name">Telefono Hogar</label>
+                    <label class="control-label" for="name">Teléfonos</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="telefono_casa" id="telefono_casa" class="form-control" placeholder="Telefono Hogar" pattern="[0-9]{4}-[0-9]{4}" title="Formato: 0000-0000" required>
+                        <input type="text" ng-minlength="8" maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                               data-ng-model="telefono_casa" id="telefono_casa" class="form-control" placeholder="Tel. Hogar"  required>
                     </div>
-                    <label class="control-label" for="name">Celular</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="celular" id="celular" class="form-control" placeholder="Celular" pattern="[0-9]{4}-[0-9]{4}" title="Formato: 0000-0000" required>
+                        <input type="text" ng-minlength="8" maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                               data-ng-model="celular" id="celular" class="form-control" placeholder="Celular" required>
                     </div>
-                    <label class="control-label" for="name">Correo electronico</label>
+                    <label class="control-label" for="name">Correo electrónico</label>
                     <div class="controls">
-                        <input type="email" data-ng-model="correo" id="correo" class="form-control" placeholder="Correo" required>
+                        <input type="email" data-ng-model="correo" id="correo" class="form-control"required>
                     </div>
                     <label class="control-label" for="name">Provincia</label>
                     <div class="controls">
                         <select class="form-control" data-ng-model="provincia" id="provincia" ng-change="provincia_change()"
                                 ng-options="opt as opt.nombre for opt in options">
                         </select>
-                        <!--<input type="text" data-ng-model="provincia" id="provincia" class="form-control" placeholder="Provincia" required>-->
                     </div>
                     <label class="control-label" for="name">Cantón</label>
                     <div class="controls">
                         <select class="form-control" data-ng-model="canton" id="canton" ng-disabled="!provincia" ng-change="canton_change()"
                                 ng-options="opt as opt.nombre for opt in provincia.cantones">
                         </select>
-                        <!--<input type="text" data-ng-model="canton" id="canton" class="form-control" placeholder="Cantón" required>-->
                     </div>
                     <label class="control-label" for="name">Distrito</label>
                     <div class="controls">
                         <select class="form-control" data-ng-model="distrito" id="distrito" ng-disabled="!canton"
                                 ng-options="opt as opt.nombre for opt in canton.distritos">
                         </select>
-                        <!--<input type="text" data-ng-model="distrito" id="distrito" class="form-control" placeholder="Distrito" required>-->
                     </div>
                     <label class="control-label" for="name">Barrio</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="barrio" id="barrio" class="form-control" placeholder="Barrio" required>
+                        <input type="text" data-ng-model="barrio" id="barrio" class="form-control" required>
                     </div>
                     <label class="control-label" for="name">Dirección exacta</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="direccion_exacta" id="direccion_exacta" class="form-control" placeholder="Dirección exacta" required>
+                        <input type="text" data-ng-model="direccion_exacta" id="direccion_exacta" class="form-control" required>
                     </div>
                     <label class="control-label" for="name">Colegio de procedencia</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="colegio_procedencia" id="colegio_procedencia" class="form-control" placeholder="Colegio de procedencia" required>
+                        <input type="text" data-ng-model="colegio_procedencia" id="colegio_procedencia" class="form-control" required>
                     </div>
                     <label class="control-label" for="name">Adecuación significativa</label>
                     <div class="controls">
@@ -102,7 +89,8 @@
                     </div>
                     <div class="controls">
                         <label class="control-label" for="name">Generación</label>
-                        <input type="text" data-ng-model="generacion" id="generacion" class="form-control" placeholder="Generación" pattern="[0-9]{4}" title="Formato: 0000" required>
+                        <input type="text" ng-minlength="4"  maxlength="4"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' data-ng-model="generacion" id="generacion"
+                               class="form-control" required>
                     </div>
                     <div class="controls">
                        <label class="control-label" for="name">Foto del estudiante</label>
@@ -128,10 +116,9 @@
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <span class="sr-only"></span>
                 </div>
-				<!--<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>-->
             </fieldset>
         </form>
     </div>
+
+
 </section>

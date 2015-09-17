@@ -8,23 +8,21 @@
                 <div class="form-group">
                     <label class="control-label" for="name">Nombre del estudiante</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="estudiante.name" id="name" class="form-control" placeholder="Name" required>
+                        <input type="text" data-ng-model="estudiante.name" id="name" class="form-control" placeholder="Nombre" required>
                     </div>
-                    <label class="control-label" for="name">Primer Apellido</label>
-                    <div class="controls">
                         <input type="text" data-ng-model="estudiante.primer_apellido" id="primer_apellido" class="form-control" placeholder="Primer apellido" required>
                     </div>
-                    <label class="control-label" for="name">Segundo Apellido</label>
                     <div class="controls">
                         <input type="text" data-ng-model="estudiante.segundo_apellido" id="segundo_apellido" class="form-control" placeholder="Segundo apellido" required>
                     </div>
                     <label class="control-label" for="name">Fecha de nacimiento</label>
                     <div class="controls">
-                        <input type="date" data-ng-model="estudiante.fecha_de_nacimiento" id="fecha_de_nacimiento" class="form-control" placeholder="Fecha de nacimiento" required>
+                        <input type="date" data-ng-model="estudiante.fecha_de_nacimiento" id="fecha_de_nacimiento" class="form-control" required>
                     </div>
                     <label class="control-label" for="name">Cédula o número de pasaporte</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="estudiante.nacionalidad" id="nacionalidad" class="form-control" placeholder="Cédula o numero de pasaporte" title="Formato: 0-0000-0000" pattern="[0-9]{1}-[0-9]{4}-[0-9]{4}" required>
+                        <input type="text" data-ng-model="estudiante.nacionalidad" id="nacionalidad" class="form-control"
+                               onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
                     </div>
                     <label class="control-label" for="name">Sexo</label>
                     <div class="controls">
@@ -32,13 +30,14 @@
                                 ng-options="opt as opt.nombre for opt in sexos">
                         </select>
                     </div>
-                    <label class="control-label" for="name">Telefono Hogar</label>
+                    <label class="control-label" for="name">Teléfonos</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="estudiante.telefono_casa" id="telefono_casa" class="form-control" placeholder="Telefono Hogar" pattern="[0-9]{4}-[0-9]{4}" title="Formato: 0000-0000" required>
+                        <input type="text" data-ng-model="estudiante.telefono_casa" id="telefono_casa" class="form-control" placeholder="Tel. Hogar"
+                               ng-minlength="8" maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
                     </div>
-                    <label class="control-label" for="name">Celular</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="estudiante.celular" id="celular" class="form-control" placeholder="Celular" pattern="[0-9]{4}-[0-9]{4}" title="Formato: 0000-0000" required>
+                        <input type="text" data-ng-model="estudiante.celular" id="celular" class="form-control" placeholder="Celular"
+                               ng-minlength="8" maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
                     </div>
                     <label class="control-label" for="name">Correo electronico</label>
                     <div class="controls">
@@ -103,7 +102,6 @@
                         <label class="control-label" for="name">Notas de noveno</label>
                         <div class="gridStyle" ng-grid="gridOptionsN"></div>
                     </div>
-                </div>
                 <div class="form-group">
                     <input type="submit" value="Editar estudiante" class="btn btn-default">
                 </div>

@@ -22,3 +22,14 @@
     border: 1px solid rgb(212,212,212);
     height: 248px;
 }
+
+.green {
+	background-color: green;
+	color: white;
+}
+
+.red {
+	background-color: red;
+	color: white;
+}
+
