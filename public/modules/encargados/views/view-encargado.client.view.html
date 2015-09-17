@@ -1,6 +1,6 @@
 <section data-ng-controller="EncargadosController" data-ng-init="findOne()">
 	<div class="page-header">
-		<h1>{{encargado.name}}</h1>
+		<h1>{{encargado.name}} {{encargado.primer_apellido}} {{encargado.segundo_apellido}}</h1>
 	</div>
     <div class="pull-right" data-ng-show="(authentication.user)">
         <a class="btn btn-primary" href="/#!/encargados/{{idEstudianteUrl}}/{{cedulaEstudianteUrl}}/{{encargado._id}}/edit">
@@ -11,8 +11,6 @@
         </a>
     </div>
     <div>
-        <h4 class="list-group-item-heading">{{'Primer apellido: '+encargado.primer_apellido}}</h4>
-        <h4 class="list-group-item-heading">{{'Segundo apellido: '+encargado.segundo_apellido}}</h4>
         <h4 class="list-group-item-heading">{{'Cédula: '+encargado.cedula}}</h4>
         <h4 class="list-group-item-heading">{{'Ocupación: '+encargado.ocupacion}}</h4>
         <h4 class="list-group-item-heading">{{'Estado Civil: '+encargado.estado_civil}}</h4>
