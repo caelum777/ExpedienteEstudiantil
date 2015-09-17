@@ -5,9 +5,7 @@
     <div class="list-group">
         <a data-ng-repeat="logrosAcademico in logrosAcademicosE" data-ng-href="#!/logros-academicos/{{estudianteID}}/{{logrosAcademicos.estudiante}}/{{logrosAcademico._id}}" class="list-group-item">
 			<small class="list-group-item-text">
-				Posted on
 				<span data-ng-bind="logrosAcademico.created | date:'medium'"></span>
-				by
 				<span data-ng-bind="logrosAcademico.user.displayName"></span>
 			</small>
 			<h4 class="list-group-item-heading" data-ng-bind="logrosAcademico.name"></h4>
