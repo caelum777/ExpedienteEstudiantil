@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/expedienteestudiantil-dev',
+	db: 'mongodb://172.24.28.21:27017/expedienteestudiantil-dev',
 	app: {
 		title: 'ExpedienteEstudiantil - Development Environment'
 	},
