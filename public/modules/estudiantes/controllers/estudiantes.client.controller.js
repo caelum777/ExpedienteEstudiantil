@@ -535,6 +535,8 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 {curso: 'Promedio', nota: 0, semestre: 2}];
             $scope.initGridOptions();
         };
+        var myTemplate = '<input type="number" ng-class="\'colt\' + col.index" ng-input="COL_FIELD" ng-model="COL_FIELD" ng-maxlength=\"5\" />';
+
         $scope.initGridOptions = function(){
             $scope.gridOptionsS = {
                 data: 'notas_septimo',

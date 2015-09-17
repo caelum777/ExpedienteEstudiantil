@@ -14,8 +14,9 @@
     <div>
         <div class="gridStyleList" ng-grid="gridOptionsList"></div>
     </div>
+    <br>
     <div>
-        <input type="submit" value="Matricular estudiantes" class="btn btn-default" ng-click="matricular()">
+        <input type="submit" value="Matricular estudiantes" class="btn btn-primary full-width" ng-click="matricular()">
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!estudiantes.$resolved || estudiantes.length">
     	No hay estudiantes insertados puede crear uno <a href="/#!/estudiantes/create"> aquí</a>?
