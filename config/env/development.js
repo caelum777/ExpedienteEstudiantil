@@ -3,7 +3,7 @@
 module.exports = {
 	db: 'mongodb://172.24.28.21:27017/expedienteestudiantil-dev',
 	app: {
-		title: 'ExpedienteEstudiantil - Development Environment'
+		title: 'Expediente Estudiantil - Development Environment'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',
