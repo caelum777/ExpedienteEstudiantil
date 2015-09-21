@@ -5,7 +5,7 @@ module.exports = {
 	//db: 'mongodb://localhost/expedienteestudiantil-dev',
 
 	app: {
-		title: 'ExpedienteEstudiantil - Development Environment'
+		title: 'Expediente Estudiantil - Development Environment'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',

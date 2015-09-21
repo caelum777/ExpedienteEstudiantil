@@ -4,7 +4,7 @@ module.exports = {
 	db: 'mongodb://admin:DeezNuts77@ds031832.mongolab.com:31832/expedienteestudiantil-test',
 	port: 3001,
 	app: {
-		title: 'ExpedienteEstudiantil - Test Environment'
+		title: 'Expediente Estudiantil - Test Environment'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',
