@@ -5,27 +5,49 @@
         </div>
         <div class="controls">
             <label class="control-label">Certificado de nacimiento</label>
-            <input name="filefield" type="file" ng-file-select ng-file-change="on_select_cer_nacimiento($files)">
+            <div></div>
+            <!--<input name="filefield" type="file" ng-file-select ng-file-change="on_select_cer_nacimiento($files)">-->
+            <span class="btn btn-default btn-file">
+                Seleccionar archivo <input name="filefield" type="file" ng-file-select ng-file-change="on_select_cer_nacimiento($files)">
+            </span>
+            <div></div>
+            <br>
             <img ng-src="{{estudiante.certificacion_nacimiento}}" height="200px"/>
         </div>
         <div class="controls">
             <label class="control-label">Certificación de notas</label>
-            <input name="filefield" type="file" ng-file-select ng-file-change="on_select_cer_notas($files)">
+            <div></div>
+            <span class="btn btn-default btn-file">
+                Seleccionar archivo <input name="filefield" type="file" ng-file-select ng-file-change="on_select_cer_notas($files)">
+            </span>
+            <div></div>
+            <br>
             <img ng-src="{{estudiante.certificacion_notas}}" height="200px"/>
         </div>
         <div class="controls">
             <label class="control-label">Copia de la tarjeta del informe al hogar</label>
-            <input name="filefield" type="file" ng-file-select ng-file-change="on_select_infor_hogar($files)">
+            <div></div>
+            <span class="btn btn-default btn-file">
+                Seleccionar archivo <input name="filefield" type="file" ng-file-select ng-file-change="on_select_infor_hogar($files)">
+            </span>
+            <div></div>
+            <br>
             <img ng-src="{{estudiante.informe_hogar}}" height="200px"/>
         </div>
         <div class="controls">
             <label class="control-label">Copia tarjeta de vacunas</label>
-            <input name="filefield" type="file" ng-file-select ng-file-change="on_select_tarje_vacunas($files)">
+            <div></div>
+            <span class="btn btn-default btn-file">
+                Seleccionar archivo <input name="filefield" type="file" ng-file-select ng-file-change="on_select_tarje_vacunas($files)">
+            </span>
+            <div></div>
+            <br>
             <img ng-src="{{estudiante.tarjeta_vacunas}}" height="200px"/>
         </div>
 
-        <div>
-            <input type="submit" value="Subir Archivos" class="btn btn-default" ng-click="subir_archivos()">
+
+        <div class="form-group">
+            <input type="submit" value="Subir Archivos" class="btn btn-primary align-field-barrio" ng-click="subir_archivos()">
         </div>
     </form>
 </section>

@@ -1,26 +1,26 @@
 <section data-ng-controller="LogrosAcademicosController" data-ng-init="findOne()">
     <div class="page-header">
-        <h1>Edit Logros academico</h1>
+        <h1>Editar logro académico</h1>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12 center-div">
         <form class="form-horizontal" data-ng-submit="update()" novalidate>
             <fieldset>
                 <div class="form-group">
                     <label class="control-label" for="name">Nombre</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="logrosAcademico.name" id="name" class="form-control" placeholder="Feria científica" required>
+                        <input type="text" data-ng-model="logrosAcademico.name" id="name" class="form-control align-field-barrio" placeholder="Feria científica" required>
                     </div>
                     <label class="control-label" for="name">Descripción</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="logrosAcademico.descripcion" id="name" class="form-control" placeholder="Participación en la feria científica a nivel nacional" required>
+                        <input type="text" data-ng-model="logrosAcademico.descripcion" id="name" class="form-control align-field-barrio" placeholder="Participación en la feria científica a nivel nacional" required>
                     </div>
                     <label class="control-label" for="name">Premio</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="logrosAcademico.premio" id="name" class="form-control" placeholder="Medalla de oro" required>
+                        <input type="text" data-ng-model="logrosAcademico.premio" id="name" class="form-control align-field-barrio" placeholder="Medalla de oro" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Update" class="btn btn-default">
+                    <input type="submit" value="Update" class="btn btn-primary align-field-barrio">
                 </div>
 				<div data-ng-show="error" class="text-danger">
 					<strong data-ng-bind="error"></strong>

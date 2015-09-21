@@ -1,0 +1,46 @@
+.center-div {
+    width: 50%;
+    height: 65%;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.no-margin-bottom{
+    margin-bottom: 0px;
+}
+
+.full-width{
+    width: 100%;
+}
+
+.align-field{
+    width: 87%
+}
+
+.align-field-barrio{
+    width: 71%
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}

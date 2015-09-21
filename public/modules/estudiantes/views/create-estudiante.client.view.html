@@ -1,116 +1,142 @@
 <section data-ng-controller="EstudiantesController" data-ng-init="initNotas()">
     <div class="page-header">
-        <h1>Insertar un nuevo estudiante</h1>
+        <h1>Agregar expediente</h1>
     </div>
-    <!--action="http://localhost:3000/upload" method="post" enctype="multipart/form-data"-->
-    <div class="col-md-12">
+    <div class="col-xs-12 center-div">
         <form class="form-horizontal" data-ng-submit="create()">
             <fieldset>
                 <div class="form-group">
-                    <label class="control-label" for="name">Nombre del estudiante</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Nombre" required>
+                    <div class="form-group col-xs-4 no-margin-bottom">
+                        <label class="control-label" for="name">Nombre del estudiante</label>
+                        <div class="controls ">
+                            <input type="text" data-ng-model="name" id="name" class="form-control align-field" placeholder="Nombre" required>
+                        </div>
                     </div>
-                    <div class="controls">
-                        <input type="text" data-ng-model="primer_apellido" id="primer_apellido" class="form-control" placeholder="Primer apellido" required>
+                    <div class="form-group col-xs-4 no-margin-bottom">
+                        <div class="controls">
+                            <input type="text" data-ng-model="primer_apellido" id="primer_apellido" class="form-control align-field" placeholder="Primer apellido" required>
+                        </div>
                     </div>
-                    <div class="controls">
-                        <input type="text" data-ng-model="segundo_apellido" id="segundo_apellido" class="form-control" placeholder="Segundo apellido" required>
+                    <div class="form-group col-xs-4 no-margin-bottom">
+                        <div class="controls">
+                            <input type="text" data-ng-model="segundo_apellido" id="segundo_apellido" class="form-control  align-field" placeholder="Segundo apellido" required>
+                        </div>
                     </div>
-                    <label class="control-label" for="name">Fecha de nacimiento</label>
-                    <div class="controls">
-                        <input type="date" data-ng-model="fecha_de_nacimiento" id="fecha_de_nacimiento"  class="form-control"required >
+                    <div class="">
+                        <label class="control-label" for="name">Fecha de nacimiento</label>
+                        <div class="controls">
+                            <input type="date" data-ng-model="fecha_de_nacimiento" id="fecha_de_nacimiento"  class="form-control align-field"required >
+                        </div>
                     </div>
                     <label class="control-label" for="name">Cédula o número de pasaporte</label>
                     <div class="controls">
                         <input type="text" data-ng-model="nacionalidad" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                               id="nacionalidad" class="form-control"required>
+                               id="nacionalidad" class="form-control align-field"required>
                     </div>
                     <label class="control-label" for="name">Sexo</label>
                     <div class="controls">
-                        <select class="form-control" data-ng-model="sexo" id="sexo"
-                                ng-options="opt as opt.nombre for opt in sexos" >
+                        <select class="form-control align-field" data-ng-model="sexo" id="sexo"
+                                ng-options="opt as opt.nombre for opt in sexos">
                         </select>
                     </div>
-                    <label class="control-label" for="name">Teléfonos</label>
                     <div class="controls">
-                        <input type="text" ng-minlength="8" maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                               data-ng-model="telefono_casa" id="telefono_casa" class="form-control" placeholder="Tel. Hogar"  required>
-                    </div>
-                    <div class="controls">
-                        <input type="text" ng-minlength="8" maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                               data-ng-model="celular" id="celular" class="form-control" placeholder="Celular" required>
+                        <label class="control-label" for="name">Teléfonos</label>
+                        <div class="form-group col-xs-6 no-margin-bottom">
+                            <div class="controls">
+                            <input type="text" ng-minlength="8" maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                           data-ng-model="telefono_casa" id="telefono_casa" class="form-control align-field" placeholder="Tel. Hogar"  required>
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-6 no-margin-bottom">
+                            <div class="controls">
+                                <input type="text" ng-minlength="8" maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                               data-ng-model="celular" id="celular" class="form-control align-field" placeholder="Celular" required>
+                            </div>
+                        </div>
                     </div>
                     <label class="control-label" for="name">Correo electrónico</label>
                     <div class="controls">
-                        <input type="email" data-ng-model="correo" id="correo" class="form-control"required>
+                        <input type="email" data-ng-model="correo" id="correo" class="form-control align-field" required>
                     </div>
-                    <label class="control-label" for="name">Provincia</label>
-                    <div class="controls">
-                        <select class="form-control" data-ng-model="provincia" id="provincia" ng-change="provincia_change()"
-                                ng-options="opt as opt.nombre for opt in options">
-                        </select>
+                    <div class="form-group col-xs-3 no-margin-bottom">
+                        <label class="control-label" for="name">Provincia</label>
+                        <div class="controls">
+                            <select class="form-control align-field" data-ng-model="provincia" id="provincia" ng-change="provincia_change()"
+                                    ng-options="opt as opt.nombre for opt in options">
+                            </select>
+                        </div>
                     </div>
-                    <label class="control-label" for="name">Cantón</label>
-                    <div class="controls">
-                        <select class="form-control" data-ng-model="canton" id="canton" ng-disabled="!provincia" ng-change="canton_change()"
-                                ng-options="opt as opt.nombre for opt in provincia.cantones">
-                        </select>
+                    <div class="form-group col-xs-3 no-margin-bottom">
+                        <label class="control-label" for="name">Cantón</label>
+                        <div class="controls">
+                            <select class="form-control align-field" data-ng-model="canton" id="canton" ng-disabled="!provincia" ng-change="canton_change()"
+                                    ng-options="opt as opt.nombre for opt in provincia.cantones">
+                            </select>
+                        </div>
                     </div>
-                    <label class="control-label" for="name">Distrito</label>
-                    <div class="controls">
-                        <select class="form-control" data-ng-model="distrito" id="distrito" ng-disabled="!canton"
-                                ng-options="opt as opt.nombre for opt in canton.distritos">
-                        </select>
+                    <div class="form-group col-xs-3 no-margin-bottom">
+                        <label class="control-label" for="name">Distrito</label>
+                        <div class="controls">
+                            <select class="form-control align-field" data-ng-model="distrito" id="distrito" ng-disabled="!canton"
+                                    ng-options="opt as opt.nombre for opt in canton.distritos">
+                            </select>
+                        </div>
                     </div>
-                    <label class="control-label" for="name">Barrio</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="barrio" id="barrio" class="form-control" required>
+                    <div class="form-group col-xs-4 no-margin-bottom">
+                        <label class="control-label" for="name">Barrio</label>
+                        <div class="controls">
+                            <input type="text" data-ng-model="barrio" id="barrio" class="form-control align-field-barrio"required>
+                        </div>
                     </div>
-                    <label class="control-label" for="name">Dirección exacta</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="direccion_exacta" id="direccion_exacta" class="form-control" required>
+                    <div class = "">
+                        <label class="control-label" for="name">Dirección exacta</label>
+                        <div class="controls">
+                            <input type="text" data-ng-model="direccion_exacta" id="direccion_exacta" class="form-control align-field" required>
+                        </div>
                     </div>
                     <label class="control-label" for="name">Colegio de procedencia</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="colegio_procedencia" id="colegio_procedencia" class="form-control" required>
+                        <input type="text" data-ng-model="colegio_procedencia" id="colegio_procedencia" class="form-control align-field" required>
                     </div>
                     <label class="control-label" for="name">Adecuación significativa</label>
                     <div class="controls">
-                        <select class="form-control" data-ng-model="adSignificativa" id="adecuacion_significativa"
+                        <select class="form-control align-field" data-ng-model="adSignificativa" id="adecuacion_significativa"
                                 ng-options="opt as opt.nombre for opt in adecuaciones">
                         </select>
                     </div>
                     <label class="control-label" for="name">Adecuación no significativa</label>
                     <div class="controls">
-                        <select class="form-control" data-ng-model="adNoSignificativa" id="adecuacion_nsignificativa"
+                        <select class="form-control align-field" data-ng-model="adNoSignificativa" id="adecuacion_nsignificativa"
                                 ng-options="opt as opt.nombre for opt in adecuaciones">
                         </select>
                     </div>
                     <div class="controls">
                         <label class="control-label" for="name">Generación</label>
                         <input type="text" ng-minlength="4"  maxlength="4"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' data-ng-model="generacion" id="generacion"
-                               class="form-control" required>
+                               class="form-control align-field" required>
                     </div>
                     <div class="controls">
                        <label class="control-label" for="name">Foto del estudiante</label>
-                       <input name="filefield" type="file" ng-file-select ng-file-change="onFileSelect($files)">
                     </div>
-                    <div class="controls">
+                    <span class="btn btn-default btn-file">
+                        Seleccionar foto <input name="filefield" type="file" ng-file-select ng-file-change="onFileSelect($files)">
+                    </span>
+
+                    <div class="controls align-field">
                         <label class="control-label" for="name">Notas de septimo</label>
                         <div class="gridStyle" ng-grid="gridOptionsS"></div>
                     </div>
-                    <div class="controls">
+                    <div class="controls align-field">
                         <label class="control-label" for="name">Notas de octavo</label>
                         <div class="gridStyle" ng-grid="gridOptionsO"></div>
                     </div>
-                    <div class="controls">
+                    <div class="controls align-field">
                         <label class="control-label" for="name">Notas de noveno</label>
                         <div class="gridStyle" ng-grid="gridOptionsN"></div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Crear estudiante" class="btn btn-default">
+                    <input type="submit" value="Crear estudiante" class="btn btn-primary align-field">
                 </div>
                 <div data-ng-show="error" class="alert alert-danger" role="alert" data-ng-bind="error">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -119,6 +145,4 @@
             </fieldset>
         </form>
     </div>
-
-
 </section>

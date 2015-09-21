@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = function(grunt) {
+	grunt.loadNpmTasks('grunt-deploy');
 	// Unified Watch Object
 	var watchFiles = {
 		serverViews: ['app/views/**/*.*'],
@@ -10,9 +11,23 @@ module.exports = function(grunt) {
 		clientCSS: ['public/modules/**/*.css'],
 		mochaTests: ['app/tests/**/*.js']
 	};
-
 	// Project Configuration
 	grunt.initConfig({
+		deploy: {
+			liveservers: {
+				options:{
+					servers: [{
+						host: '172.24.28.21',
+						port: 22,
+						username: 'administrador',
+						password: 'icsscsistemas'
+					}],
+					cmds_before_deploy: [],
+					cmds_after_deploy: [],
+					deploy_path: '/opt/mean/'
+				}
+			}
+		},
 		pkg: grunt.file.readJSON('package.json'),
 		watch: {
 			serverViews: {
