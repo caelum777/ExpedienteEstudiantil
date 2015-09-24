@@ -88,6 +88,7 @@
 	color: #999999;
 }
 p {
+	text-align: center;
 	margin: 0 0 10px;
 }
 p {
@@ -104,7 +105,15 @@ p {
 }
 
 .text_type_04 {
+	text-align: center;
 	color: #818181;
 	font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
 	font-size: 2em;
+}
+
+.col-sm-6 {
+	width: 50%;
+}
+.col-sm-6-cemter{
+	text-align: center;
 }
