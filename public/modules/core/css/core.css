@@ -97,3 +97,14 @@ p {
 	-webkit-margin-start: 0px;
 	-webkit-margin-end: 0px;
 }
+.text_type_01 {
+	color: #818181;
+	font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+	font-size: 1em;
+}
+
+.text_type_04 {
+	color: #818181;
+	font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+	font-size: 2em;
+}
