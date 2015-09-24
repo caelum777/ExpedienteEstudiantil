@@ -83,3 +83,76 @@ angular.module('estudiantes').factory('Nacionalidad', ['$resource',
         });
     }
 ]);
+
+
+angular.module('estudiantes').factory('Reports', function(){
+        var HEADER = ""
+        var TITLE = '\n'+'              ESCOGENCIA DE CIENCIA BACHILLERATO ' + new Date().getFullYear() +'\n' +
+                    '\nProfesores:\nAsignaturas:';
+        var columns = [];
+        var data = [];
+        var data2 = [];
+        var estudiantes_decimo = [];
+        var estudiantes_undecimo = [];
+
+        var report = {
+           absenteeList: function() {
+           },
+            initHeader: function(women, men, total){
+                var header =
+                    'Colegio Cientifico de Costa Rica                     Mujeres: ' + women + '\n' +
+                    'Sede Regional San Carlos                             Hombres: ' + men + '\n' +
+                    'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + total + '\n';
+                return header;
+            },
+            scienceForBarchelor: function(estudiantes) {
+                columns = [
+                    {title: 'Cedula', key: 'ced'},
+                    {title: 'Nombre', key: 'nom'},
+                    {title: 'Biologia', key: 'bio'},
+                    {title: 'Quimica', key: 'quim'},
+                    {title: 'Fisica', key: 'fis'}
+                ];
+                data = [];
+                var women = 0;
+                var men = 0;
+                angular.forEach(estudiantes, function (estudiante_undecimo) {
+                    if ((estudiante_undecimo.admitido) && (!estudiante_undecimo.traladado)) {
+                        if (estudiante_undecimo.sexo === true) {
+                            men++;
+                        }
+                        else {
+                            women++;
+                        }
+                        data.push({
+                            'ced': estudiante_undecimo.nacionalidad,
+                            'nom': estudiante_undecimo.segundo_apellido + ' ' + estudiante_undecimo.primer_apellido + ' ' + estudiante_undecimo.name,
+                            'bio': '',
+                            'quim': '',
+                            'fis': ''
+                        });
+                    }
+                    var total = women + men;
+                    HEADER = 'Colegio Cientifico de Costa Rica                     Mujeres: ' + women + '\n' +
+                        'Sede Regional San Carlos                             Hombres: ' + men + '\n' +
+                        'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + total + '\n';
+                });
+                var result = ['Escogencia de ciencia bachierato', HEADER, TITLE, columns, data, 165, false];
+                return result;
+            },
+            getReportList: function(){
+                var lista = [{nombre: 'Lista de asistencia', val : 1},
+                    {nombre: 'Lista de cedula, carne, apellidos, nombre, telefono, correo', val : 2},
+                    {nombre: 'Lista de ciencia para bachillerato', val : 3},
+                    {nombre: 'Lista de correos', val : 4},
+                    {nombre: 'Lista de escogencia de la ciencia para bachillerato', val : 5},
+                    {nombre: 'Lista para la biblioteca', val: 6},
+                    {nombre: 'Lista de participacion en olimpiadas', val : 7},
+                    {nombre: 'Reporte de notas', val : 8}];
+                return lista;
+            }
+       };
+        return report;
+   }
+);
+
