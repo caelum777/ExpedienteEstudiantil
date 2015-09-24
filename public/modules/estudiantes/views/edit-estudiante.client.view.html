@@ -6,22 +6,17 @@
         <form class="form-horizontal" data-ng-submit="update()">
             <fieldset>
                 <div class="form-group">
-                    <div class="form-group col-xs-4 no-margin-bottom">
+                    <div class="controls">
                         <label class="control-label" for="name">Nombre del estudiante</label>
+                    </div>
+                    <div class="form-group col-xs-4 no-margin-bottom">
                         <div class="controls">
                             <input type="text" data-ng-model="estudiante.name" id="name" class="form-control align-field" placeholder="Nombre" required>
                         </div>
                     </div>
                 <div class="form-group col-xs-4 no-margin-bottom">
-                    <label class="control-label" for="name">Nombre del estudiante</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="estudiante.name" id="name" class="form-control" placeholder="Nombre" required>
-                    </div>
-                </div>
-                <div class="form-group col-xs-4 no-margin-bottom">
-                        <label class="control-label" for="name">Primer Apellido</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="estudiante.primer_apellido" id="primer_apellido" class="form-control" placeholder="Primer apellido" required>
+                        <input type="text" data-ng-model="estudiante.primer_apellido" id="primer_apellido" class="form-control align-field" placeholder="Primer apellido" required>
                     </div>
                 </div>
                     <div class="form-group col-xs-4 no-margin-bottom">
@@ -31,11 +26,11 @@
                     </div>
                     <label class="control-label" for="name">Fecha de nacimiento</label>
                     <div class="controls">
-                        <input type="date" data-ng-model="estudiante.fecha_de_nacimiento" id="fecha_de_nacimiento" class="form-control" required>
+                        <input type="date" data-ng-model="estudiante.fecha_de_nacimiento" id="fecha_de_nacimiento" class="form-control align-field" required>
                     </div>
                     <label class="control-label" for="name">Cédula o número de pasaporte</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="estudiante.nacionalidad" id="nacionalidad" class="form-control"
+                        <input type="text" data-ng-model="estudiante.nacionalidad" id="nacionalidad" class="form-control align-field"
                                onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
                     </div>
                     <label class="control-label" for="name">Sexo</label>
@@ -44,16 +39,19 @@
                                 ng-options="opt as opt.nombre for opt in sexos">
                         </select>
                     </div>
+                    <div class="controls">
+                        <label class="control-label" for="name">Teléfonos</label>
+                    </div>
                     <div class="form-group col-xs-6 no-margin-bottom">
-                    <label class="control-label" for="name">Teléfonos</label>
+
                         <div class="controls">
-                            <input type="text" data-ng-model="estudiante.telefono_casa" id="telefono_casa" class="form-control" placeholder="Tel. Hogar"
+                            <input type="text" data-ng-model="estudiante.telefono_casa" id="telefono_casa" class="form-control align-field" placeholder="Tel. Hogar"
                                    ng-minlength="8" maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
                         </div>
                     </div>
                     <div class="form-group col-xs-6 no-margin-bottom">
                         <div class="controls">
-                        <input type="text" data-ng-model="estudiante.celular" id="celular" class="form-control" placeholder="Celular"
+                        <input type="text" data-ng-model="estudiante.celular" id="celular" class="form-control align-field" placeholder="Celular"
                                ng-minlength="8" maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
                         </div>
                     </div>

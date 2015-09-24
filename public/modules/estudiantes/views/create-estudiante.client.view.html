@@ -6,8 +6,10 @@
         <form class="form-horizontal" data-ng-submit="create()">
             <fieldset>
                 <div class="form-group">
-                    <div class="form-group col-xs-4 no-margin-bottom">
+                    <div class="controls ">
                         <label class="control-label" for="name">Nombre del estudiante</label>
+                    </div>
+                    <div class="form-group col-xs-4 no-margin-bottom">
                         <div class="controls ">
                             <input type="text" data-ng-model="name" id="name" class="form-control align-field" placeholder="Nombre" required>
                         </div>
@@ -41,6 +43,8 @@
                     </div>
                     <div class="controls">
                         <label class="control-label" for="name">Teléfonos</label>
+                    </div>
+                    <div class="controls">
                         <div class="form-group col-xs-6 no-margin-bottom">
                             <div class="controls">
                             <input type="text" ng-minlength="8" maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
