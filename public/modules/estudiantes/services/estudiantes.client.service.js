@@ -90,16 +90,66 @@ angular.module('estudiantes').factory('Reports', function(){
         var TITLE = "";
         var columns = [];
         var data = [];
-        var data2 = [];
-        var estudiantes_decimo = [];
-        var estudiantes_undecimo = [];
 
         var report = {
-           absenteeList: function() {
+           absenteeList: function(estudiantes) {
+               data = [];
+               TITLE = '                   CONTROL DE AUSENCIAS DECIMO ' + new Date().getFullYear() +'\n' +
+                   'Profesor: __________________                         Mes:________________ \n' +
+                   'Asignatura: ________________                         A = Ausencia, T = Tardia';
+               columns = [
+                   {title: 'Cedula', key: 'ced'},
+                   {title: 'Nombre', key: 'nom'},
+                   {title: 'Del__ al __', key: 'i'},
+                   {title: 'Del__ al __', key: 'ii'},
+                   {title: 'Del__ al __', key: 'iii'},
+                   {title: 'Del__ al __', key: 'iiii'}
+               ];
+               var women = 0;
+               var men = 0;
+               angular.forEach(estudiantes, function (estudiante_decimo) {
+
+                   if ((estudiante_decimo.admitido) && (!estudiante_decimo.traladado)) {
+                       if(estudiante_decimo.sexo === true){
+                           men++;
+                       }
+                       else{
+                           women += 1;
+                       }
+                       data.push({'ced': estudiante_decimo.nacionalidad, 'nom': estudiante_decimo.segundo_apellido + ' ' + estudiante_decimo.primer_apellido + ' ' + estudiante_decimo.name, 'i': '', 'ii': '', 'iii': '', 'iiii': ''});
+                   }
+               });
+               var total = women + men;
+               HEADER = this.initHeader(women, men, total);
+               var result = this.getJSONFromData('Lista de asistencia decimo', HEADER, TITLE, columns, data, 130, false);
+               return result;
 
            },
+            personalInfoList: function(estudiantes){
+                data = [];
+                TITLE = [];
+                HEADER = 'Colegio Cientifico de Costa Rica\n' +
+                'Instituto Tecnologico de Costa Rica, Sede Regional San Carlos\n' +
+                'Telefax: 2475-7089,Tel: 2401-3122\n';
+                columns = [
+                    {title: 'Cedula', key: 'ced'},
+                    {title: 'I Apellido', key: 'i'},
+                    {title: 'II Apellido', key: 'ii'},
+                    {title: 'Nombre', key: 'nom'},
+                    {title: 'Telefono', key: 'tel'},
+                    {title: 'E-mail', key: 'mail'}
+                ];
+                angular.forEach(estudiantes, function (estudiante_decimo) {
+                    if ((estudiante_decimo.admitido) && (!estudiante_decimo.traladado)) {
+                        data.push({'ced': estudiante_decimo.nacionalidad, 'i': estudiante_decimo.primer_apellido, 'ii': estudiante_decimo.segundo_apellido, 'nom':estudiante_decimo.name, 'tel': estudiante_decimo.celular, 'mail': estudiante_decimo.correo});
+                    }
+                });
+                var result = this.getJSONFromData('Lista cedula carne y apellidos decimo', HEADER, TITLE, columns, data, 70, false);
+                return result;
+            },
 
             scienceForBachelorList: function (estudiantes) {
+                data = [];
                 TITLE = '      LISTA CIENCIA PARA BACHILLERATO DECIMO ' + new Date().getFullYear() +'\n';
                 columns = [
                     {title: 'Cedula', key: 'ced'},
@@ -127,9 +177,11 @@ angular.module('estudiantes').factory('Reports', function(){
             },
 
             emailList: function(estudiantes) {
-                HEADER = 'Colegio Cientifico de Costa Rica\n' +
-                    'Instituto Tecnologico de Costa Rica, Sede Regional San Carlos\n' +
-                    'Telefax: 2475-7089,Tel: 2401-3122\n';
+                data = [];
+                'Colegio Cientifico de Costa Rica\n' +
+                'Instituto Tecnologico de Costa Rica, Sede Regional San Carlos\n' +
+                'Telefax: 2475-7089,Tel: 2401-3122\n';
+                TITLE = '';
                 columns = [
                     {title: 'Cedula', key: 'ced'},
                     {title: 'Nombre', key: 'nom'},
@@ -146,6 +198,7 @@ angular.module('estudiantes').factory('Reports', function(){
 
 
             scienceForBachelor: function(estudiantes) {
+                data = [];
                 TITLE = '\n'+'              ESCOGENCIA DE CIENCIA BACHILLERATO ' + new Date().getFullYear() +'\n' +
                     '\nProfesores:\nAsignaturas:';
                 columns = [
@@ -180,6 +233,73 @@ angular.module('estudiantes').factory('Reports', function(){
                 return result;
             },
 
+            listOfStudentsForLibrary: function(estudiantes){
+                data = [];
+                TITLE = '       LISTA DE INFORMACION PARA LA BIBLIOTECA DECIMO ' + new Date().getFullYear() +'\n';
+                columns = [
+                    {title: 'Cedula', key: 'ced'},
+                    {title: 'Nombre', key: 'nom'},
+                    {title: 'Email', key: 'email'},
+                    {title: 'Direccion', key: 'dir'},
+                    {title: 'Fecha de nacimiento', key: 'nac'},
+                    {title: 'Edad', key: 'edad'}
+                ];
+                var women = 0;
+                var men = 0;
+                angular.forEach(estudiantes, function (estudiante_decimo) {
+                    if ((estudiante_decimo.admitido) && (!estudiante_decimo.traladado)) {
+                        if(estudiante_decimo.sexo === true){
+                            men++;
+                        }
+                        else{
+                            women += 1;
+                        }
+                        var fecha_split = estudiante_decimo.fecha_de_nacimiento.split('-');
+                        var f = new Date();
+                        if(fecha_split[2].length === 4)
+                            f = new Date(fecha_split[2], fecha_split[1], fecha_split[0]);
+                        else
+                            f = new Date(fecha_split[0], fecha_split[1], fecha_split[2]);
+                        var edad = new Date().getFullYear() - f.getFullYear();
+                        data.push({'ced':estudiante_decimo.nacionalidad,'nom': estudiante_decimo.segundo_apellido + ' ' + estudiante_decimo.primer_apellido + ' ' + estudiante_decimo.name,
+                            'email': estudiante_decimo.correo, 'dir': estudiante_decimo.direccion_exacta, 'nac': estudiante_decimo.fecha_de_nacimiento, 'edad': edad});
+                    }
+                });
+                var total = women + men;
+                HEADER = this.initHeader(women, men, total);
+                var result = this.getJSONFromData('Lista para la biblioteca decimo', HEADER, TITLE, columns, data, 95, false);
+                return result;
+            },
+
+            listForOlimpicsParticipation: function(estudiantes){
+                data = [];
+                TITLE ='\n'+'              LISTA INTERESADOS OLIMPIADA DECIMO ' + new Date().getFullYear() +'\n'+
+                       '\nProfesores:\nAsignaturas:';
+                columns = [
+                    {title: 'Cedula', key: 'ced'},
+                    {title: 'Nombre', key: 'nom'},
+                    {title: 'Participacion Olimpiada', key: 'par'}
+                ];
+                var women = 0;
+                var men = 0;
+                angular.forEach(estudiantes, function (estudiante_decimo) {
+                    if ((estudiante_decimo.admitido) && (!estudiante_decimo.traladado)) {
+                        if(estudiante_decimo.sexo === true){
+                            men++;
+                        }
+                        else{
+                            women += 1;
+                        }
+                        data.push({'ced':estudiante_decimo.nacionalidad,'nom': estudiante_decimo.segundo_apellido + ' ' + estudiante_decimo.primer_apellido + ' ' + estudiante_decimo.name,
+                            'par': ''});
+                    }
+                });
+                var total = women + men;
+                HEADER = this.initHeader(women, men, total);
+                var result = this.getJSONFromData('Lista participación olimpiadas decimo', HEADER, TITLE, columns, data, 165, false);
+                return result;
+            },
+
             //Utility functions for reports
             getReportList: function(){
                 var lista = [
@@ -196,9 +316,9 @@ angular.module('estudiantes').factory('Reports', function(){
             },
             initHeader: function(women, men, total){
                 var header =
-                    'Colegio Cientifico de Costa Rica                     Mujeres: ' + women + '\n' +
-                    'Sede Regional San Carlos                             Hombres: ' + men + '\n' +
-                    'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + total + '\n';
+                    'Colegio Cientifico de Costa Rica                       Mujeres: ' + women + '\n' +
+                    'Sede Regional San Carlos                               Hombres: ' + men + '\n' +
+                    'Telefax: 2475-7089,Tel: 2401-3122                        Total: ' + total + '\n';
                 return header;
             },
             getJSONFromData: function (filename, header, title, columns, data, startY, save){
