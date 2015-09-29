@@ -847,15 +847,19 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         });
         $scope.$watch('reporte', function(reporte){
             var reporte = $scope.reporte;
+            var serviceReport = Reports;
+
             var columns = [];
             var data = [];
             var data2 = [];
             var estudiantes_decimo = [];
             var estudiantes_undecimo = [];
-            //Working over here pal
+            //Working over here pa
+            $scope.visibl = false;
+            $scope.show = true;
+            serviceReport.estudiantes_decimo = Decimo.query();
+            serviceReport.estudiantes_undecimo = Undecimo.query();
             if(reporte.val === 1){
-                $scope.visibl = false;
-                $scope.show = true;
                 columns = [
                     {title: 'Cédula', key: 'ced'},
                     {title: 'Nombre', key: 'nom'},
@@ -931,8 +935,6 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 });
             }
             else if(reporte.val === 2){
-                $scope.visibl = false;
-                $scope.show = true;
                 columns = [
                     {title: 'Cédula', key: 'ced'},
                     {title: 'I Apellido', key: 'i'},
@@ -1000,133 +1002,37 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     }
                 });
             }
-            else if(reporte.val === 3){
-                $scope.visibl = false;
-                $scope.show = true;
-                columns = [
-                    {title: 'Cédula', key: 'ced'},
-                    {title: 'Nombre', key: 'nom'},
-                    {title: 'Ciencia', key: 'cie'},
-                    {title: 'Firma', key: 'fir'}
-                ];
-                data = [];
-                estudiantes_decimo = Decimo.query();
-                estudiantes_decimo.$promise.then(function(estudiantes) {
-                    var m = 0;
-                    var h = 0;
-                    angular.forEach(estudiantes, function (estudiante_decimo) {
-                        if ((estudiante_decimo.admitido) && (!estudiante_decimo.traladado)) {
-                            if(estudiante_decimo.sexo === true){
-                                h++;
-                            }
-                            else{
-                                m += 1;
-                                console.log(m);
-                            }
-                            data.push({'ced':estudiante_decimo.nacionalidad,'nom': estudiante_decimo.segundo_apellido + ' ' + estudiante_decimo.primer_apellido + ' ' + estudiante_decimo.name, 'cie': '','fir': ''});
-                        }
-                    });
-                    var t = m + h;
-                    var encabezado =
-                        'Colegio Científico de Costa Rica                     Mujeres: ' + m + '\n' +
-                        'Sede Regional San Carlos                             Hombres: ' + h + '\n' +
-                        'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + t + '\n';
-                    var titulo = '              LISTA CIENCIA PARA BACHILLERATO DÉCIMO AÑO ' + new Date().getFullYear() +'\n';
-                    if(data.length > 0) {
-                        $scope.generatePDF('Lista ciencia para bachillerato décimo', encabezado, titulo, columns, data, 95, false);
-                    }
-
-                    h = 0;
-                    t = 0;
-                    m = 0;
-                });
-                data2 = [];
-                estudiantes_undecimo = Undecimo.query();
-                estudiantes_undecimo.$promise.then(function(estudiantes){
-                    var m = 0;
-                    var h = 0;
-                    angular.forEach(estudiantes, function(estudiante_undecimo){
-
-                        if((estudiante_undecimo.admitido) && (!estudiante_undecimo.traladado)) {
-                            if(estudiante_undecimo.sexo === true){
-                                h++;
-                            }
-                            else{
-                                m++;
-                            }
-                            data2.push({'ced':estudiante_undecimo.nacionalidad,'nom': estudiante_undecimo.segundo_apellido + ' ' + estudiante_undecimo.primer_apellido + ' ' + estudiante_undecimo.name, 'cie': '','fir': ''});
-                        }
-                    });
-                    var t = m + h;
-                    var encabezado =
-                        'Colegio Científico de Costa Rica                     Mujeres: ' + m + '\n' +
-                        'Sede Regional San Carlos                             Hombres: ' + h + '\n' +
-                        'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + t + '\n';
-                    var titulo = '              LISTA CIENCIA PARA BACHILLERATO UNDÉCIMO AÑO ' + new Date().getFullYear() +'\n';
-                    if(data2.length > 0) {
-                        $scope.generatePDF('Lista ciencia para bachillerato undécimo', encabezado, titulo, columns, data, 95, false);
-                    }
-                });
-            }
-            else if(reporte.val === 4){
-                $scope.visibl = false;
-                $scope.show = true;
-                columns = [
-                    {title: 'Cédula', key: 'ced'},
-                    {title: 'Nombre', key: 'nom'},
-                    {title: 'E-mail', key: 'mail'}
-                ];
-                data = [];
-                estudiantes_decimo = Decimo.query();
-                estudiantes_decimo.$promise.then(function(estudiantes) {
-                    angular.forEach(estudiantes, function (estudiante_decimo) {
-                        if ((estudiante_decimo.admitido) && (!estudiante_decimo.traladado)){
-                            data.push({'ced':estudiante_decimo.nacionalidad, 'nom':estudiante_decimo.segundo_apellido + estudiante_decimo.primer_apellido + estudiante_decimo.name, 'mail': estudiante_decimo.correo});
-                        }
-                    });
-                    var encabezado =
-                        'Colegio Científico de Costa Rica\n' +
-                        'Instituto Tecnológico de Costa Rica, Sede Regional San Carlos\n' +
-                        'Telefax: 2475-7089,Tel: 2401-3122\n';
-                    var titulo = '';
-                    if(data.length > 1) {
-                        $scope.generatePDF('Lista correos décimo', encabezado, titulo, columns, data, 70, false);
-                    }
-                });
-                data2 = [];
-                estudiantes_undecimo = Undecimo.query();
-                estudiantes_undecimo.$promise.then(function(estudiantes){
-                    angular.forEach(estudiantes, function(estudiante_undecimo){
-                        if((estudiante_undecimo.admitido) && (!estudiante_undecimo.traladado)) {
-                            data2.push({'ced':estudiante_undecimo.nacionalidad, 'nom':estudiante_undecimo.segundo_apellido + estudiante_undecimo.primer_apellido + estudiante_undecimo.name, 'mail': estudiante_undecimo.correo});
-                        }
-                    });
-                    var encabezado =
-                        'Colegio Científico de Costa Rica\n' +
-                        'Instituto Tecnológico de Costa Rica, Sede Regional San Carlos\n' +
-                        'Telefax: 2475-7089,Tel: 2401-3122\n';
-                    var titulo = '';
-                    if(data2.length > 0) {
-                        $scope.generatePDF('Lista correos undécimo', encabezado, titulo, columns, data2, 70, false);
-                    }
-                });
-            }
-            else if(reporte.val === 5) {
-                $scope.visibl = false;
-                $scope.show = true;
-                var newReport = Reports;
-                newReport.estudiantes_undecimo = Undecimo.query();
-                newReport.estudiantes_undecimo.$promise.then(function(estudiantes){
-                    var result = newReport.scienceForBarchelor(estudiantes)
-                    console.log("My response: " + result);
-                    if(result[4].length > 0){
-                        $scope.generatePDF(result[0], result[1], result[2], result[3], result[4], result[5], result[6]);
+            //wIP Ask what to do with eleventh grade. PO maybe.
+            else if(reporte.val === 3) {
+                serviceReport.estudiantes_decimo.$promise.then(function (estudiantes) {
+                    var result = serviceReport.scienceForBachelorList(estudiantes)
+                    if (result['Data'].length > 0) {
+                        $scope.generatePDF(result["Filename"], result["Header"], result["Title"], result["Columns"], result["Data"], result["StartY"], result["Save"]);
                     }
                 })
             }
+
+            //WIP currently I just show the email list for students in tenth grade. Ask about eleventh*
+            else if(reporte.val === 4){
+                serviceReport.estudiantes_decimo.$promise.then(function(estudiantes){
+                    var result = serviceReport.emailList(estudiantes)
+                    if(result['Data'].length > 0){
+                        $scope.generatePDF(result["Filename"], result["Header"], result["Title"], result["Columns"], result["Data"], result["StartY"], result["Save"]);
+                    }
+                })
+            }
+
+            //WIP I could define var reports up and call the specific report where it goes. WIP.
+            else if(reporte.val === 5) {
+                serviceReport.estudiantes_undecimo.$promise.then(function(estudiantes){
+                    var result = serviceReport.scienceForBachelor(estudiantes);
+                    if(result['Data'].length > 0){
+                        $scope.generatePDF(result["Filename"], result["Header"], result["Title"], result["Columns"], result["Data"], result["StartY"], result["Save"]);
+                    }
+                })
+            }
+
             else if(reporte.val === 6){
-                $scope.visibl = false;
-                $scope.show = true;
                 columns = [
                     {title: 'Cédula', key: 'ced'},
                     {title: 'Nombre', key: 'nom'},
@@ -1209,8 +1115,6 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 });
             }
             else if(reporte.val === 7){
-                $scope.visibl = false;
-                $scope.show = true;
                 columns = [
                     {title: 'Cédula', key: 'ced'},
                     {title: 'Nombre', key: 'nom'},
@@ -1282,449 +1186,451 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 $scope.show = false;
             }
         });
+        //Argue this, is duplicating the code so it can download the pdf from the botton.
+        /*
+         $scope.generar_reporte = function(){
+         var reporte = $scope.reporte;
+         var columns = [];
+         var data = [];
+         var data2 = [];
+         var estudiantes_decimo = [];
+         var estudiantes_undecimo = [];
+         if(reporte.val === 1){
+         columns = [
+         {title: 'Cédula', key: 'ced'},
+         {title: 'Nombre', key: 'nom'},
+         {title: 'Del__ al __', key: 'i'},
+         {title: 'Del__ al __', key: 'ii'},
+         {title: 'Del__ al __', key: 'iii'},
+         {title: 'Del__ al __', key: 'iiii'}
+         ];
+         data = [];
+         estudiantes_decimo = Decimo.query();
+         estudiantes_decimo.$promise.then(function(estudiantes) {
+         var m = 0;
+         var h = 0;
+         angular.forEach(estudiantes, function (estudiante_decimo) {
 
-        $scope.generar_reporte = function(){
-            var reporte = $scope.reporte;
-            var columns = [];
-            var data = [];
-            var data2 = [];
-            var estudiantes_decimo = [];
-            var estudiantes_undecimo = [];
-            if(reporte.val === 1){
-                columns = [
-                    {title: 'Cédula', key: 'ced'},
-                    {title: 'Nombre', key: 'nom'},
-                    {title: 'Del__ al __', key: 'i'},
-                    {title: 'Del__ al __', key: 'ii'},
-                    {title: 'Del__ al __', key: 'iii'},
-                    {title: 'Del__ al __', key: 'iiii'}
-                ];
-                data = [];
-                estudiantes_decimo = Decimo.query();
-                estudiantes_decimo.$promise.then(function(estudiantes) {
-                    var m = 0;
-                    var h = 0;
-                    angular.forEach(estudiantes, function (estudiante_decimo) {
+         if ((estudiante_decimo.admitido) && (!estudiante_decimo.traladado)) {
+         if(estudiante_decimo.sexo === true){
+         h++;
+         }
+         else{
+         m += 1;
+         }
+         data.push({'ced': estudiante_decimo.nacionalidad, 'nom': estudiante_decimo.segundo_apellido + ' ' + estudiante_decimo.primer_apellido + ' ' + estudiante_decimo.name, 'i': '', 'ii': '', 'iii': '', 'iiii': ''});
+         }
+         });
+         var t = m + h;
+         var encabezado =
+         'Colegio Científico de Costa Rica                     Mujeres: ' + m + '\n' +
+         'Sede Regional San Carlos                             Hombres: ' + h + '\n' +
+         'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + t + '\n';
+         var titulo = '                   CONTROL DE AUSENCIAS DÉCIMO AÑO ' + new Date().getFullYear() +'\n' +
+         'Profesor: __________________                         Mes:________________ \n' +
+         'Asignatura: ________________                         A = Ausencia, T = Tardía';
+         if(data.length > 0) {
+         $scope.generatePDF('Lista de ausencias décimo', encabezado, titulo, columns, data, 130, true);
+         }
 
-                        if ((estudiante_decimo.admitido) && (!estudiante_decimo.traladado)) {
-                            if(estudiante_decimo.sexo === true){
-                                h++;
-                            }
-                            else{
-                                m += 1;
-                            }
-                            data.push({'ced': estudiante_decimo.nacionalidad, 'nom': estudiante_decimo.segundo_apellido + ' ' + estudiante_decimo.primer_apellido + ' ' + estudiante_decimo.name, 'i': '', 'ii': '', 'iii': '', 'iiii': ''});
-                        }
-                    });
-                    var t = m + h;
-                    var encabezado =
-                        'Colegio Científico de Costa Rica                     Mujeres: ' + m + '\n' +
-                        'Sede Regional San Carlos                             Hombres: ' + h + '\n' +
-                        'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + t + '\n';
-                    var titulo = '                   CONTROL DE AUSENCIAS DÉCIMO AÑO ' + new Date().getFullYear() +'\n' +
-                        'Profesor: __________________                         Mes:________________ \n' +
-                        'Asignatura: ________________                         A = Ausencia, T = Tardía';
-                    if(data.length > 0) {
-                        $scope.generatePDF('Lista de ausencias décimo', encabezado, titulo, columns, data, 130, true);
-                    }
+         h = 0;
+         t = 0;
+         m = 0;
+         });
+         data2 = [];
+         estudiantes_undecimo = Undecimo.query();
+         estudiantes_undecimo.$promise.then(function(estudiantes){
+         var m = 0;
+         var h = 0;
+         angular.forEach(estudiantes, function(estudiante_undecimo){
+         console.log(estudiante_undecimo.name+estudiante_undecimo.segundo_apellido+estudiante_undecimo.primer_apellido);
+         if((estudiante_undecimo.admitido) && (!estudiante_undecimo.traladado)) {
+         if(estudiante_undecimo.sexo === true){
+         h++;
+         }
+         else{
+         m++;
+         }
+         data2.push({'ced': estudiante_undecimo.nacionalidad, 'nom': estudiante_undecimo.segundo_apellido + ' ' + estudiante_undecimo.primer_apellido + ' ' + estudiante_undecimo.name, 'i': '', 'ii': '', 'iii': '', 'iiii': ''});
+         }
+         });
+         var t = m + h;
+         var encabezado =
+         'Colegio Científico de Costa Rica                     Mujeres: ' + m + '\n' +
+         'Sede Regional San Carlos                             Hombres: ' + h + '\n' +
+         'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + t + '\n';
+         var titulo = '                   CONTROL DE AUSENCIAS UNDÉCIMO AÑO ' + new Date().getFullYear() +'\n' +
+         'Profesor: __________________                         Mes:________________ \n' +
+         'Asignatura: ________________                         A = Ausencia, T = Tardía';
+         if(data2.length > 0) {
+         $scope.generatePDF('Lista de ausencias undécimo', encabezado, titulo, columns, data2, 130, true);
+         }
+         });
+         }
+         else if(reporte.val === 2){
+         columns = [
+         {title: 'Cédula', key: 'ced'},
+         {title: 'I Apellido', key: 'i'},
+         {title: 'II Apellido', key: 'ii'},
+         {title: 'Nombre', key: 'nom'},
+         {title: 'Teléfono', key: 'tel'},
+         {title: 'E-mail', key: 'mail'}
 
-                    h = 0;
-                    t = 0;
-                    m = 0;
-                });
-                data2 = [];
-                estudiantes_undecimo = Undecimo.query();
-                estudiantes_undecimo.$promise.then(function(estudiantes){
-                    var m = 0;
-                    var h = 0;
-                    angular.forEach(estudiantes, function(estudiante_undecimo){
-                        console.log(estudiante_undecimo.name+estudiante_undecimo.segundo_apellido+estudiante_undecimo.primer_apellido);
-                        if((estudiante_undecimo.admitido) && (!estudiante_undecimo.traladado)) {
-                            if(estudiante_undecimo.sexo === true){
-                                h++;
-                            }
-                            else{
-                                m++;
-                            }
-                            data2.push({'ced': estudiante_undecimo.nacionalidad, 'nom': estudiante_undecimo.segundo_apellido + ' ' + estudiante_undecimo.primer_apellido + ' ' + estudiante_undecimo.name, 'i': '', 'ii': '', 'iii': '', 'iiii': ''});
-                        }
-                    });
-                    var t = m + h;
-                    var encabezado =
-                        'Colegio Científico de Costa Rica                     Mujeres: ' + m + '\n' +
-                        'Sede Regional San Carlos                             Hombres: ' + h + '\n' +
-                        'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + t + '\n';
-                    var titulo = '                   CONTROL DE AUSENCIAS UNDÉCIMO AÑO ' + new Date().getFullYear() +'\n' +
-                        'Profesor: __________________                         Mes:________________ \n' +
-                        'Asignatura: ________________                         A = Ausencia, T = Tardía';
-                    if(data2.length > 0) {
-                        $scope.generatePDF('Lista de ausencias undécimo', encabezado, titulo, columns, data2, 130, true);
-                    }
-                });
-            }
-            else if(reporte.val === 2){
-                columns = [
-                    {title: 'Cédula', key: 'ced'},
-                    {title: 'I Apellido', key: 'i'},
-                    {title: 'II Apellido', key: 'ii'},
-                    {title: 'Nombre', key: 'nom'},
-                    {title: 'Teléfono', key: 'tel'},
-                    {title: 'E-mail', key: 'mail'}
+         ];
+         data = [];
+         estudiantes_decimo = Decimo.query();
+         estudiantes_decimo.$promise.then(function(estudiantes) {
+         var m = 0;
+         var h = 0;
+         angular.forEach(estudiantes, function (estudiante_decimo) {
 
-                ];
-                data = [];
-                estudiantes_decimo = Decimo.query();
-                estudiantes_decimo.$promise.then(function(estudiantes) {
-                    var m = 0;
-                    var h = 0;
-                    angular.forEach(estudiantes, function (estudiante_decimo) {
+         if ((estudiante_decimo.admitido) && (!estudiante_decimo.traladado)) {
+         if(estudiante_decimo.sexo === true){
+         h++;
+         }
+         else{
+         m += 1;
+         }
+         data.push({'ced': estudiante_decimo.nacionalidad, 'i': estudiante_decimo.primer_apellido, 'ii': estudiante_decimo.segundo_apellido, 'nom':estudiante_decimo.name, 'tel': estudiante_decimo.celular, 'mail': estudiante_decimo.correo});
+         }
+         });
+         var t = m + h;
+         var encabezado =
+         'Colegio Científico de Costa Rica\n' +
+         'Instituto Tecnológico de Costa Rica, Sede Regional San Carlos\n' +
+         'Telefax: 2475-7089,Tel: 2401-3122\n';
+         var titulo = '';
+         if(data.length > 0) {
+         $scope.generatePDF('Lista cedula carne y apellidos undécimo', encabezado, titulo, columns, data, 70, true);
+         }
 
-                        if ((estudiante_decimo.admitido) && (!estudiante_decimo.traladado)) {
-                            if(estudiante_decimo.sexo === true){
-                                h++;
-                            }
-                            else{
-                                m += 1;
-                            }
-                            data.push({'ced': estudiante_decimo.nacionalidad, 'i': estudiante_decimo.primer_apellido, 'ii': estudiante_decimo.segundo_apellido, 'nom':estudiante_decimo.name, 'tel': estudiante_decimo.celular, 'mail': estudiante_decimo.correo});
-                        }
-                    });
-                    var t = m + h;
-                    var encabezado =
-                        'Colegio Científico de Costa Rica\n' +
-                        'Instituto Tecnológico de Costa Rica, Sede Regional San Carlos\n' +
-                        'Telefax: 2475-7089,Tel: 2401-3122\n';
-                    var titulo = '';
-                    if(data.length > 0) {
-                        $scope.generatePDF('Lista cedula carne y apellidos undécimo', encabezado, titulo, columns, data, 70, true);
-                    }
-
-                    h = 0;
-                    t = 0;
-                    m = 0;
-                });
-                data2 = [];
-                estudiantes_undecimo = Undecimo.query();
-                estudiantes_undecimo.$promise.then(function(estudiantes) {
-                    var m = 0;
-                    var h = 0;
-                    angular.forEach(estudiantes, function (estudiante_undecimo) {
-                        if ((estudiante_undecimo.admitido) && (!estudiante_undecimo.traladado)) {
-                            if (estudiante_undecimo.sexo === true) {
-                                h++;
-                            }
-                            else {
-                                m++;
-                            }
-                            data2.push({'ced': estudiante_undecimo.nacionalidad, 'i': estudiante_undecimo.primer_apellido, 'ii': estudiante_undecimo.segundo_apellido, 'nom': estudiante_undecimo.name, 'tel': estudiante_undecimo.celular, 'mail': estudiante_undecimo.correo});
-                        }
-                    });
-                    var t = m + h;
-                    var encabezado =
-                        'Colegio Científico de Costa Rica\n' +
-                        'Instituto Tecnológico de Costa Rica, Sede Regional San Carlos\n' +
-                        'Telefax: 2475-7089,Tel: 2401-3122\n';
-                    var titulo = '';
-                    if (data2.length > 0) {
-                        $scope.generatePDF('Lista cedula carne y apellidos undécimo', encabezado, titulo, columns, data2, 70, true);
-                    }
-                });
-            }
-            else if(reporte.val === 3){
-                columns = [
-                    {title: 'Cédula', key: 'ced'},
-                    {title: 'Nombre', key: 'nom'},
-                    {title: 'Ciencia', key: 'cie'},
-                    {title: 'Firma', key: 'fir'}
-                ];
-                data = [];
-                estudiantes_decimo = Decimo.query();
-                estudiantes_decimo.$promise.then(function(estudiantes) {
-                    var m = 0;
-                    var h = 0;
-                    angular.forEach(estudiantes, function (estudiante_decimo) {
-                        if ((estudiante_decimo.admitido) && (!estudiante_decimo.traladado)) {
-                            if(estudiante_decimo.sexo === true){
-                                h++;
-                            }
-                            else{
-                                m += 1;
-                                console.log(m);
-                            }
-                            data.push({'ced':estudiante_decimo.nacionalidad,'nom': estudiante_decimo.segundo_apellido + ' ' + estudiante_decimo.primer_apellido + ' ' + estudiante_decimo.name, 'cie': '','fir': ''});
-                        }
-                    });
-                    var t = m + h;
-                    var encabezado =
-                        'Colegio Científico de Costa Rica                     Mujeres: ' + m + '\n' +
-                        'Sede Regional San Carlos                             Hombres: ' + h + '\n' +
-                        'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + t + '\n';
-                    var titulo = '              LISTA CIENCIA PARA BACHILLERATO DÉCIMO AÑO ' + new Date().getFullYear() +'\n';
-                    if(data.length > 0) {
-                        $scope.generatePDF('Lista ciencia para bachillerato décimo', encabezado, titulo, columns, data, 95, true);
-                    }
+         h = 0;
+         t = 0;
+         m = 0;
+         });
+         data2 = [];
+         estudiantes_undecimo = Undecimo.query();
+         estudiantes_undecimo.$promise.then(function(estudiantes) {
+         var m = 0;
+         var h = 0;
+         angular.forEach(estudiantes, function (estudiante_undecimo) {
+         if ((estudiante_undecimo.admitido) && (!estudiante_undecimo.traladado)) {
+         if (estudiante_undecimo.sexo === true) {
+         h++;
+         }
+         else {
+         m++;
+         }
+         data2.push({'ced': estudiante_undecimo.nacionalidad, 'i': estudiante_undecimo.primer_apellido, 'ii': estudiante_undecimo.segundo_apellido, 'nom': estudiante_undecimo.name, 'tel': estudiante_undecimo.celular, 'mail': estudiante_undecimo.correo});
+         }
+         });
+         var t = m + h;
+         var encabezado =
+         'Colegio Científico de Costa Rica\n' +
+         'Instituto Tecnológico de Costa Rica, Sede Regional San Carlos\n' +
+         'Telefax: 2475-7089,Tel: 2401-3122\n';
+         var titulo = '';
+         if (data2.length > 0) {
+         $scope.generatePDF('Lista cedula carne y apellidos undécimo', encabezado, titulo, columns, data2, 70, true);
+         }
+         });
+         }
+         else if(reporte.val === 3){
+         columns = [
+         {title: 'Cédula', key: 'ced'},
+         {title: 'Nombre', key: 'nom'},
+         {title: 'Ciencia', key: 'cie'},
+         {title: 'Firma', key: 'fir'}
+         ];
+         data = [];
+         estudiantes_decimo = Decimo.query();
+         estudiantes_decimo.$promise.then(function(estudiantes) {
+         var m = 0;
+         var h = 0;
+         angular.forEach(estudiantes, function (estudiante_decimo) {
+         if ((estudiante_decimo.admitido) && (!estudiante_decimo.traladado)) {
+         if(estudiante_decimo.sexo === true){
+         h++;
+         }
+         else{
+         m += 1;
+         console.log(m);
+         }
+         data.push({'ced':estudiante_decimo.nacionalidad,'nom': estudiante_decimo.segundo_apellido + ' ' + estudiante_decimo.primer_apellido + ' ' + estudiante_decimo.name, 'cie': '','fir': ''});
+         }
+         });
+         var t = m + h;
+         var encabezado =
+         'Colegio Científico de Costa Rica                     Mujeres: ' + m + '\n' +
+         'Sede Regional San Carlos                             Hombres: ' + h + '\n' +
+         'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + t + '\n';
+         var titulo = '              LISTA CIENCIA PARA BACHILLERATO DÉCIMO AÑO ' + new Date().getFullYear() +'\n';
+         if(data.length > 0) {
+         $scope.generatePDF('Lista ciencia para bachillerato décimo', encabezado, titulo, columns, data, 95, true);
+         }
 
 
-                    h = 0;
-                    t = 0;
-                    m = 0;
-                });
-                data2 = [];
-                estudiantes_undecimo = Undecimo.query();
-                estudiantes_undecimo.$promise.then(function(estudiantes){
-                    var m = 0;
-                    var h = 0;
-                    angular.forEach(estudiantes, function(estudiante_undecimo){
+         h = 0;
+         t = 0;
+         m = 0;
+         });
+         data2 = [];
+         estudiantes_undecimo = Undecimo.query();
+         estudiantes_undecimo.$promise.then(function(estudiantes){
+         var m = 0;
+         var h = 0;
+         angular.forEach(estudiantes, function(estudiante_undecimo){
 
-                        if((estudiante_undecimo.admitido) && (!estudiante_undecimo.traladado)) {
-                            if(estudiante_undecimo.sexo === true){
-                                h++;
-                            }
-                            else{
-                                m++;
-                            }
-                            data2.push({'ced':estudiante_undecimo.nacionalidad,'nom': estudiante_undecimo.segundo_apellido + ' ' + estudiante_undecimo.primer_apellido + ' ' + estudiante_undecimo.name, 'cie': '','fir': ''});
-                        }
-                    });
-                    var t = m + h;
-                    var encabezado =
-                        'Colegio Científico de Costa Rica                     Mujeres: ' + m + '\n' +
-                        'Sede Regional San Carlos                             Hombres: ' + h + '\n' +
-                        'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + t + '\n';
-                    var titulo = '              LISTA CIENCIA PARA BACHILLERATO UNDÉCIMO AÑO ' + new Date().getFullYear() +'\n';
-                    if(data2.length > 0) {
-                        $scope.generatePDF('Lista ciencia para bachillerato undécimo', encabezado, titulo, columns, data, 95, true);
-                    }
-                });
-            }
-            else if(reporte.val === 4){
-                columns = [
-                    {title: 'Cédula', key: 'ced'},
-                    {title: 'Nombre', key: 'nom'},
-                    {title: 'E-mail', key: 'mail'}
-                ];
-                data = [];
-                estudiantes_decimo = Decimo.query();
-                estudiantes_decimo.$promise.then(function(estudiantes) {
-                    angular.forEach(estudiantes, function (estudiante_decimo) {
-                        if ((estudiante_decimo.admitido) && (!estudiante_decimo.traladado)){
-                            data.push({'ced':estudiante_decimo.nacionalidad, 'nom':estudiante_decimo.segundo_apellido + estudiante_decimo.primer_apellido + estudiante_decimo.name, 'mail': estudiante_decimo.correo});
-                        }
-                    });
-                    var encabezado =
-                        'Colegio Científico de Costa Rica\n' +
-                        'Instituto Tecnológico de Costa Rica, Sede Regional San Carlos\n' +
-                        'Telefax: 2475-7089,Tel: 2401-3122\n';
-                    var titulo = '';
-                    if(data.length > 1) {
-                        $scope.generatePDF('Lista correos décimo', encabezado, titulo, columns, data, 70, true);
-                    }
-                });
-                data2 = [];
-                estudiantes_undecimo = Undecimo.query();
-                estudiantes_undecimo.$promise.then(function(estudiantes){
-                    angular.forEach(estudiantes, function(estudiante_undecimo){
-                        if((estudiante_undecimo.admitido) && (!estudiante_undecimo.traladado)) {
-                            data2.push({'ced':estudiante_undecimo.nacionalidad, 'nom':estudiante_undecimo.segundo_apellido + estudiante_undecimo.primer_apellido + estudiante_undecimo.name, 'mail': estudiante_undecimo.correo});
-                        }
-                    });
-                    var encabezado =
-                        'Colegio Científico de Costa Rica\n' +
-                        'Instituto Tecnológico de Costa Rica, Sede Regional San Carlos\n' +
-                        'Telefax: 2475-7089,Tel: 2401-3122\n';
-                    var titulo = '';
-                    if(data2.length > 0) {
-                        $scope.generatePDF('Lista correos undécimo', encabezado, titulo, columns, data2, 70, true);
-                    }
-                });
-            }
-            else if(reporte.val === 5){
-                columns = [
-                    {title: 'Cédula', key: 'ced'},
-                    {title: 'Nombre', key: 'nom'},
-                    {title: 'Biología', key: 'bio'},
-                    {title: 'Química', key: 'quim'},
-                    {title: 'Física', key: 'fis'}
-                ];
-                data = [];
-                estudiantes_undecimo = Undecimo.query();
-                estudiantes_undecimo.$promise.then(function(estudiantes){
-                    var m = 0;
-                    var h = 0;
-                    angular.forEach(estudiantes, function(estudiante_undecimo){
-                        if((estudiante_undecimo.admitido) && (!estudiante_undecimo.traladado)) {
-                            if(estudiante_undecimo.sexo === true){
-                                h++;
-                            }
-                            else{
-                                m++;
-                            }
-                            data.push({'ced':estudiante_undecimo.nacionalidad,'nom': estudiante_undecimo.segundo_apellido + ' ' + estudiante_undecimo.primer_apellido + ' ' + estudiante_undecimo.name, 'bio': '','quim': '', 'fis': ''});
-                        }
-                    });
-                    var t = m + h;
-                    var encabezado =
-                        'Colegio Científico de Costa Rica                     Mujeres: ' + m + '\n' +
-                        'Sede Regional San Carlos                             Hombres: ' + h + '\n' +
-                        'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + t + '\n';
-                    var titulo = '\n'+'              ESCOGENCIA DE CIENCIA BACHILLERATO ' + new Date().getFullYear() +'\n';
-                    titulo += '\nProfesores:\nAsignaturas:';
-                    if(data.length > 0) {
-                        $scope.generatePDF('Escogencia de ciencia bachierato', encabezado, titulo, columns, data, 165, true);
-                    }
-                });
-            }
-            else if(reporte.val === 6){
-                columns = [
-                    {title: 'Cédula', key: 'ced'},
-                    {title: 'Nombre', key: 'nom'},
-                    {title: 'Email', key: 'email'},
-                    {title: 'Dirección', key: 'dir'},
-                    {title: 'Fecha de nacimiento', key: 'nac'},
-                    {title: 'Edad', key: 'edad'}
-                ];
-                data = [];
-                estudiantes_decimo = Decimo.query();
-                estudiantes_decimo.$promise.then(function(estudiantes) {
-                    var m = 0;
-                    var h = 0;
-                    var t = 0;
-                    angular.forEach(estudiantes, function (estudiante_decimo) {
-                        if ((estudiante_decimo.admitido) && (!estudiante_decimo.traladado)) {
-                            if(estudiante_decimo.sexo === true){
-                                h++;
-                            }
-                            else{
-                                m += 1;
-                                console.log(m);
-                            }
-                            var fecha_split = estudiante_decimo.fecha_de_nacimiento.split('-');
-                            var f = new Date();
-                            if(fecha_split[2].length === 4)
-                                f = new Date(fecha_split[2], fecha_split[1], fecha_split[0]);
-                            else
-                                f = new Date(fecha_split[0], fecha_split[1], fecha_split[2]);
-                            var edad = new Date().getFullYear() - f.getFullYear();
-                            data.push({'ced':estudiante_decimo.nacionalidad,'nom': estudiante_decimo.segundo_apellido + ' ' + estudiante_decimo.primer_apellido + ' ' + estudiante_decimo.name,
-                                'email': estudiante_decimo.correo, 'dir': estudiante_decimo.direccion_exacta, 'nac': estudiante_decimo.fecha_de_nacimiento, 'edad': edad});
-                        }
-                    });
-                    t = m + h;
-                    var encabezado =
-                        'Colegio Científico de Costa Rica                     Mujeres: ' + m + '\n' +
-                        'Sede Regional San Carlos                             Hombres: ' + h + '\n' +
-                        'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + t + '\n';
-                    var titulo = '              LISTA DE CORREOS DÉCIMO AÑO ' + new Date().getFullYear() +'\n';
-                    if(data.length > 0) {
-                        $scope.generatePDF('Lista para la biblioteca décimo', encabezado, titulo, columns, data, 95 , true);
-                    }
-                });
-                estudiantes_undecimo = Undecimo.query();
-                estudiantes_undecimo.$promise.then(function(estudiantes){
-                    data = [];
-                    var m = 0;
-                    var h = 0;
-                    var t = 0;
-                    angular.forEach(estudiantes, function(estudiante_undecimo){
-                        if((estudiante_undecimo.admitido) && (!estudiante_undecimo.traladado)) {
-                            if(estudiante_undecimo.sexo === true){
-                                h++;
-                            }
-                            else{
-                                m++;
-                            }
-                            var fecha_split = estudiante_undecimo.fecha_de_nacimiento.split('-');
-                            var f = new Date();
-                            if(fecha_split[2].length === 4)
-                                f = new Date(fecha_split[2], fecha_split[1], fecha_split[0]);
-                            else
-                                f = new Date(fecha_split[0], fecha_split[1], fecha_split[2]);
-                            var edad = new Date().getFullYear() - f.getFullYear();
-                            data.push({'ced':estudiante_undecimo.nacionalidad,'nom': estudiante_undecimo.segundo_apellido + ' ' + estudiante_undecimo.primer_apellido + ' ' + estudiante_undecimo.name,
-                                'email': estudiante_undecimo.correo, 'dir': estudiante_undecimo.direccion_exacta, 'nac': estudiante_undecimo.fecha_de_nacimiento, 'edad': edad});
-                        }
-                    });
-                    t = m + h;
-                    var encabezado =
-                        'Colegio Científico de Costa Rica                     Mujeres: ' + m + '\n' +
-                        'Sede Regional San Carlos                             Hombres: ' + h + '\n' +
-                        'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + t + '\n';
-                    var titulo = '\n'+'              LISTA DE CORREOS UNDÉCIMO AÑO ' + new Date().getFullYear() +'\n';
-                    if(data.length > 0) {
-                        $scope.generatePDF('Lista para la biblioteca undécimo', encabezado, titulo, columns, data, 95, true);
-                    }
-                });
-            }
-            else if(reporte.val === 7){
-                columns = [
-                    {title: 'Cédula', key: 'ced'},
-                    {title: 'Nombre', key: 'nom'},
-                    {title: 'Participación Olimpiada', key: 'par'}
-                ];
-                data = [];
-                estudiantes_decimo = Decimo.query();
-                estudiantes_decimo.$promise.then(function(estudiantes) {
-                    var m = 0;
-                    var h = 0;
-                    var t = 0;
-                    angular.forEach(estudiantes, function (estudiante_decimo) {
-                        if ((estudiante_decimo.admitido) && (!estudiante_decimo.traladado)) {
-                            if(estudiante_decimo.sexo === true){
-                                h++;
-                            }
-                            else{
-                                m += 1;
-                                console.log(m);
-                            }
-                            data.push({'ced':estudiante_decimo.nacionalidad,'nom': estudiante_decimo.segundo_apellido + ' ' + estudiante_decimo.primer_apellido + ' ' + estudiante_decimo.name,
-                                'par': ''});
-                        }
-                    });
-                    t = m + h;
-                    var encabezado =
-                        'Colegio Científico de Costa Rica                     Mujeres: ' + m + '\n' +
-                        'Sede Regional San Carlos                             Hombres: ' + h + '\n' +
-                        'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + t + '\n';
-                    var titulo = '\n'+'              LISTA INTERESADOS OLIMPIADA DÉCIMO AÑO ' + new Date().getFullYear() +'\n';
-                    titulo += '\nProfesores:\nAsignaturas:';
-                    if(data.length > 0) {
-                        $scope.generatePDF('Lista participación olimpiadas décimo', encabezado, titulo, columns, data, 165, true);
-                    }
-                });
-                estudiantes_undecimo = Undecimo.query();
-                estudiantes_undecimo.$promise.then(function(estudiantes){
-                    data = [];
-                    var m = 0;
-                    var h = 0;
-                    var t = 0;
-                    angular.forEach(estudiantes, function(estudiante_undecimo){
-                        if((estudiante_undecimo.admitido) && (!estudiante_undecimo.traladado)) {
-                            if(estudiante_undecimo.sexo === true){
-                                h++;
-                            }
-                            else{
-                                m++;
-                            }
-                            data.push({'ced':estudiante_undecimo.nacionalidad,'nom': estudiante_undecimo.segundo_apellido + ' ' + estudiante_undecimo.primer_apellido + ' ' + estudiante_undecimo.name,
-                                'par': ''});
-                        }
-                    });
-                    t = m + h;
-                    var encabezado =
-                        'Colegio Científico de Costa Rica                     Mujeres: ' + m + '\n' +
-                        'Sede Regional San Carlos                             Hombres: ' + h + '\n' +
-                        'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + t + '\n';
-                    var titulo = '\n'+'              LISTA INTERESADOS OLIMPIADA UNDÉCIMO AÑO ' + new Date().getFullYear() +'\n';
-                    titulo += '\nProfesores:\nAsignaturas:';
-                    if(data.length > 0) {
-                        $scope.generatePDF('Lista participación olimpiadas undécimo', encabezado, titulo, columns, data, 165, true);
-                    }
-                });
-            }
-            else if(reporte.val ===8){
-                $scope.reporte_notas(true);
-            }
-        };
+         if((estudiante_undecimo.admitido) && (!estudiante_undecimo.traladado)) {
+         if(estudiante_undecimo.sexo === true){
+         h++;
+         }
+         else{
+         m++;
+         }
+         data2.push({'ced':estudiante_undecimo.nacionalidad,'nom': estudiante_undecimo.segundo_apellido + ' ' + estudiante_undecimo.primer_apellido + ' ' + estudiante_undecimo.name, 'cie': '','fir': ''});
+         }
+         });
+         var t = m + h;
+         var encabezado =
+         'Colegio Científico de Costa Rica                     Mujeres: ' + m + '\n' +
+         'Sede Regional San Carlos                             Hombres: ' + h + '\n' +
+         'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + t + '\n';
+         var titulo = '              LISTA CIENCIA PARA BACHILLERATO UNDÉCIMO AÑO ' + new Date().getFullYear() +'\n';
+         if(data2.length > 0) {
+         $scope.generatePDF('Lista ciencia para bachillerato undécimo', encabezado, titulo, columns, data, 95, true);
+         }
+         });
+         }
+         else if(reporte.val === 4){
+         columns = [
+         {title: 'Cédula', key: 'ced'},
+         {title: 'Nombre', key: 'nom'},
+         {title: 'E-mail', key: 'mail'}
+         ];
+         data = [];
+         estudiantes_decimo = Decimo.query();
+         estudiantes_decimo.$promise.then(function(estudiantes) {
+         angular.forEach(estudiantes, function (estudiante_decimo) {
+         if ((estudiante_decimo.admitido) && (!estudiante_decimo.traladado)){
+         data.push({'ced':estudiante_decimo.nacionalidad, 'nom':estudiante_decimo.segundo_apellido + estudiante_decimo.primer_apellido + estudiante_decimo.name, 'mail': estudiante_decimo.correo});
+         }
+         });
+         var encabezado =
+         'Colegio Científico de Costa Rica\n' +
+         'Instituto Tecnológico de Costa Rica, Sede Regional San Carlos\n' +
+         'Telefax: 2475-7089,Tel: 2401-3122\n';
+         var titulo = '';
+         if(data.length > 1) {
+         $scope.generatePDF('Lista correos décimo', encabezado, titulo, columns, data, 70, true);
+         }
+         });
+         data2 = [];
+         estudiantes_undecimo = Undecimo.query();
+         estudiantes_undecimo.$promise.then(function(estudiantes){
+         angular.forEach(estudiantes, function(estudiante_undecimo){
+         if((estudiante_undecimo.admitido) && (!estudiante_undecimo.traladado)) {
+         data2.push({'ced':estudiante_undecimo.nacionalidad, 'nom':estudiante_undecimo.segundo_apellido + estudiante_undecimo.primer_apellido + estudiante_undecimo.name, 'mail': estudiante_undecimo.correo});
+         }
+         });
+         var encabezado =
+         'Colegio Científico de Costa Rica\n' +
+         'Instituto Tecnológico de Costa Rica, Sede Regional San Carlos\n' +
+         'Telefax: 2475-7089,Tel: 2401-3122\n';
+         var titulo = '';
+         if(data2.length > 0) {
+         $scope.generatePDF('Lista correos undécimo', encabezado, titulo, columns, data2, 70, true);
+         }
+         });
+         }
+         else if(reporte.val === 5){
+         columns = [
+         {title: 'Cédula', key: 'ced'},
+         {title: 'Nombre', key: 'nom'},
+         {title: 'Biología', key: 'bio'},
+         {title: 'Química', key: 'quim'},
+         {title: 'Física', key: 'fis'}
+         ];
+         data = [];
+         estudiantes_undecimo = Undecimo.query();
+         estudiantes_undecimo.$promise.then(function(estudiantes){
+         var m = 0;
+         var h = 0;
+         angular.forEach(estudiantes, function(estudiante_undecimo){
+         if((estudiante_undecimo.admitido) && (!estudiante_undecimo.traladado)) {
+         if(estudiante_undecimo.sexo === true){
+         h++;
+         }
+         else{
+         m++;
+         }
+         data.push({'ced':estudiante_undecimo.nacionalidad,'nom': estudiante_undecimo.segundo_apellido + ' ' + estudiante_undecimo.primer_apellido + ' ' + estudiante_undecimo.name, 'bio': '','quim': '', 'fis': ''});
+         }
+         });
+         var t = m + h;
+         var encabezado =
+         'Colegio Científico de Costa Rica                     Mujeres: ' + m + '\n' +
+         'Sede Regional San Carlos                             Hombres: ' + h + '\n' +
+         'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + t + '\n';
+         var titulo = '\n'+'              ESCOGENCIA DE CIENCIA BACHILLERATO ' + new Date().getFullYear() +'\n';
+         titulo += '\nProfesores:\nAsignaturas:';
+         if(data.length > 0) {
+         $scope.generatePDF('Escogencia de ciencia bachierato', encabezado, titulo, columns, data, 165, true);
+         }
+         });
+         }
+         else if(reporte.val === 6){
+         columns = [
+         {title: 'Cédula', key: 'ced'},
+         {title: 'Nombre', key: 'nom'},
+         {title: 'Email', key: 'email'},
+         {title: 'Dirección', key: 'dir'},
+         {title: 'Fecha de nacimiento', key: 'nac'},
+         {title: 'Edad', key: 'edad'}
+         ];
+         data = [];
+         estudiantes_decimo = Decimo.query();
+         estudiantes_decimo.$promise.then(function(estudiantes) {
+         var m = 0;
+         var h = 0;
+         var t = 0;
+         angular.forEach(estudiantes, function (estudiante_decimo) {
+         if ((estudiante_decimo.admitido) && (!estudiante_decimo.traladado)) {
+         if(estudiante_decimo.sexo === true){
+         h++;
+         }
+         else{
+         m += 1;
+         console.log(m);
+         }
+         var fecha_split = estudiante_decimo.fecha_de_nacimiento.split('-');
+         var f = new Date();
+         if(fecha_split[2].length === 4)
+         f = new Date(fecha_split[2], fecha_split[1], fecha_split[0]);
+         else
+         f = new Date(fecha_split[0], fecha_split[1], fecha_split[2]);
+         var edad = new Date().getFullYear() - f.getFullYear();
+         data.push({'ced':estudiante_decimo.nacionalidad,'nom': estudiante_decimo.segundo_apellido + ' ' + estudiante_decimo.primer_apellido + ' ' + estudiante_decimo.name,
+         'email': estudiante_decimo.correo, 'dir': estudiante_decimo.direccion_exacta, 'nac': estudiante_decimo.fecha_de_nacimiento, 'edad': edad});
+         }
+         });
+         t = m + h;
+         var encabezado =
+         'Colegio Científico de Costa Rica                     Mujeres: ' + m + '\n' +
+         'Sede Regional San Carlos                             Hombres: ' + h + '\n' +
+         'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + t + '\n';
+         var titulo = '              LISTA DE CORREOS DÉCIMO AÑO ' + new Date().getFullYear() +'\n';
+         if(data.length > 0) {
+         $scope.generatePDF('Lista para la biblioteca décimo', encabezado, titulo, columns, data, 95 , true);
+         }
+         });
+         estudiantes_undecimo = Undecimo.query();
+         estudiantes_undecimo.$promise.then(function(estudiantes){
+         data = [];
+         var m = 0;
+         var h = 0;
+         var t = 0;
+         angular.forEach(estudiantes, function(estudiante_undecimo){
+         if((estudiante_undecimo.admitido) && (!estudiante_undecimo.traladado)) {
+         if(estudiante_undecimo.sexo === true){
+         h++;
+         }
+         else{
+         m++;
+         }
+         var fecha_split = estudiante_undecimo.fecha_de_nacimiento.split('-');
+         var f = new Date();
+         if(fecha_split[2].length === 4)
+         f = new Date(fecha_split[2], fecha_split[1], fecha_split[0]);
+         else
+         f = new Date(fecha_split[0], fecha_split[1], fecha_split[2]);
+         var edad = new Date().getFullYear() - f.getFullYear();
+         data.push({'ced':estudiante_undecimo.nacionalidad,'nom': estudiante_undecimo.segundo_apellido + ' ' + estudiante_undecimo.primer_apellido + ' ' + estudiante_undecimo.name,
+         'email': estudiante_undecimo.correo, 'dir': estudiante_undecimo.direccion_exacta, 'nac': estudiante_undecimo.fecha_de_nacimiento, 'edad': edad});
+         }
+         });
+         t = m + h;
+         var encabezado =
+         'Colegio Científico de Costa Rica                     Mujeres: ' + m + '\n' +
+         'Sede Regional San Carlos                             Hombres: ' + h + '\n' +
+         'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + t + '\n';
+         var titulo = '\n'+'              LISTA DE CORREOS UNDÉCIMO AÑO ' + new Date().getFullYear() +'\n';
+         if(data.length > 0) {
+         $scope.generatePDF('Lista para la biblioteca undécimo', encabezado, titulo, columns, data, 95, true);
+         }
+         });
+         }
+         else if(reporte.val === 7){
+         columns = [
+         {title: 'Cédula', key: 'ced'},
+         {title: 'Nombre', key: 'nom'},
+         {title: 'Participación Olimpiada', key: 'par'}
+         ];
+         data = [];
+         estudiantes_decimo = Decimo.query();
+         estudiantes_decimo.$promise.then(function(estudiantes) {
+         var m = 0;
+         var h = 0;
+         var t = 0;
+         angular.forEach(estudiantes, function (estudiante_decimo) {
+         if ((estudiante_decimo.admitido) && (!estudiante_decimo.traladado)) {
+         if(estudiante_decimo.sexo === true){
+         h++;
+         }
+         else{
+         m += 1;
+         console.log(m);
+         }
+         data.push({'ced':estudiante_decimo.nacionalidad,'nom': estudiante_decimo.segundo_apellido + ' ' + estudiante_decimo.primer_apellido + ' ' + estudiante_decimo.name,
+         'par': ''});
+         }
+         });
+         t = m + h;
+         var encabezado =
+         'Colegio Científico de Costa Rica                     Mujeres: ' + m + '\n' +
+         'Sede Regional San Carlos                             Hombres: ' + h + '\n' +
+         'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + t + '\n';
+         var titulo = '\n'+'              LISTA INTERESADOS OLIMPIADA DÉCIMO AÑO ' + new Date().getFullYear() +'\n';
+         titulo += '\nProfesores:\nAsignaturas:';
+         if(data.length > 0) {
+         $scope.generatePDF('Lista participación olimpiadas décimo', encabezado, titulo, columns, data, 165, true);
+         }
+         });
+         estudiantes_undecimo = Undecimo.query();
+         estudiantes_undecimo.$promise.then(function(estudiantes){
+         data = [];
+         var m = 0;
+         var h = 0;
+         var t = 0;
+         angular.forEach(estudiantes, function(estudiante_undecimo){
+         if((estudiante_undecimo.admitido) && (!estudiante_undecimo.traladado)) {
+         if(estudiante_undecimo.sexo === true){
+         h++;
+         }
+         else{
+         m++;
+         }
+         data.push({'ced':estudiante_undecimo.nacionalidad,'nom': estudiante_undecimo.segundo_apellido + ' ' + estudiante_undecimo.primer_apellido + ' ' + estudiante_undecimo.name,
+         'par': ''});
+         }
+         });
+         t = m + h;
+         var encabezado =
+         'Colegio Científico de Costa Rica                     Mujeres: ' + m + '\n' +
+         'Sede Regional San Carlos                             Hombres: ' + h + '\n' +
+         'Telefax: 2475-7089,Tel: 2401-3122                    Total: ' + t + '\n';
+         var titulo = '\n'+'              LISTA INTERESADOS OLIMPIADA UNDÉCIMO AÑO ' + new Date().getFullYear() +'\n';
+         titulo += '\nProfesores:\nAsignaturas:';
+         if(data.length > 0) {
+         $scope.generatePDF('Lista participación olimpiadas undécimo', encabezado, titulo, columns, data, 165, true);
+         }
+         });
+         }
+         else if(reporte.val ===8){
+         $scope.reporte_notas(true);
+         }
+         };*/
+
         $scope.show = false;
         $scope.base64 = $sce.trustAsResourceUrl('data:application/pdf;base64,JVBERi0xLjMKMyAwIG9iago8PC9UeXBlIC9QYWdlCi9QYXJlbnQgMSAwIFIKL1Jlc291cmNlcyAyIDAgUgovQ29udGVudHMgNCAwIFI+PgplbmRvYmoKNCAwIG9iago8PC9MZW5ndGggMTYwNT4+CnN0cmVhbQowLjU3IHcKMCBHCnEKcSBCVCA0Mi41MiA3OTUuNjIgVGQKMCAtMjIuNTAgVGQKL0YyIDE1LjAwIFRmIChBYm91dCBqc1BERikgVGoKRVQgUQpxIEJUIDQyLjUyIDc2MS44NyBUZAowIC0xNi44OCBUZAovRjEgMTEuMjUgVGYgKFNpbXBseSBpbmNsdWRlIHRoZSBqc1BERiBsaWJyYXJ5IGluIHlvdXIgPGhlYWQ+LCBnZW5lcmF0ZSB5b3VyIFBERiB1c2luZyB0aGUgbWFueSBidWlsdC1pbikgVGoKMCAtMTYuODggVGQKL0YxIDExLjI1IFRmIChmdW5jdGlvbnMsIHRoZW4gaG9vayB1cCBhIGJ1dHRvbiB0byB0cmlnZ2VyIHRoZSBkb3dubG9hZC4gQWxsIHRoZSBleGFtcGxlcyBoZXJlIHVzZSBqUXVlcnkuKSBUagpFVCBRCnEgQlQgNDIuNTIgNzA5LjM3IFRkCjAgLTIyLjUwIFRkCi9GMiAxNS4wMCBUZiAoQnJvd3NlciBDb21wYXRpYmlsaXR5KSBUagpFVCBRCnEgQlQgNDIuNTIgNjc1LjYyIFRkCjAgLTE2Ljg4IFRkCi9GMSAxMS4yNSBUZiAoanNQREYgd2lsbCB3b3JrIGluIElFNisqLCBGaXJlZm94IDMrLCBDaHJvbWUsIFNhZmFyaSAzKywgT3BlcmEuIEZvciBJRTkgYW5kIGJlbG93LCB3ZSBsYXppbHkgbG9hZCkgVGoKMCAtMTYuODggVGQKL0YxIDExLjI1IFRmIChhIEZsYXNoIHNoaW0gY2FsbGVkIERvd25sb2FkaWZ5IHdoaWNoIGVuYWJsZXMgdGhlIGZpbGVzIHRvIGJlIGRvd25sb2FkZWQuICkgVGoKL0YzIDExLjI1IFRmIChcKEN1cnJlbnQgYnVpbGQgZG9lcykgVGoKMCAtMTYuODggVGQKL0YzIDExLjI1IFRmIChub3QgaGF2ZSBJRTYtOSBzaGltIGVuYWJsZWRcKSkgVGoKRVQgUQpxIEJUIDQyLjUyIDYwNi4yNSBUZAowIC0yMi41MCBUZAovRjIgMTUuMDAgVGYgKENyZWRpdHMpIFRqCkVUIFEKcSBCVCA0Mi41MiA1NzIuNTAgVGQKMCAtMTYuODggVGQKL0YxIDExLjI1IFRmIChCaWcgdGhhbmtzIHRvIERhbmllbCBEb3RzZW5rbyBmcm9tIFdpbGxvdyBTeXN0ZW1zIENvcnBvcmF0aW9uIGZvciBtYWtpbmcgaHVnZSBjb250cmlidXRpb25zIHRvKSBUagowIC0xNi44OCBUZAovRjEgMTEuMjUgVGYgKHRoZSBjb2RlYmFzZS4gVGhhbmtzIHRvIEFqYXhpYW4uY29tIGZvciBmZWF0dXJpbmcgdXMgYmFjayBpbiAyMDA5LiBFdmVyeW9uZSBlbHNlIHRoYXQncykgVGoKMCAtMTYuODggVGQKL0YxIDExLjI1IFRmIChjb250cmlidXRlZCBwYXRjaGVzIG9yIGJ1ZyByZXBvcnRzLCB5b3Ugcm9jay4pIFRqCkVUIFEKcSBCVCA0Mi41MiA1MDMuMTIgVGQKMCAtMjIuNTAgVGQKL0YyIDE1LjAwIFRmIChOZWVkIEhlbHA/KSBUagpFVCBRCnEgQlQgNDIuNTIgNDY5LjM3IFRkCjAgLTE2Ljg4IFRkCi9GMSAxMS4yNSBUZiAoU2VuZCB1cyBhIHR3ZWV0IGFuZCB3ZSdsbCBzZWUgaWYgd2UgY2FuIGhlbHAuKSBUagpFVCBRCnEgQlQgNDIuNTIgNDM3LjUwIFRkCjAgLTE2Ljg4IFRkCi9GMSAxMS4yNSBUZiAoQHBhcmFsbGF4KSBUagovRjEgMTEuMjUgVGYgKCBvciApIFRqCi9GMSAxMS4yNSBUZiAoQE1yUmlvKSBUagpFVCBRCnEgQlQgNDIuNTIgNDA1LjYyIFRkCjAgLTE2Ljg4IFRkCi9GMSAxMS4yNSBUZiAoT3IgY2hlY2sgb3V0ICkgVGoKL0YxIDExLjI1IFRmIChvdXIgZG9jdW1lbnRhdGlvbikgVGoKL0YxIDExLjI1IFRmICguKSBUagpFVCBRClEKZW5kc3RyZWFtCmVuZG9iagoxIDAgb2JqCjw8L1R5cGUgL1BhZ2VzCi9LaWRzIFszIDAgUiBdCi9Db3VudCAxCi9NZWRpYUJveCBbMCAwIDU5NS4yOCA4NDEuODldCj4+CmVuZG9iago1IDAgb2JqCjw8L0Jhc2VGb250L0hlbHZldGljYS9UeXBlL0ZvbnQKL0VuY29kaW5nL1dpbkFuc2lFbmNvZGluZwovU3VidHlwZS9UeXBlMT4+CmVuZG9iago2IDAgb2JqCjw8L0Jhc2VGb250L0hlbHZldGljYS1Cb2xkL1R5cGUvRm9udAovRW5jb2RpbmcvV2luQW5zaUVuY29kaW5nCi9TdWJ0eXBlL1R5cGUxPj4KZW5kb2JqCjcgMCBvYmoKPDwvQmFzZUZvbnQvSGVsdmV0aWNhLU9ibGlxdWUvVHlwZS9Gb250Ci9FbmNvZGluZy9XaW5BbnNpRW5jb2RpbmcKL1N1YnR5cGUvVHlwZTE+PgplbmRvYmoKOCAwIG9iago8PC9CYXNlRm9udC9IZWx2ZXRpY2EtQm9sZE9ibGlxdWUvVHlwZS9Gb250Ci9FbmNvZGluZy9XaW5BbnNpRW5jb2RpbmcKL1N1YnR5cGUvVHlwZTE+PgplbmRvYmoKOSAwIG9iago8PC9CYXNlRm9udC9Db3VyaWVyL1R5cGUvRm9udAovRW5jb2RpbmcvV2luQW5zaUVuY29kaW5nCi9TdWJ0eXBlL1R5cGUxPj4KZW5kb2JqCjEwIDAgb2JqCjw8L0Jhc2VGb250L0NvdXJpZXItQm9sZC9UeXBlL0ZvbnQKL0VuY29kaW5nL1dpbkFuc2lFbmNvZGluZwovU3VidHlwZS9UeXBlMT4+CmVuZG9iagoxMSAwIG9iago8PC9CYXNlRm9udC9Db3VyaWVyLU9ibGlxdWUvVHlwZS9Gb250Ci9FbmNvZGluZy9XaW5BbnNpRW5jb2RpbmcKL1N1YnR5cGUvVHlwZTE+PgplbmRvYmoKMTIgMCBvYmoKPDwvQmFzZUZvbnQvQ291cmllci1Cb2xkT2JsaXF1ZS9UeXBlL0ZvbnQKL0VuY29kaW5nL1dpbkFuc2lFbmNvZGluZwovU3VidHlwZS9UeXBlMT4+CmVuZG9iagoxMyAwIG9iago8PC9CYXNlRm9udC9UaW1lcy1Sb21hbi9UeXBlL0ZvbnQKL0VuY29kaW5nL1dpbkFuc2lFbmNvZGluZwovU3VidHlwZS9UeXBlMT4+CmVuZG9iagoxNCAwIG9iago8PC9CYXNlRm9udC9UaW1lcy1Cb2xkL1R5cGUvRm9udAovRW5jb2RpbmcvV2luQW5zaUVuY29kaW5nCi9TdWJ0eXBlL1R5cGUxPj4KZW5kb2JqCjE1IDAgb2JqCjw8L0Jhc2VGb250L1RpbWVzLUl0YWxpYy9UeXBlL0ZvbnQKL0VuY29kaW5nL1dpbkFuc2lFbmNvZGluZwovU3VidHlwZS9UeXBlMT4+CmVuZG9iagoxNiAwIG9iago8PC9CYXNlRm9udC9UaW1lcy1Cb2xkSXRhbGljL1R5cGUvRm9udAovRW5jb2RpbmcvV2luQW5zaUVuY29kaW5nCi9TdWJ0eXBlL1R5cGUxPj4KZW5kb2JqCjIgMCBvYmoKPDwKL1Byb2NTZXQgWy9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUldCi9Gb250IDw8Ci9GMSA1IDAgUgovRjIgNiAwIFIKL0YzIDcgMCBSCi9GNCA4IDAgUgovRjUgOSAwIFIKL0Y2IDEwIDAgUgovRjcgMTEgMCBSCi9GOCAxMiAwIFIKL0Y5IDEzIDAgUgovRjEwIDE0IDAgUgovRjExIDE1IDAgUgovRjEyIDE2IDAgUgo+PgovWE9iamVjdCA8PAo+Pgo+PgplbmRvYmoKMTcgMCBvYmoKPDwKL1Byb2R1Y2VyIChqc1BERiAyMDEyMDYxOSkKL0NyZWF0aW9uRGF0ZSAoRDoyMDE1MDYyMjA5NTAzNykKPj4KZW5kb2JqCjE4IDAgb2JqCjw8Ci9UeXBlIC9DYXRhbG9nCi9QYWdlcyAxIDAgUgovT3BlbkFjdGlvbiBbMyAwIFIgL0ZpdEggbnVsbF0KL1BhZ2VMYXlvdXQgL09uZUNvbHVtbgo+PgplbmRvYmoKeHJlZgowIDE5CjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMTc0MiAwMDAwMCBuIAowMDAwMDAyOTcxIDAwMDAwIG4gCjAwMDAwMDAwMDkgMDAwMDAgbiAKMDAwMDAwMDA4NyAwMDAwMCBuIAowMDAwMDAxODI5IDAwMDAwIG4gCjAwMDAwMDE5MTkgMDAwMDAgbiAKMDAwMDAwMjAxNCAwMDAwMCBuIAowMDAwMDAyMTEyIDAwMDAwIG4gCjAwMDAwMDIyMTQgMDAwMDAgbiAKMDAwMDAwMjMwMiAwMDAwMCBuIAowMDAwMDAyMzk2IDAwMDAwIG4gCjAwMDAwMDI0OTMgMDAwMDAgbiAKMDAwMDAwMjU5NCAwMDAwMCBuIAowMDAwMDAyNjg3IDAwMDAwIG4gCjAwMDAwMDI3NzkgMDAwMDAgbiAKMDAwMDAwMjg3MyAwMDAwMCBuIAowMDAwMDAzMTk1IDAwMDAwIG4gCjAwMDAwMDMyNzcgMDAwMDAgbiAKdHJhaWxlcgo8PAovU2l6ZSAxOQovUm9vdCAxOCAwIFIKL0luZm8gMTcgMCBSCj4+CnN0YXJ0eHJlZgozMzgxCiUlRU9G');
         $scope.nombre_reporte_notas_undecimo = '';
