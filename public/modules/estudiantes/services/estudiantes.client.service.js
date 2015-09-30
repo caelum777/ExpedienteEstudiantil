@@ -92,7 +92,7 @@ angular.module('estudiantes').factory('Reports', function(){
         var data = [];
 
         var report = {
-           absenteeList: function(estudiantes) {
+            attendanceListReport: function(estudiantes) {
                data = [];
                TITLE = '                   CONTROL DE AUSENCIAS DECIMO ' + new Date().getFullYear() +'\n' +
                    'Profesor: __________________                         Mes:________________ \n' +
@@ -125,7 +125,8 @@ angular.module('estudiantes').factory('Reports', function(){
                return result;
 
            },
-            personalInfoList: function(estudiantes){
+
+            personalInfoListReport: function(estudiantes){
                 data = [];
                 TITLE = [];
                 HEADER = 'Colegio Cientifico de Costa Rica\n' +
@@ -148,7 +149,7 @@ angular.module('estudiantes').factory('Reports', function(){
                 return result;
             },
 
-            scienceForBachelorList: function (estudiantes) {
+            scienceForBachelorListReport: function (estudiantes) {
                 data = [];
                 TITLE = '      LISTA CIENCIA PARA BACHILLERATO DECIMO ' + new Date().getFullYear() +'\n';
                 columns = [
@@ -176,7 +177,7 @@ angular.module('estudiantes').factory('Reports', function(){
                 return result;
             },
 
-            emailList: function(estudiantes) {
+            emailListReport: function(estudiantes) {
                 data = [];
                 'Colegio Cientifico de Costa Rica\n' +
                 'Instituto Tecnologico de Costa Rica, Sede Regional San Carlos\n' +
@@ -196,8 +197,7 @@ angular.module('estudiantes').factory('Reports', function(){
                 return result;
             },
 
-
-            scienceForBachelor: function(estudiantes) {
+            scienceForBachelorChoiceListReport: function(estudiantes) {
                 data = [];
                 TITLE = '\n'+'              ESCOGENCIA DE CIENCIA BACHILLERATO ' + new Date().getFullYear() +'\n' +
                     '\nProfesores:\nAsignaturas:';
@@ -233,7 +233,7 @@ angular.module('estudiantes').factory('Reports', function(){
                 return result;
             },
 
-            listOfStudentsForLibrary: function(estudiantes){
+            StudentsForLibraryListReport: function(estudiantes){
                 data = [];
                 TITLE = '       LISTA DE INFORMACION PARA LA BIBLIOTECA DECIMO ' + new Date().getFullYear() +'\n';
                 columns = [
@@ -271,7 +271,7 @@ angular.module('estudiantes').factory('Reports', function(){
                 return result;
             },
 
-            listForOlimpicsParticipation: function(estudiantes){
+            OlympicsParticipationListReport: function(estudiantes){
                 data = [];
                 TITLE ='\n'+'              LISTA INTERESADOS OLIMPIADA DECIMO ' + new Date().getFullYear() +'\n'+
                        '\nProfesores:\nAsignaturas:';
@@ -301,7 +301,7 @@ angular.module('estudiantes').factory('Reports', function(){
             },
 
             //Utility functions for reports
-            getReportList: function(){
+            getReportsList: function(){
                 var lista = [
                     {nombre: 'Lista de asistencia', val : 1},
                     {nombre: 'Lista de cedula, carne, apellidos, nombre, telefono, correo', val : 2},
