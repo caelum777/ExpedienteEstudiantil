@@ -828,7 +828,9 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             $scope.estudiantes = Estudiantes.query();
         };
         $scope.lista_reportes = Reports.getReportsList();
+        $scope.grade_reports_list = Reports.getGradesList();
         $scope.reporte = $scope.lista_reportes[0];
+        $scope.grade_report = $scope.grade_reports_list[0];
         $scope.ced_estudiante = '';
         $scope.visibl = false;
 
@@ -842,19 +844,38 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             }
         });
         $scope.$watch('reporte', function(reporte){
+            createReport();
+        });
+        $scope.$watch('grade_report', function(reporte){
+            createReport();
+        });
+
+        function createReport(){
             var reporte = $scope.reporte;
+            var grade = $scope.grade_report;
             var serviceReport = Reports;
             $scope.visibl = false;
             $scope.show = true;
+            $scope.grade_visible = true;
             serviceReport.estudiantes_decimo = Decimo.query();
             serviceReport.estudiantes_undecimo = Undecimo.query();
             if(reporte.val === 1){
-                serviceReport.estudiantes_decimo.$promise.then(function (estudiantes) {
-                    var result = serviceReport.attendanceListReport(estudiantes)
-                    if (result['Data'].length > 0) {
-                        $scope.generatePDF(result["Filename"], result["Header"], result["Title"], result["Columns"], result["Data"], result["StartY"], result["Save"]);
-                    }
-                });
+                if(grade.grade === 1) {
+                    serviceReport.estudiantes_decimo.$promise.then(function (estudiantes) {
+                        var result = serviceReport.attendanceListReport(estudiantes, "DECIMO")
+                        if (result['Data'].length > 0) {
+                            $scope.generatePDF(result["Filename"], result["Header"], result["Title"], result["Columns"], result["Data"], result["StartY"], result["Save"]);
+                        }
+                    });
+                }
+                else{
+                    serviceReport.estudiantes_undecimo.$promise.then(function (estudiantes) {
+                        var result = serviceReport.attendanceListReport(estudiantes, "UNDECIMO")
+                        if (result['Data'].length > 0) {
+                            $scope.generatePDF(result["Filename"], result["Header"], result["Title"], result["Columns"], result["Data"], result["StartY"], result["Save"]);
+                        }
+                    });
+                }
             }
             else if(reporte.val === 2) {
                 serviceReport.estudiantes_decimo.$promise.then(function (estudiantes) {
@@ -905,10 +926,11 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 });
             }
             else if(reporte.val === 8){
+                $scope.grade_visible = false;
                 $scope.visibl = true;
                 $scope.show = false;
             }
-        });
+        }
 
         $scope.show = false;
         $scope.base64 = $sce.trustAsResourceUrl('');

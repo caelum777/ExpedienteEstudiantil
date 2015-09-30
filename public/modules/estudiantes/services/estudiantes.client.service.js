@@ -92,9 +92,9 @@ angular.module('estudiantes').factory('Reports', function(){
         var data = [];
 
         var report = {
-            attendanceListReport: function(estudiantes) {
+            attendanceListReport: function(estudiantes, grade_label) {
                data = [];
-               TITLE = '                   CONTROL DE AUSENCIAS DECIMO ' + new Date().getFullYear() +'\n' +
+               TITLE = '                   CONTROL DE AUSENCIAS ' + grade_label + ' ' + new Date().getFullYear() +'\n' +
                    'Profesor: __________________                         Mes:________________ \n' +
                    'Asignatura: ________________                         A = Ausencia, T = Tardia';
                columns = [
@@ -313,6 +313,13 @@ angular.module('estudiantes').factory('Reports', function(){
                     {nombre: 'Reporte de notas', val : 8}
                 ];
                 return lista;
+            },
+            getGradesList: function(){
+                var grades = [
+                    {grade_opt: 'Decimo', grade: 1},
+                    {grade_opt: 'Undecimo', grade: 2}
+                ];
+                return grades;
             },
             initHeader: function(women, men, total){
                 var header =
