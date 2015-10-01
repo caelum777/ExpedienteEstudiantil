@@ -67,3 +67,6 @@
 .transparent-label{
     color: transparent;
 }
+.error_anno_ingreso_mayor_actual{
+    color :indianred;
+}

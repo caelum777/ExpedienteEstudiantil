@@ -105,9 +105,7 @@
                     </div>
 
 
-                    <div class="" id="anno_ingreso_error" ng-show="false">
-                        <label class="control-label" for="name" >Puto error</label>
-                    </div>
+
 
 
                     <span class="form-group col-xs-6 no-margin-bottom" >
@@ -115,21 +113,22 @@
                         <div class="controls">
                             <input type="text" ng-minlength="4"  maxlength="4"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' data-ng-model="anno_ingreso" id="anno_ingreso"
                                    class="form-control align-field" aria-valuemin="4" required>
+                            <div class="error_anno_ingreso_mayor_actual"ng-show="anno_ingreso_error_mayor_actual">
+                                <label class="control-label" for="name" >El año no puede ser mayor que el año actual</label>
+                            </div>
                         </div>
                     </span>
-
-
-
-
-
-
                     <span class="form-group col-xs-6 no-margin-bottom">
                         <label class="control-label" for="name">Graduado</label>
                         <div class="controls">
                             <input type="checkbox" data-ng-model="graduado" class="checkbox checked" name="graduado" class="form-control align-field">
                         </div>
                     </span>
+
                     <label class="transparent-label" for="name">. . . . . . . . . </label>
+
+
+
 
 
                     <div class = "form-group col-xs-6 no-margin-bottom">
