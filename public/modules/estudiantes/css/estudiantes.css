@@ -44,3 +44,26 @@
     cursor: inherit;
     display: block;
 }
+
+.checkbox.checked {
+    /*-webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);*/
+    border-top: none;
+    border-left: none;
+    top: 0px;
+    left: 6px;
+    width: 30px;
+    height: 30px;
+}
+
+.checkbox-container .checkbox {
+    border: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    box-sizing: border-box;
+}
+.transparent-label{
+    color: transparent;
+}
