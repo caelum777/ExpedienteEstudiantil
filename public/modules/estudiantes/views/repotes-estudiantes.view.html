@@ -1,14 +1,20 @@
 <section data-ng-controller="EstudiantesController" data-ng-init="get_all_students()">
+    <img src="/modules/estudiantes/img/cc-logo.jpeg" id="cc-logo" alt="Hidden logo" width="123" height="128" ng-show=false>
     <div class="page-header">
         <h1>Reportes de estudiantes de décimo y undécimo</h1>
     </div>
-    <form class="form-horizontal" data-ng-submit="generar_reporte()" novalidate="true">
+    <form class="form-horizontal" novalidate="true">
         <div class="controls">
             <select class="form-control" data-ng-model="reporte" id="reporte"
                     ng-options="opt as opt.nombre for opt in lista_reportes">
             </select>
         </div>
         <br/>
+        <div class="controls">
+            <select class="form-control" data-ng-model="grade_report" id="grade_report"
+                    ng-options="opt as opt.grade_opt for opt in grade_reports_list" ng-show="grade_visible">
+            </select>
+        </div>
         <br/>
         <div>
             <input type="text" data-ng-model="ced_estudiante" id="ced" class="form-control" placeholder="Cédula de estudiante" title="Formato: 0-0000-0000" pattern="[0-9]{1}-[0-9]{4}-[0-9]{4}" ng-show="visibl" required>
@@ -18,9 +24,5 @@
         <iframe width="100%" height="400px" src="{{base64}}" ng-show="show"></iframe>
         <br/>
         <br/>
-
-        <div class="form-group">
-            <input type="submit" value="Generar reporte" class="btn btn-primary full-width">
-        </div>
     </form>
 </section>
