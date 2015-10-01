@@ -300,6 +300,91 @@ angular.module('estudiantes').factory('Reports', function(){
                 return result;
             },
 
+            notesReport: function(student_notes, student){
+
+                HEADER = 'Colegio Cientifico de Costa Rica\nSede San Carlos';
+                TITLE = 'Informe Provisional de Calificaciones';
+
+                var notes = [
+                    {curso: 'Espanol', nota: 0, semestre: 1},
+                    {curso: 'Matematicas', nota: 0, semestre: 1},
+                    {curso: 'Fisica', nota: 0, semestre: 1},
+                    {curso: 'Quimica', nota: 0, semestre: 1},
+                    {curso: 'Biologia', nota: 0, semestre: 1},
+                    {curso: 'Bioteclogia', nota: 0, semestre: 1},
+                    {curso: 'Computacion', nota: 0, semestre: 1},
+                    {curso: 'Robotica', nota: 0, semestre: 1},
+                    {curso: 'Dibujo Tecnico', nota: 0, semestre: 1},
+                    {curso: 'Ingles', nota: 0, semestre: 1},
+                    {curso: 'Investigacion', nota: 0, semestre: 1},
+                    {curso: 'Historia', nota: 0, semestre: 1},
+                    {curso: 'Geografia', nota: 0, semestre: 1},
+                    {curso: 'Educ. Religiosa', nota: 0, semestre: 1},
+                    {curso: 'Educ. Civica', nota: 0, semestre: 1},
+                    {curso: 'Educ. Fisica', nota: 0, semestre: 1},
+                    {curso: 'Matematica(PROF.)', nota: 0, semestre: 1},
+                    {curso: 'Fisica(PROF.)', nota: 0, semestre: 1},
+                    {curso: 'Quimica(PROF.)', nota: 0, semestre: 1},
+                    {curso: 'Biologia(PROF.)', nota: 0, semestre: 1},
+                    {curso: 'Conducta', nota: 0, semestre: 1},
+                    {curso: 'Promedio', nota: 0, semestre: 1}];
+
+                columns = [
+                    {title: 'Asignatura', key: 'asig'},
+                    {title: '  I  ', key: 'i'},
+                    {title: '  II  ', key: 'ii'},
+                    {title: 'PROM.', key: 'prom'},
+                    {title: 'M', key: 'm'},
+                    {title: 'I', key: 'iii'},
+                    {title: 'T', key: 't'},
+                    {title: 'M', key: 'm2'},
+                    {title: 'I', key: 'iii2'},
+                    {title: 'T', key: 't2'}
+                ];
+                var self = this;
+                var tenthGradeData = [];
+                var eleventhGradeData = [];
+                angular.forEach(notes, function (curso){
+                    var classNoteTenthGrade = [];
+                    for(var i = 0;i<student_notes.length;i++){
+                        if((student_notes[i].curso === curso.curso && (student_notes[i].anno === new Date().getFullYear()))){
+                            classNoteTenthGrade.push(student_notes[i]);
+                        }
+                        else if ((student_notes[i].curso === curso.curso && (student_notes[i].anno === new Date().getFullYear()-1))){
+                            classNoteTenthGrade.push(student_notes[i]);
+                        }
+                        if(classNoteTenthGrade.length === 2){
+                            var c = classNoteTenthGrade[0].curso;
+                            var s1 = classNoteTenthGrade[0].nota;
+                            var s2 = classNoteTenthGrade[1].nota;
+                            var p = (classNoteTenthGrade[0].nota + classNoteTenthGrade[1].nota)/2;
+                            tenthGradeData.push({'asig' : c, 'i': s1, 'ii':s2, 'prom': p, 'm': '', 'iii':'', 't':'', 'm2':'', 'iii2':'', 't2':''});
+                            break;
+                        }
+                    }
+                });
+                if(student[0].anno_ingreso < new Date().getFullYear()) {
+                    angular.forEach(notes, function (curso) {
+                        var classNoteEleventhGrade = [];
+                        for (var i = 0; i < student_notes.length; i++) {
+                            if ((student_notes[i].curso === curso.curso) && (student_notes[i].anno === new Date().getFullYear())) {
+                                classNoteEleventhGrade.push(student_notes[i]);
+                            }
+                            if (classNoteEleventhGrade.length === 2) {
+                                var c = classNoteEleventhGrade[0].curso;
+                                var s1 = classNoteEleventhGrade[0].nota;
+                                var s2 = classNoteEleventhGrade[1].nota;
+                                var p = (classNoteEleventhGrade[0].nota + classNoteEleventhGrade[1].nota) / 2;
+                                eleventhGradeData.push({'asig': c, 'i': s1, 'ii': s2, 'prom': p, 'm': '', 'iii': '', 't': '', 'm2': '', 'iii2': '', 't2': ''});
+                                break;
+                            }
+                        }
+                    });
+                }
+                var pdfResultDecimo = this.getJSONFromData(HEADER, TITLE, columns, [tenthGradeData, eleventhGradeData], 150);
+                return pdfResultDecimo;
+            },
+
             //Utility functions for reports
             getReportsList: function(){
                 var lista = [

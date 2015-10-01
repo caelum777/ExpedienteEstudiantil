@@ -453,19 +453,19 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 {curso: 'Estudios Sociales', nota: 0, semestre: 0},
                 {curso: 'Conducta', nota: 0}];
             $scope.notas_decimo_1 = [
-                {curso: 'Español', nota: 0, semestre: 1},
-                {curso: 'Matemáticas', nota: 0, semestre: 1},
-                {curso: 'Física', nota: 0, semestre: 1},
-                {curso: 'Química', nota: 0, semestre: 1},
-                {curso: 'Biología', nota: 0, semestre: 1},
-                {curso: 'Bioteclogía', nota: 0, semestre: 1},
-                {curso: 'Computación', nota: 0, semestre: 1},
-                {curso: 'Robótica', nota: 0, semestre: 1},
-                {curso: 'Dibujo Técnico', nota: 0, semestre: 1},
-                {curso: 'Inglés', nota: 0, semestre: 1},
-                {curso: 'Investigación', nota: 0, semestre: 1},
+                {curso: 'Espanol', nota: 0, semestre: 1},
+                {curso: 'Matematicas', nota: 0, semestre: 1},
+                {curso: 'Fisica', nota: 0, semestre: 1},
+                {curso: 'Quimica', nota: 0, semestre: 1},
+                {curso: 'Biologia', nota: 0, semestre: 1},
+                {curso: 'Bioteclogia', nota: 0, semestre: 1},
+                {curso: 'Computacion', nota: 0, semestre: 1},
+                {curso: 'Robotica', nota: 0, semestre: 1},
+                {curso: 'Dibujo Tecnico', nota: 0, semestre: 1},
+                {curso: 'Ingles', nota: 0, semestre: 1},
+                {curso: 'Investigacion', nota: 0, semestre: 1},
                 {curso: 'Historia', nota: 0, semestre: 1},
-                {curso: 'Geografía', nota: 0, semestre: 1},
+                {curso: 'Geografia', nota: 0, semestre: 1},
                 {curso: 'Educ. Religiosa', nota: 0, semestre: 1},
                 {curso: 'Educ. Cívica', nota: 0, semestre: 1},
                 {curso: 'Educ. Física', nota: 0, semestre: 1},
@@ -837,16 +837,13 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         $scope.$watch('ced_estudiante', function(ced_estudiante){
             if(ced_estudiante.length === 11){
                 $scope.show = true;
-                $scope.reporte_notas(false);
-            }
-            else{
-                $scope.show = false;
+                $scope.reporte_notas();
             }
         });
-        $scope.$watch('reporte', function(reporte){
+        $scope.$watch('reporte', function(){
             createReport();
         });
-        $scope.$watch('grade_report', function(reporte){
+        $scope.$watch('grade_report', function(){
             createReport();
         });
 
@@ -891,8 +888,10 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     $scope.visibl = true;
                     $scope.show = false;
                 }
-                if (pdfReport['Data'].length > 0){
-                    $scope.generatePDF(pdfReport);
+                if (pdfReport != null){
+                    if (pdfReport['Data'].length > 0){
+                        $scope.generatePDF(pdfReport);
+                    }
                 }
             });
         }
@@ -912,147 +911,44 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             doc.autoTable(PDFReport['Columns'], PDFReport['Data'], {margins: {right: 10, left: 10, top: 100, bottom: 100}, startY: PDFReport['StartY']});
             $scope.base64 = $sce.trustAsResourceUrl('data:application/pdf;base64,' + btoa(doc.output()));
         };
-        $scope.reporte_notas = function(save){
-            $scope.notas_decimo_1 = [
-                {curso: 'Español', nota: 0, semestre: 1},
-                {curso: 'Matemáticas', nota: 0, semestre: 1},
-                {curso: 'Física', nota: 0, semestre: 1},
-                {curso: 'Química', nota: 0, semestre: 1},
-                {curso: 'Biología', nota: 0, semestre: 1},
-                {curso: 'Bioteclogía', nota: 0, semestre: 1},
-                {curso: 'Computación', nota: 0, semestre: 1},
-                {curso: 'Robótica', nota: 0, semestre: 1},
-                {curso: 'Dibujo Técnico', nota: 0, semestre: 1},
-                {curso: 'Inglés', nota: 0, semestre: 1},
-                {curso: 'Investigación', nota: 0, semestre: 1},
-                {curso: 'Historia', nota: 0, semestre: 1},
-                {curso: 'Geografía', nota: 0, semestre: 1},
-                {curso: 'Educ. Religiosa', nota: 0, semestre: 1},
-                {curso: 'Educ. Cívica', nota: 0, semestre: 1},
-                {curso: 'Educ. Física', nota: 0, semestre: 1},
-                {curso: 'Matemática(PROF.)', nota: 0, semestre: 1},
-                {curso: 'Física(PROF.)', nota: 0, semestre: 1},
-                {curso: 'Química(PROF.)', nota: 0, semestre: 1},
-                {curso: 'Biología(PROF.)', nota: 0, semestre: 1},
-                {curso: 'Conducta', nota: 0, semestre: 1},
-                {curso: 'Promedio', nota: 0, semestre: 1}];
-            $scope.notas_undecimo_1 = [
-                {curso: 'Español', nota: 0, semestre: 1},
-                {curso: 'Matemáticas', nota: 0, semestre: 1},
-                {curso: 'Física', nota: 0, semestre: 1},
-                {curso: 'Química', nota: 0, semestre: 1},
-                {curso: 'Biología', nota: 0, semestre: 1},
-                {curso: 'Bioteclogía', nota: 0, semestre: 1},
-                {curso: 'Computación', nota: 0, semestre: 1},
-                {curso: 'Robótica', nota: 0, semestre: 1},
-                {curso: 'Dibujo Técnico', nota: 0, semestre: 1},
-                {curso: 'Inglés', nota: 0, semestre: 1},
-                {curso: 'Investigación', nota: 0, semestre: 1},
-                {curso: 'Historia', nota: 0, semestre: 1},
-                {curso: 'Geografía', nota: 0, semestre: 1},
-                {curso: 'Educ. Religiosa', nota: 0, semestre: 1},
-                {curso: 'Educ. Cívica', nota: 0, semestre: 1},
-                {curso: 'Educ. Física', nota: 0, semestre: 1},
-                {curso: 'Matemática(PROF.)', nota: 0, semestre: 1},
-                {curso: 'Física(PROF.)', nota: 0, semestre: 1},
-                {curso: 'Química(PROF.)', nota: 0, semestre: 1},
-                {curso: 'Biología(PROF.)', nota: 0, semestre: 1},
-                {curso: 'Conducta', nota: 0, semestre: 1},
-                {curso: 'Promedio', nota: 0, semestre: 1}];
-            var notas_estudiante = GetNotas.query({
-                cedula_estudiante: $scope.ced_estudiante
-            });
-            var columns = [
-                {title: 'Asignarura', key: 'asig'},
-                {title: '  I  ', key: 'i'},
-                {title: '  II  ', key: 'ii'},
-                {title: 'PROM.', key: 'prom'},
-                {title: 'M', key: 'm'},
-                {title: 'I', key: 'iii'},
-                {title: 'T', key: 't'},
-                {title: 'M', key: 'm2'},
-                {title: 'I', key: 'iii2'},
-                {title: 'T', key: 't2'}
-            ];
-            notas_estudiante.$promise.then(function(notas) {
-                $scope.estudiante = Nacionalidad.query({
-                    cedula: $scope.ced_estudiante
-                });
-                $scope.estudiante.$promise.then(function(estudiante){
-                    var data = [];
-                    angular.forEach($scope.notas_decimo_1, function (curso){
-                        var notas_cursos = [];
-                        for(var i = 0;i<notas.length;i++){
-                            if((notas[i].curso === curso.curso) && (notas[i].anno === new Date().getFullYear())){
-                                notas_cursos.push(notas[i]);
-                            }
-                            if(notas_cursos.length === 2){
-                                var c = notas_cursos[0].curso;
-                                var s1 = notas_cursos[0].nota;
-                                var s2 = notas_cursos[1].nota;
-                                var p = (notas_cursos[0].nota + notas_cursos[1].nota)/2;
-                                data.push({'asig' : c, 'i': s1, 'ii':s2, 'prom': p, 'm': '', 'iii':'', 't':'', 'm2':'', 'iii2':'', 't2':''});
-                                break;
-                            }
-                        }
-                    });
+        $scope.reporte_notas = function(){
+            var serviceReport = Reports;
+            serviceReport.studentNotes = GetNotas.query({ cedula_estudiante: $scope.ced_estudiante });
+            serviceReport.studentNotes.$promise.then(function(notes){
+                var pdfReport;
+                $scope.estudiante =  Nacionalidad.query( {cedula: $scope.ced_estudiante });
+                $scope.estudiante.$promise.then(function(student){
+                    fixInvalidCharactersfixInvalidCharacters(notes);
+                    pdfReport = serviceReport.notesReport(notes, student);
+                    console.log(pdfReport);
                     var doc = new jsPDF('p', 'pt');
                     doc.setFontSize(16);
                     var logo_img = document.getElementById('cc-logo');
                     var img_data = getBase64Image(logo_img);
                     doc.addImage(img_data, 'JPEG',15,15,25,25);
-                    var encabezado = 'Colegio Científico de Costa Rica\nSede San Carlos';
-                    var año = 0;
-                    var titulo = 'Informe Provicional de Calificaciones Décimo '+ estudiante[0].anno_ingreso;
-                    var infoestudiante = 'Cédula: ' + $scope.ced_estudiante +'\nNombre del Alumno: '+ estudiante[0].segundo_apellido + ' ' + estudiante[0].primer_apellido + ' ' + estudiante[0].name;
-                    doc.text(40, 19, encabezado);
-                    doc.text(120, 60, titulo);
+                    var infoestudiante = 'Cedula: ' + student[0].nacionalidad +'\nNombre del Alumno: '+ student[0].segundo_apellido + ' ' + student[0].primer_apellido + ' ' + student[0].name;
+                    doc.text(40, 19, pdfReport['Header']);
+                    doc.text(120, 60, pdfReport['Title'] + ' Decimo ' + student[0].anno_ingreso);
                     doc.text(15, 90, infoestudiante);
                     doc.setFontSize(10);
                     doc.text(327, 140, 'Ausencias I Semestre              Ausencias II Semestre');
-                    doc.autoTable(columns, data, {margins: {right: 10, left: 10, top: 40, bottom: 40}, startY: 150});
-                    if(estudiante[0].anno_ingreso < new Date().getFullYear()) {
-                        data = [];
-                        angular.forEach($scope.notas_undecimo_1, function (curso) {
-                            var notas_cursos = [];
-                            for (var i = 0; i < notas.length; i++) {
-                                if ((notas[i].curso === curso.curso) && (notas[i].anno === new Date().getFullYear())) {
-                                    notas_cursos.push(notas[i]);
-                                }
-                                if (notas_cursos.length === 2) {
-                                    var c = notas_cursos[0].curso;
-                                    var s1 = notas_cursos[0].nota;
-                                    var s2 = notas_cursos[1].nota;
-                                    var p = (notas_cursos[0].nota + notas_cursos[1].nota) / 2;
-                                    data.push({'asig': c, 'i': s1, 'ii': s2, 'prom': p, 'm': '', 'iii': '', 't': '', 'm2': '', 'iii2': '', 't2': ''});
-                                    break;
-                                }
-                            }
-                        });
+                    doc.autoTable(pdfReport['Columns'], pdfReport['Data'][0], {margins: {right: 10, left: 10, top: 40, bottom: 40}, startY: 150});
+                    if (student[0].anno_ingreso < new Date().getFullYear()){
                         doc.addPage();
                         doc.setFontSize(16);
                         doc.addImage(img_data, 'JPEG',15,15,25,25);
-                        encabezado = 'Colegio Científico de Costa Rica\nSede San Carlos';
-                        titulo = 'Informe Provicional de Calificaciones Undécimo '+ (estudiante[0].anno_ingreso + 1);
-                        infoestudiante = 'Cédula: ' + $scope.ced_estudiante +'\nNombre del Alumno: '+ estudiante[0].segundo_apellido + ' ' + estudiante[0].primer_apellido + ' ' + estudiante[0].name;
-                        doc.text(40, 19, encabezado);
-                        doc.text(120, 60, titulo);
+                        infoestudiante = 'Cédula: ' + $scope.ced_estudiante +'\nNombre del Alumno: '+ student[0].segundo_apellido + ' ' + student[0].primer_apellido + ' ' + student[0].name;
+                        doc.text(40, 19, pdfReport['Header']);
+                        doc.text(120, 60, pdfReport['Title'] + ' Undecimo ' + (student[0].anno_ingreso+1));
                         doc.text(15, 90, infoestudiante);
                         doc.setFontSize(10);
                         doc.text(327, 140, 'Ausencias I Semestre              Ausencias II Semestre');
-                        doc.autoTable(columns, data, {margins: {right: 10, left: 10, top: 40, bottom: 40}, startY: 150});
+                        doc.autoTable(pdfReport['Columns'], pdfReport['Data'][1], {margins: {right: 10, left: 10, top: 40, bottom: 40}, startY: 150});
                     }
-                    if(save) {
-                        doc.save('Reporte de notas ' + estudiante[0].segundo_apellido + ' ' + estudiante[0].primer_apellido + ' ' + estudiante[0].name + '.pdf');
-                    }
-                    else{
-                        $scope.base64 = $sce.trustAsResourceUrl('data:application/pdf;base64,' + btoa(doc.output()));
-                    }
+                    $scope.base64 = $sce.trustAsResourceUrl('data:application/pdf;base64,' + btoa(doc.output()));
                 });
-            }, function(error) {
-                console.log('Failed: ' + error);
             });
-        };
+        }
 	}
 ]).filter('true_false', function() {
     return function(text, length, end) {
@@ -1076,6 +972,18 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         return 'Décimo';
     };
 });
+
+function fixInvalidCharactersfixInvalidCharacters(noteList){
+    var accentMap = { 'á':'a', 'é':'e', 'í':'i','ó':'o','ú':'u', 'ñ': 'n'};
+    for(var j = 0; j < noteList.length; j++){
+        var ret = '';
+        for (var i = 0; i < noteList[j].curso.length; i++) {
+            ret += accentMap[noteList[j].curso.charAt(i)] || noteList[j].curso.charAt(i);
+        }
+        noteList[j].curso = ret;
+    }
+        return ret;
+}
 
 function getBase64Image(img) {
     var canvas = document.createElement("canvas");
