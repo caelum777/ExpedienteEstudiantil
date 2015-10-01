@@ -30,7 +30,9 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         $scope.selected_certificacion_notas = [];
         $scope.selected_inf_hogar = [];
         $scope.selected_vacunas = [];
-        $scope.generacion = 0;
+        $scope.anno_ingreso = 0;
+
+
 
         $scope.provincia_change = function() {
             $scope.canton =  $scope.provincia.cantones[0];
@@ -63,6 +65,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         };
 
 
+
 		// Create new Estudiante
 		$scope.create = function() {
             //Uploads photo
@@ -78,14 +81,24 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
 
             function insertarEstudiante(){
                 // Create new Estudiante object
-                var eg = 0;
-                if($scope.generacion < new Date().getFullYear()-1){
-                    eg = 1;
+                //var graduado
+                var graduado = 0;
+                /*if($scope.anno_ingreso < new Date().getFullYear()-1){
+                    gr = 1;
+                }*/
+                graduado = $scope.graduado
+                var admitido = 0;
+                /*if($scope.anno_ingreso < new Date().getFullYear()){
+                    admitido = 1;
+                }*/
+
+                if ($scope.anno_ingreso>new Date().getFullYear()) {
+
+                    $scope.anno_ingreso_error = true
+
+                    return
                 }
-                var ad = 0;
-                if($scope.generacion < new Date().getFullYear()){
-                    ad = 1;
-                }
+                admitido = $scope.anno_ingreso
                 var estudiante = new Estudiantes ({
                     name: $scope.name,
                     primer_apellido: $scope.primer_apellido,
@@ -101,13 +114,13 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     distrito: $scope.distrito.nombre,
                     barrio: $scope.barrio,
                     direccion_exacta: $scope.direccion_exacta,
-                    admitido: ad,
+                    admitido: admitido,
                     foto: $scope.foto,
-                    anno_ingreso: $scope.generacion,
+                    anno_ingreso: $scope.anno_ingreso,
                     colegio_procedencia: $scope.colegio_procedencia,
                     adecuacion_sig: $scope.adecuacion_sig,
                     adecuacion_nsig: $scope.adecuacion_nsig,
-                    graduado: eg
+                    graduado: graduado
                 });
 
 
@@ -766,11 +779,12 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 { field: 'primer_apellido', displayName:'Primer Apellido'},
                 { field: 'segundo_apellido', displayName:'Segundo Apellido'},
                 { field: 'nacionalidad', displayName:'Cédula'},
-                { field: 'anno_ingreso', displayName:'Generación'},
+                { field: 'graduado', displayName:'Graduado',cellTemplate: '<div class="ngCellText">{{row.getProperty(col.field) | true_false}}</div>'},
                 { field: 'colegio_procedencia', displayName:'Colegio de Procedencia'},
                 { field: 'anno_ingreso', displayName:'Año de ingreso'},
                 { field: 'sexo', displayName:'Sexo',cellTemplate: '<div class="ngCellText">{{row.getProperty(col.field) | sexo}}</div>'},
                 { field: 'traladado', displayName:'Trasladado',cellTemplate: '<div class="ngCellText">{{row.getProperty(col.field) | true_false}}</div>'},
+                { field: 'graduado', displayName:'Graduado',cellTemplate: '<div class="ngCellText">{{row.getProperty(col.field) | true_false}}</div>'},
                 { field: '_id', displayName:'Ver', cellTemplate: '<a data-ng-href="#!/estudiantes/{{row.entity._id}}">ver</a>'}],
             filterOptions: $scope.filterOptions
         };

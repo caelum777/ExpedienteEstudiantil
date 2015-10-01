@@ -1,3 +1,4 @@
+
 <section data-ng-controller="EstudiantesController" data-ng-init="initNotas()">
     <div class="page-header">
         <h1>Agregar expediente</h1>
@@ -47,14 +48,14 @@
                     <div class="controls">
                         <div class="form-group col-xs-6 no-margin-bottom">
                             <div class="controls">
-                            <input type="text" ng-minlength="8" maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                           data-ng-model="telefono_casa" id="telefono_casa" class="form-control align-field" placeholder="Tel. Hogar"  required>
+                                <input type="text" ng-minlength="8" maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                       data-ng-model="telefono_casa" id="telefono_casa" class="form-control align-field" placeholder="Tel. Hogar"  required>
                             </div>
                         </div>
                         <div class="form-group col-xs-6 no-margin-bottom">
                             <div class="controls">
                                 <input type="text" ng-minlength="8" maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                               data-ng-model="celular" id="celular" class="form-control align-field" placeholder="Celular" required>
+                                       data-ng-model="celular" id="celular" class="form-control align-field" placeholder="Celular" required>
                             </div>
                         </div>
                     </div>
@@ -103,36 +104,49 @@
                         <input type="text" data-ng-model="colegio_procedencia" id="colegio_procedencia" class="form-control align-field" required>
                     </div>
 
-                        <span class="form-group col-xs-6 no-margin-bottom" >
-                            <label class="control-label" for="name">Generación</label>
-                            <div class="controls">
-                                <input type="text" ng-minlength="4"  maxlength="4"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' data-ng-model="generacion" id="generacion"
-                                   class="form-control align-field" required>
-                            </div>
-                        </span>
 
-                        <span class="form-group col-xs-6 no-margin-bottom">
-                            <label class="control-label" for="name">Egresado</label>
-                            <div class="controls">
-                                <input type="checkbox" class="checkbox checked" name="Egresado" class="form-control align-field" required>
-                            </div>
-                        </span>
+                    <div class="" id="anno_ingreso_error" ng-show="false">
+                        <label class="control-label" for="name" >Puto error</label>
+                    </div>
+
+
+                    <span class="form-group col-xs-6 no-margin-bottom" >
+                        <label class="control-label" for="name">Año de Ingreso al Colegio Científico</label>
+                        <div class="controls">
+                            <input type="text" ng-minlength="4"  maxlength="4"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' data-ng-model="anno_ingreso" id="anno_ingreso"
+                                   class="form-control align-field" aria-valuemin="4" required>
+                        </div>
+                    </span>
+
+
+
+
+
+
+                    <span class="form-group col-xs-6 no-margin-bottom">
+                        <label class="control-label" for="name">Graduado</label>
+                        <div class="controls">
+                            <input type="checkbox" data-ng-model="graduado" class="checkbox checked" name="graduado" class="form-control align-field">
+                        </div>
+                    </span>
                     <label class="transparent-label" for="name">. . . . . . . . . </label>
 
 
-                <div class = "">
-                    <label class="control-label" for="name">Adecuación significativa</label>
-                    <div class="controls">
-                        <select class="form-control align-field" data-ng-model="adSignificativa" id="adecuacion_significativa"
-                                ng-options="opt as opt.nombre for opt in adecuaciones">
-                        </select>
+                    <div class = "form-group col-xs-6 no-margin-bottom">
+                        <label class="control-label" for="name">Adecuación significativa</label>
+                        <div class="controls">
+                            <select class="form-control align-field" data-ng-model="adSignificativa" id="adecuacion_significativa"
+                                    ng-options="opt as opt.nombre for opt in adecuaciones">
+                            </select>
+                        </div>
                     </div>
-                </div>
-                    <label class="control-label" for="name">Adecuación no significativa</label>
-                    <div class="controls">
-                        <select class="form-control align-field" data-ng-model="adNoSignificativa" id="adecuacion_nsignificativa"
-                                ng-options="opt as opt.nombre for opt in adecuaciones">
-                        </select>
+                    <div class="form-group col-xs-6 no-margin-bottom">
+                        <label class="control-label" for="name">Adecuación no significativa</label>
+                        <div class="controls">
+                            <select class="form-control align-field" data-ng-model="adNoSignificativa" id="adecuacion_nsignificativa"
+                                    ng-options="opt as opt.nombre for opt in adecuaciones">
+                            </select>
+                        </div>
                     </div>
 
 
@@ -140,7 +154,7 @@
 
 
                     <div class="control">
-                       <label class="control-label" for="name">Foto del estudiante</label>
+                        <label class="control-label" for="name">Foto del estudiante</label>
                     </div>
 
 
