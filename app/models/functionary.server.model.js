@@ -35,7 +35,7 @@ var FunctionarySchema = new Schema({
 	identification: {
 		type: String,
 		default: '',
-		required: 'Porfavor llene la cédula del funcionario',
+		required: 'Porfavor llene la cedula del funcionario',
 		trim: true
 	},
 
@@ -53,18 +53,17 @@ var FunctionarySchema = new Schema({
 		trim: true
 	},
 
-
 	address: {
 		type: String,
 		default: '',
-		required: 'Porfavor llene la dirección del funcionario',
+		required: 'Porfavor llene la direccion del funcionario',
 		trim: true
 	},
 
 	phoneNumber: {
 		type: String,
 		default: '',
-		required: 'Porfavor llene el teléfono del funcionario',
+		required: 'Porfavor llene el telefono del funcionario',
 		trim: true
 	},
 
@@ -82,9 +81,9 @@ var FunctionarySchema = new Schema({
 			default: '',
 			trim: true
 		},
-		experience:[{ type:Schema.ObjectId, ref:"FunctionaryResumeExperience"}],
-		education:[{type:Schema.ObjectId, ref:"FunctionaryResumeEducation"}],
-		language:[{ type:Schema.ObjectId, ref:"FunctionaryResumeLanguage"}]
+		experience:[{ type:Schema.ObjectId, ref:'FunctionaryResumeExperience'}],
+		education:[{type:Schema.ObjectId, ref:'FunctionaryResumeEducation'}],
+		language:[{ type:Schema.ObjectId, ref:'FunctionaryResumeLanguage'}]
 	},
 
 	email: {
@@ -97,13 +96,14 @@ var FunctionarySchema = new Schema({
 
 
 	hireDate: {
-		type: date,
+		type: Date,
 		default: Date.now,
-		required: 'Porfavor llene la fecha de contratación del funcionario',
+		required: 'Porfavor llene la fecha de contratacion del funcionario',
 		trim: true
 	},
 
-	/* Estado laboral:
+	/*
+	 *  Estado laboral:
 	 *
 	 *  Activo, Despedido, Renunció.
 	 * */

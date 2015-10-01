@@ -16,6 +16,7 @@ var FunctionaryResumeExperienceSchema = new Schema({
 		required: 'Porfavor llene el nombre de la compañia',
 		trim: true
 	},
+
 	companyLocation: {
 		type: String,
 		default: '',
@@ -31,13 +32,13 @@ var FunctionaryResumeExperienceSchema = new Schema({
 	startDate: {
 		type: Date,
 		default: '',
-		required: 'Porfavor llene la fecha en que inició a trabajar  en la compañía'
+		required: 'Porfavor llene la fecha en que inicia a trabajar  en la compañia'
 	},
 
 	endDate: {
 		type: Date,
 		default: '',
-		required: 'Porfavor llene la fecha en que terminó de trabajar en la compañía'
+		required: 'Porfavor llene la fecha en que termina de trabajar en la compañia'
 	},
 
 	description: {
@@ -54,7 +55,7 @@ var FunctionaryResumeExperienceSchema = new Schema({
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
-	},
+	}
 
 });
 

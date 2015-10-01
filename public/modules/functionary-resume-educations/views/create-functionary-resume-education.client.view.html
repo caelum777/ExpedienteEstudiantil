@@ -6,10 +6,31 @@
         <form class="form-horizontal" data-ng-submit="create()" novalidate>
             <fieldset>
                 <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
+                    <label class="control-label" for="school">Universidad</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+                        <input type="text" data-ng-model="school" id="school" class="form-control" required>
                     </div>
+
+                    <label class="control-label" for="description">Descripcion</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="description" id="description" class="form-control" required>
+                    </div>
+
+                    <label class="control-label" for="degree">Grado</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="degree" id="degree" class="form-control" required>
+                    </div>
+
+                    <label class="control-label" for="attendedstartdate">Fecha de inicio</label>
+                    <div class="controls">
+                        <input type="date" data-ng-model="attendedStartDate" id="attendedstartdate" class="form-control" required>
+                    </div>
+
+                    <label class="control-label" for="attendedenddate">Fecha de graduación</label>
+                    <div class="controls">
+                        <input type="date" data-ng-model="attendedEndDate" id="attendedenddate" class="form-control" required>
+                    </div>
+
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-default">

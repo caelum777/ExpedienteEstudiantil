@@ -9,7 +9,12 @@ angular.module('functionary-resume-experiences').controller('FunctionaryResumeEx
 		$scope.create = function() {
 			// Create new Functionary resume experience object
 			var functionaryResumeExperience = new FunctionaryResumeExperiences ({
-				name: this.name
+				name: this.name,
+				companyName: this.companyName,
+				functionaryTitle: this.functionaryTitle,
+				description: this.description,
+				startDate: this.startDate,
+				endDate: this.endDate
 			});
 
 			// Redirect after save

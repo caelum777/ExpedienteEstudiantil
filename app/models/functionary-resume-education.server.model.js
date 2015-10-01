@@ -31,14 +31,14 @@ var FunctionaryResumeEducationSchema = new Schema({
 	},
 
 	attendedStartDate: {
-		type: Date,
+		type: Number,
 		default: '',
 		required: 'Porfavor llene la fecha en que comenzó en la universidad',
 		trim: true
 	},
 
 	attendedEndDate: {
-		type: Date,
+		type: Number,
 		default: '',
 		required: 'Porfavor llene la fecha en que terminó/terminará  la universidad',
 		trim: true

@@ -9,15 +9,33 @@ angular.module('functionaries').controller('FunctionariesController', ['$scope',
 		$scope.create = function() {
 			// Create new Functionary object
 			var functionary = new Functionaries ({
-				name: this.name
+				firstName: this.firstName,
+				firstSurname: this.firstSurname,
+				secondSurname: this.secondSurname,
+				identification: this.identification,
+				maritalStatus: this.maritalStatus,
+				address: this.address,
+				phoneNumber: this.phoneNumber,
+				cellphoneNumber: this.cellphoneNumber,
+				email: this.email,
+				hireDate: this.hireDate,
+				status: this.status,
 			});
 
 			// Redirect after save
 			functionary.$save(function(response) {
 				$location.path('functionaries/' + response._id);
-
 				// Clear form fields
-				$scope.name = '';
+				$scope.firstName  = '';
+				$scope.firstSurname = '';
+				$scope.secondSurname = '';
+				$scope.identification = '';
+				$scope.maritalStatus = '';
+				$scope.phoneNumber = '';
+				$scope.cellphoneNumber = '';
+				$scope.email = '';
+				$scope.hireDate = '';
+				$scope.status = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});

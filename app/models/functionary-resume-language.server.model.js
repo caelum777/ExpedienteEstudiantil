@@ -31,9 +31,7 @@ var FunctionaryResumeLanguageSchema = new Schema({
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
-	},
-	functionaryResume: { type:Schema.ObjectId, ref:"Parent", childPath:"children" }
-
+	}
 });
 
 mongoose.model('FunctionaryResumeLanguage', FunctionaryResumeLanguageSchema);
