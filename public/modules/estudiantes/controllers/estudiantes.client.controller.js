@@ -857,79 +857,44 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             $scope.visibl = false;
             $scope.show = true;
             $scope.grade_visible = true;
-            serviceReport.estudiantes_decimo = Decimo.query();
-            serviceReport.estudiantes_undecimo = Undecimo.query();
-            if(reporte.val === 1){
-                if(grade.grade === 1) {
-                    serviceReport.estudiantes_decimo.$promise.then(function (estudiantes) {
-                        var result = serviceReport.attendanceListReport(estudiantes, "DECIMO")
-                        if (result['Data'].length > 0) {
-                            $scope.generatePDF(result["Filename"], result["Header"], result["Title"], result["Columns"], result["Data"], result["StartY"], result["Save"]);
-                        }
-                    });
+            if(grade.grade_val  === 1){
+                serviceReport.studentsList = Decimo.query();
+            }
+            else if(grade.grade_val === 2){
+                serviceReport.studentsList = Undecimo.query();
+            }
+            serviceReport.studentsList.$promise.then(function (students){
+                var pdfReport;
+                if (reporte.val === 1){
+                    pdfReport = serviceReport.attendanceListReport(students, grade.grade_opt.toUpperCase());
                 }
-                else{
-                    serviceReport.estudiantes_undecimo.$promise.then(function (estudiantes) {
-                        var result = serviceReport.attendanceListReport(estudiantes, "UNDECIMO")
-                        if (result['Data'].length > 0) {
-                            $scope.generatePDF(result["Filename"], result["Header"], result["Title"], result["Columns"], result["Data"], result["StartY"], result["Save"]);
-                        }
-                    });
+                else if (reporte.val === 2){
+                    pdfReport = serviceReport.personalInfoListReport(students);
                 }
-            }
-            else if(reporte.val === 2) {
-                serviceReport.estudiantes_decimo.$promise.then(function (estudiantes) {
-                    var resultDec = serviceReport.personalInfoListReport(estudiantes);
-                    if (resultDec["Data"].length > 0) {
-                        $scope.generatePDF(resultDec["Filename"], resultDec["Header"], resultDec["Title"], resultDec["Columns"], resultDec["Data"], resultDec["StartY"], resultDec["Save"]);
-                    }
-                });
-            }
-            else if(reporte.val === 3) {
-                serviceReport.estudiantes_decimo.$promise.then(function (estudiantes) {
-                    var result = serviceReport.scienceForBachelorListReport(estudiantes)
-                    if (result['Data'].length > 0) {
-                        $scope.generatePDF(result["Filename"], result["Header"], result["Title"], result["Columns"], result["Data"], result["StartY"], result["Save"]);
-                    }
-                });
-            }
-            else if(reporte.val === 4){
-                serviceReport.estudiantes_decimo.$promise.then(function(estudiantes){
-                    var result = serviceReport.emailListReport(estudiantes)
-                    if(result['Data'].length > 0){
-                        $scope.generatePDF(result["Filename"], result["Header"], result["Title"], result["Columns"], result["Data"], result["StartY"], result["Save"]);
-                    }
-                });
-            }
-            else if(reporte.val === 5) {
-                serviceReport.estudiantes_undecimo.$promise.then(function(estudiantes){
-                    var result = serviceReport.scienceForBachelorChoiceListReport(estudiantes);
-                    if(result['Data'].length > 0){
-                        $scope.generatePDF(result["Filename"], result["Header"], result["Title"], result["Columns"], result["Data"], result["StartY"], result["Save"]);
-                    }
-                });
-            }
-            else if(reporte.val === 6){
-                serviceReport.estudiantes_undecimo.$promise.then(function(estudiantes){
-                    var result = serviceReport.StudentsForLibraryListReport(estudiantes);
-                    if(result['Data'].length > 0){
-                        $scope.generatePDF(result["Filename"], result["Header"], result["Title"], result["Columns"], result["Data"], result["StartY"], result["Save"]);
-                    }
-                });
-            }
-            else if(reporte.val === 7){
-                serviceReport.estudiantes_undecimo.$promise.then(function(estudiantes){
-                    var result = serviceReport.OlympicsParticipationListReport(estudiantes);
-                    if(result['Data'].length > 0){
-                        $scope.generatePDF(result["Filename"], result["Header"], result["Title"], result["Columns"], result["Data"], result["StartY"], result["Save"]);
-                    }
-                });
-            }
-            else if(reporte.val === 8){
-                $scope.grade_visible = false;
-                $scope.visibl = true;
-                $scope.show = false;
-            }
+                else if (reporte.val === 3){
+                    pdfReport = serviceReport.scienceForBachelorListReport(students, grade.grade_opt.toUpperCase());
+                }
+                else if (reporte.val === 4){
+                    pdfReport = serviceReport.emailListReport(students, grade.grade_opt.toUpperCase());
+                }
+                else if (reporte.val === 5){
+                    pdfReport = serviceReport.scienceForBachelorChoiceListReport(students);
+                }
+                else if (reporte.val === 6){
+                    pdfReport = serviceReport.StudentsForLibraryListReport(students, grade.grade_opt.toUpperCase());
+                }
+                else if (reporte.val === 7){
+                    pdfReport = serviceReport.OlympicsParticipationListReport(students, grade.grade_opt.toUpperCase());
+                }
+                else if (reporte.val === 8){
+                    $scope.grade_visible = false;
+                    $scope.visibl = true;
+                    $scope.show = false;
+                }
+                if (pdfReport['Data'].length > 0){
+                    $scope.generatePDF(pdfReport);
+                }
+            });
         }
 
         $scope.show = false;
@@ -937,27 +902,15 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         $scope.nombre_reporte_notas_undecimo = '';
         $scope.nombre_reporte_notas_decimo = '';
 
-
-        $scope.specialElementHandlers = {
-            '#editor': function(element, renderer){
-                return true;
-            }
-        };
-
-        $scope.generatePDF = function(filename, encabezado, titulo, columns, data, starty, save) {
+        $scope.generatePDF = function(PDFReport) {
             var doc = new jsPDF('p', 'pt');
             var logo_img = document.getElementById('cc-logo');
             var img_data = getBase64Image(logo_img);
             doc.addImage(img_data, 'JPEG',15,15,25,25);
-            doc.text(40, 19, encabezado);
-            doc.text(15, 80, titulo);
-            doc.autoTable(columns, data, {margins: {right: 10, left: 10, top: 100, bottom: 100}, startY: starty});
-            if(save) {
-                doc.save(filename + '.pdf');
-            }
-            else{
-                $scope.base64 = $sce.trustAsResourceUrl('data:application/pdf;base64,' + btoa(doc.output()));
-            }
+            doc.text(40, 19, PDFReport['Header']);
+            doc.text(15, 80, PDFReport['Title']);
+            doc.autoTable(PDFReport['Columns'], PDFReport['Data'], {margins: {right: 10, left: 10, top: 100, bottom: 100}, startY: PDFReport['StartY']});
+            $scope.base64 = $sce.trustAsResourceUrl('data:application/pdf;base64,' + btoa(doc.output()));
         };
         $scope.reporte_notas = function(save){
             $scope.notas_decimo_1 = [

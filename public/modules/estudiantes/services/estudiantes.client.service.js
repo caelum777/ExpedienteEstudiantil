@@ -121,7 +121,7 @@ angular.module('estudiantes').factory('Reports', function(){
                });
                var total = women + men;
                HEADER = this.initHeader(women, men, total);
-               var result = this.getJSONFromData('Lista de asistencia decimo', HEADER, TITLE, columns, data, 130, false);
+               var result = this.getJSONFromData(HEADER, TITLE, columns, data, 130);
                return result;
 
            },
@@ -149,9 +149,9 @@ angular.module('estudiantes').factory('Reports', function(){
                 return result;
             },
 
-            scienceForBachelorListReport: function (estudiantes) {
+            scienceForBachelorListReport: function (estudiantes, grade_label) {
                 data = [];
-                TITLE = '      LISTA CIENCIA PARA BACHILLERATO DECIMO ' + new Date().getFullYear() +'\n';
+                TITLE = '      LISTA CIENCIA PARA BACHILLERATO ' + grade_label + ' '  + new Date().getFullYear() +'\n';
                 columns = [
                     {title: 'Cedula', key: 'ced'},
                     {title: 'Nombre', key: 'nom'},
@@ -173,7 +173,7 @@ angular.module('estudiantes').factory('Reports', function(){
                 });
                 var total = women + men;
                 HEADER = this.initHeader(women, men, total);
-                var result = this.getJSONFromData('Lista ciencia para bachillerato decimo', HEADER, TITLE, columns, data, 95, false);
+                var result = this.getJSONFromData(HEADER, TITLE, columns, data, 95);
                 return result;
             },
 
@@ -193,7 +193,7 @@ angular.module('estudiantes').factory('Reports', function(){
                         data.push({'ced':estudiante_decimo.nacionalidad, 'nom':estudiante_decimo.segundo_apellido + estudiante_decimo.primer_apellido + estudiante_decimo.name, 'mail': estudiante_decimo.correo});
                     }
                 });
-                var result = this.getJSONFromData('Lista correos decimo', HEADER, TITLE, columns, data, 70, false);
+                var result = this.getJSONFromData(HEADER, TITLE, columns, data, 70);
                 return result;
             },
 
@@ -229,13 +229,13 @@ angular.module('estudiantes').factory('Reports', function(){
                 });
                 var total = women + men;
                 HEADER = this.initHeader(women, men, total);
-                var result = this.getJSONFromData('Escogencia de ciencia', HEADER, TITLE, columns, data, 165, false);
+                var result = this.getJSONFromData(HEADER, TITLE, columns, data, 165);
                 return result;
             },
 
-            StudentsForLibraryListReport: function(estudiantes){
+            StudentsForLibraryListReport: function(estudiantes, grade_label){
                 data = [];
-                TITLE = '       LISTA DE INFORMACION PARA LA BIBLIOTECA DECIMO ' + new Date().getFullYear() +'\n';
+                TITLE = '       LISTA DE INFORMACION PARA LA BIBLIOTECA ' + grade_label + ' ' + new Date().getFullYear() +'\n';
                 columns = [
                     {title: 'Cedula', key: 'ced'},
                     {title: 'Nombre', key: 'nom'},
@@ -267,13 +267,13 @@ angular.module('estudiantes').factory('Reports', function(){
                 });
                 var total = women + men;
                 HEADER = this.initHeader(women, men, total);
-                var result = this.getJSONFromData('Lista para la biblioteca decimo', HEADER, TITLE, columns, data, 95, false);
+                var result = this.getJSONFromData(HEADER, TITLE, columns, data, 95);
                 return result;
             },
 
-            OlympicsParticipationListReport: function(estudiantes){
+            OlympicsParticipationListReport: function(estudiantes, grade_label){
                 data = [];
-                TITLE ='\n'+'              LISTA INTERESADOS OLIMPIADA DECIMO ' + new Date().getFullYear() +'\n'+
+                TITLE ='\n'+'              LISTA INTERESADOS OLIMPIADA ' + grade_label + ' ' + new Date().getFullYear() +'\n'+
                        '\nProfesores:\nAsignaturas:';
                 columns = [
                     {title: 'Cedula', key: 'ced'},
@@ -296,7 +296,7 @@ angular.module('estudiantes').factory('Reports', function(){
                 });
                 var total = women + men;
                 HEADER = this.initHeader(women, men, total);
-                var result = this.getJSONFromData('Lista participación olimpiadas decimo', HEADER, TITLE, columns, data, 165, false);
+                var result = this.getJSONFromData(HEADER, TITLE, columns, data, 165);
                 return result;
             },
 
@@ -316,8 +316,8 @@ angular.module('estudiantes').factory('Reports', function(){
             },
             getGradesList: function(){
                 var grades = [
-                    {grade_opt: 'Decimo', grade: 1},
-                    {grade_opt: 'Undecimo', grade: 2}
+                    {grade_opt: 'Decimo', grade_val: 1},
+                    {grade_opt: 'Undecimo', grade_val: 2}
                 ];
                 return grades;
             },
@@ -328,9 +328,8 @@ angular.module('estudiantes').factory('Reports', function(){
                     'Telefax: 2475-7089,Tel: 2401-3122                        Total: ' + total + '\n';
                 return header;
             },
-            getJSONFromData: function (filename, header, title, columns, data, startY, save){
-                var jsonResult = {"Filename": filename, "Header": header, "Title": title, "Columns":columns, "Data": data, "StartY": startY, "Save":save};
-                return jsonResult
+            getJSONFromData: function (header, title, columns, data, startY){
+                return {"Header": header, "Title": title, "Columns":columns, "Data": data, "StartY": startY};
             },
        };
         return report;
