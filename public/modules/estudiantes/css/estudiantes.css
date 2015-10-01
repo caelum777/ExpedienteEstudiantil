@@ -64,3 +64,6 @@
     position: absolute;
     box-sizing: border-box;
 }
+.transparent-label{
+    color: transparent;
+}
