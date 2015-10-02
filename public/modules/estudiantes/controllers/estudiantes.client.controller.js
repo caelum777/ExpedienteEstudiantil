@@ -64,6 +64,16 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 $scope.selected_vacunas = $files;
         };
 
+        $scope.$watch('anno_ingreso',function() {
+            if ($scope.anno_ingreso > new Date().getFullYear()) {
+
+                $scope.anno_ingreso_error_mayor_actual = true;
+            } else {
+                $scope.anno_ingreso_error_mayor_actual = false;
+            }
+
+        });
+
 
 
 		// Create new Estudiante
