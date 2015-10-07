@@ -1,8 +1,8 @@
 'use strict';
 
 // Functionaries controller
-angular.module('functionaries').controller('FunctionariesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Functionaries',
-	function($scope, $stateParams, $location, Authentication, Functionaries) {
+angular.module('functionaries').controller('FunctionariesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Functionaries','Utility',
+	function($scope, $stateParams, $location, Authentication, Functionaries, Utility) {
 		$scope.authentication = Authentication;
 
 		// Create new Functionary
@@ -80,5 +80,7 @@ angular.module('functionaries').controller('FunctionariesController', ['$scope',
 				functionaryId: $stateParams.functionaryId
 			});
 		};
+
+
 	}
 ]);

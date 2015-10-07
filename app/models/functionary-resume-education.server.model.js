@@ -11,7 +11,7 @@ var mongoose = require('mongoose'),
  */
 var FunctionaryResumeEducationSchema = new Schema({
 
-	school: {
+	schoolName: {
 		type: String,
 		default: '',
 		required: 'Porfavor llene la universidad',

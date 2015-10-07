@@ -1,20 +1,19 @@
 'use strict';
 
 // Functionary resume experiences controller
-angular.module('functionary-resume-experiences').controller('FunctionaryResumeExperiencesController', ['$scope', '$stateParams', '$location', 'Authentication', 'FunctionaryResumeExperiences',
-	function($scope, $stateParams, $location, Authentication, FunctionaryResumeExperiences) {
+angular.module('functionary-resume-experiences').controller('FunctionaryResumeExperiencesController', ['$scope', '$stateParams', '$location', 'Authentication', 'FunctionaryResumeExperiences', 'Utility',
+	function($scope, $stateParams, $location, Authentication, FunctionaryResumeExperiences, Utility) {
 		$scope.authentication = Authentication;
 
 		// Create new Functionary resume experience
 		$scope.create = function() {
 			// Create new Functionary resume experience object
 			var functionaryResumeExperience = new FunctionaryResumeExperiences ({
-				name: this.name,
 				companyName: this.companyName,
 				functionaryTitle: this.functionaryTitle,
 				description: this.description,
-				startDate: this.startDate,
-				endDate: this.endDate
+				attendedStartDate: this.startDate,
+				attendedEndDate: this.endDate
 			});
 
 			// Redirect after save
@@ -22,7 +21,13 @@ angular.module('functionary-resume-experiences').controller('FunctionaryResumeEx
 				$location.path('functionary-resume-experiences/' + response._id);
 
 				// Clear form fields
-				$scope.name = '';
+
+				$scope.companyName = '';
+				$scope.functionaryTitle = '';
+				$scope.description = '';
+				$scope.attendedStartDate = '';
+				$scope.attendedEndDate = '';
+
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -67,5 +72,11 @@ angular.module('functionary-resume-experiences').controller('FunctionaryResumeEx
 				functionaryResumeExperienceId: $stateParams.functionaryResumeExperienceId
 			});
 		};
+
+		$scope.optionsYearRange = Utility.generateListOfYears();
+
+		$scope.attendedStartDate = $scope.optionsYearRange[$scope.optionsYearRange.length-2];
+		$scope.attendedEndDate = $scope.optionsYearRange[$scope.optionsYearRange.length-1];
+
 	}
 ]);

@@ -114,12 +114,5 @@ angular.module('encargados').controller('EncargadosController', ['$scope', '$sta
 				encargadoId: $stateParams.encargadoId
 			});
 		};
-
-       /* $scope.isResponsable = function(value) {
-            if (value === true)
-                $scope.responsableS = 'Si'
-            else
-                $scope.responsableS = 'No'
-        };*/
 	}
 ]);

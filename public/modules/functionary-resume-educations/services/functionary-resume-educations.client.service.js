@@ -11,3 +11,5 @@ angular.module('functionary-resume-educations').factory('FunctionaryResumeEducat
 		});
 	}
 ]);
+
+
