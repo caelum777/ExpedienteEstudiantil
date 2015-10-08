@@ -1,23 +1,13 @@
 <section data-ng-controller="EstudiantesController" data-ng-init="notes_c_c()">
+    <div class="page-header">
+        <h1>Notas del estudiante</h1>
+    </div>
     <form class="form-horizontal" novalidate>
         <div>
-            <label class="control-label">Notas de décimo primer semestre</label>
-            <div class="gridStyle" ng-grid="gridOptionsD1"></div>
-        </div>
-        <div>
-            <label class="control-label">Notas de décimo segundo semestre</label>
-            <div class="gridStyle" ng-grid="gridOptionsD2"></div>
-        </div>
-        <div>
-            <label class="control-label">Notas de undécimo primer semestre</label>
-            <div class="gridStyle" ng-grid="gridOptionsU1"></div>
-        </div>
-        <div>
-            <label class="control-label">Notas de undécimo segundo semestre</label>
-            <div class="gridStyle" ng-grid="gridOptionsU2"></div>
+            <div class="gridStyle ngGridNotes" ng-grid="gridOptionsDU" ></div>
         </div>
         <br>
-        <div class="form-group">
+        <div class="center-button">
             <input type="submit" value="Asignar notas" class="btn btn-primary btn-block" ng-click="asignar_notas()">
         </div>
     </form>
