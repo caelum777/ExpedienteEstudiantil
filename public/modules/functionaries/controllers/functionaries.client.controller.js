@@ -1,6 +1,8 @@
 'use strict';
 
 // Functionaries controller
+
+
 angular.module('functionaries').controller('FunctionariesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Functionaries','Utility', '$modal', '$log',
 	function($scope, $stateParams, $location, Authentication, Functionaries, Utility, $modal, $log) {
 		$scope.authentication = Authentication;

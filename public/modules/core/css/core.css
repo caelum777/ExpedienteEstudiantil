@@ -1,6 +1,10 @@
 .content {
 	margin-top: 50px;
 }
+body{
+	background-color: #EEEEEE;
+}
+
 .undecorated-link:hover {
 	text-decoration: none;
 }

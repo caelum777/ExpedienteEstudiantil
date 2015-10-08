@@ -1,17 +1,48 @@
-<section data-ng-controller="FunctionariesController" data-ng-init="find()">
+<section data-ng-controller="FunctionariesController as functionariesCtrl" data-ng-init="find()">
     <div class="page-header">
-        <h1>Functionaries</h1>
+        <h1>Funcionarios</h1>
     </div>
+
+
+
+    <div class="clo-xs-12 col-sm-8">
+        <div class="input-group input-group-lg">
+            <input type="text" class="form-control" ng-model="searchText">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Ir!</button>
+              </span>
+        </div><!-- /input-group -->
+    </div>
+
+    <div class="col-xs-12 col-sm-4 text-center">
+        <button type="button" class="btn tbn-lg btn-success text-center">
+            <br>
+            Nuevo funcionario
+        </button>
+
+    </div>
+
+
     <div class="list-group">
-        <a data-ng-repeat="functionary in functionaries" data-ng-href="#!/functionaries/{{functionary._id}}" class="list-group-item">
-			<small class="list-group-item-text">
-				Posted on
-				<span data-ng-bind="functionary.created | date:'medium'"></span>
-				by
-				<span data-ng-bind="functionary.user.displayName"></span>
-			</small>
-			<h4 class="list-group-item-heading" data-ng-bind="functionary.name"></h4>
-        </a>
+        <div class="col-xs-6 col-sm-4" data-ng-repeat="functionary in functionaries | filter: searchText">
+            <a data-ng-href="#!/functionaries/{{functionary._id}}" class="list-group-item">
+                <h4 class="funct-list text-center">
+                    <i class="glyphicon glyphicon-user funct-list"></i>
+                </h4>
+
+                <div class="row">
+
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <h4>{{functionary.firstName}} {{functionary.firstSurname}} {{functionary.secondSurname}} </h4>
+                        <small class="list-group-item-text text-muted">
+                            <span data-ng-bind="functionary.created | date:'medium'"></span>
+                        </small>
+                    </div>
+
+
+                </div>
+            </a>
+        </div>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!functionaries.$resolved || functionaries.length">
     	No Functionaries yet, why don't you <a href="/#!/functionaries/create">create one</a>?
