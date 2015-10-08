@@ -348,6 +348,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             $scope.notas_septimo = [];
             $scope.notas_octavo =[];
             $scope.notas_noveno = [];
+            $scope.notas_setimo_octavo_noveno = [];
             $scope.editable = edit;
             $scope.estudiante.$promise.then(function(estudiante) {
                 $scope.sexo = $scope.sexos[$scope.find($scope.sexos, $scope.estudiante.sexo, 0)];
@@ -376,17 +377,44 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     cedula_estudiante: estudiante.nacionalidad
                 });
                 $scope.notas.$promise.then(function(notas) {
+                    var temporalNoteRegister = [];
                     angular.forEach(notas, function (nota) {
                         if(nota.grado==='septimo'){
-                            $scope.notas_septimo.push(nota);
+                            temporalNoteRegister.push({materia: nota.curso, grado: nota.grado, calificacion: nota.nota});
                         }
                         else if(nota.grado==='octavo'){
-                            $scope.notas_octavo.push(nota);
+                            temporalNoteRegister.push({materia: nota.curso, grado: nota.grado, calificacion: nota.nota});
                         }
                         else if(nota.grado==='noveno'){
-                            $scope.notas_noveno.push(nota);
+                            temporalNoteRegister.push({materia: nota.curso, grado: nota.grado, calificacion: nota.nota});
                         }
                     });
+                    var cursos_checked = [];
+                    for (var i = 0; i < temporalNoteRegister.length; i++){
+                        var curso = temporalNoteRegister[i].materia;
+                        var setimo = 0;
+                        var octavo = 0;
+                        var noveno = 0;
+                        if(cursos_checked.indexOf(curso) === -1){
+                            for (var j = 0; j < temporalNoteRegister.length; j++){
+                                console.log(temporalNoteRegister[j].materia + ' = ' + curso);
+                                if (temporalNoteRegister[j].materia === curso){
+                                    if(temporalNoteRegister[j].grado === 'septimo'){
+                                        setimo = temporalNoteRegister[j].calificacion;
+                                    }
+                                    else if(temporalNoteRegister[j].grado === 'octavo'){
+                                        octavo = temporalNoteRegister[j].calificacion;
+                                    }
+                                    else if(temporalNoteRegister[j].grado === 'noveno'){
+                                        noveno = temporalNoteRegister[j].calificacion;
+                                    }
+                                }
+                            }
+                            cursos_checked.push(curso);
+                            $scope.notas_setimo_octavo_noveno.push({curso: curso, nota_setimo: setimo, nota_octavo: octavo, nota_noveno: noveno});
+                        }
+                    }
+                    console.log($scope.notas_setimo_octavo_noveno);
                 }, function(error) {
                     console.log('Failed: ' + error);
                 });
