@@ -46,9 +46,6 @@
 }
 
 .checkbox.checked {
-    /*-webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);*/
     border-top: none;
     border-left: none;
     top: 0px;
@@ -69,4 +66,19 @@
 }
 .error_anno_ingreso_mayor_actual{
     color :indianred;
+}
+
+.ngGridNotes{
+    margin: 0 auto;
+    height: 694px;
+    width: 800px;
+}
+
+.grid-align {
+    text-align: center;
+}
+
+.center-button{
+    width: 71%;
+    margin: 0 auto;
 }
