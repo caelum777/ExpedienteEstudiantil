@@ -108,7 +108,6 @@ angular.module('estudiantes').factory('Reports', function(){
                var women = 0;
                var men = 0;
                angular.forEach(estudiantes, function (estudiante_decimo) {
-
                    if ((estudiante_decimo.admitido) && (!estudiante_decimo.traladado)) {
                        if(estudiante_decimo.sexo === true){
                            men++;
