@@ -536,7 +536,6 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 data: data,
                 enableCellSelection: true,
                 enableRowSelection: false,
-
                 enableCellEditOnFocus: $scope.editable,
                 columnDefs: [{field: 'curso', displayName: 'Curso', enableCellEdit: false},
                     {field:'nota_decimo_primer_semestre', displayName:'Décimo I', enableCellEdit: $scope.editable,
