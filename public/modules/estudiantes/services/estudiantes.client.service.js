@@ -145,7 +145,7 @@ angular.module('estudiantes').factory('Reports', function(){
                         data.push({'ced': estudiante_decimo.nacionalidad, 'i': estudiante_decimo.primer_apellido, 'ii': estudiante_decimo.segundo_apellido, 'nom':estudiante_decimo.name, 'tel': estudiante_decimo.celular, 'mail': estudiante_decimo.correo});
                     }
                 });
-                var result = this.getJSONFromData('Lista cedula carne y apellidos decimo', HEADER, TITLE, columns, data, 70, false);
+                var result = this.getJSONFromData(HEADER, TITLE, columns, data, 70);
                 return result;
             },
 
@@ -190,7 +190,8 @@ angular.module('estudiantes').factory('Reports', function(){
                 ];
                 angular.forEach(estudiantes, function (estudiante_decimo) {
                     if ((estudiante_decimo.admitido) && (!estudiante_decimo.traladado)){
-                        data.push({'ced':estudiante_decimo.nacionalidad, 'nom':estudiante_decimo.segundo_apellido + estudiante_decimo.primer_apellido + estudiante_decimo.name, 'mail': estudiante_decimo.correo});
+                        data.push({'ced':estudiante_decimo.nacionalidad, 'nom':estudiante_decimo.segundo_apellido + ' ' +
+                        estudiante_decimo.primer_apellido + ' ' + estudiante_decimo.name, 'mail': estudiante_decimo.correo});
                     }
                 });
                 var result = this.getJSONFromData(HEADER, TITLE, columns, data, 70);
@@ -341,7 +342,6 @@ angular.module('estudiantes').factory('Reports', function(){
                     {title: 'I', key: 'iii2'},
                     {title: 'T', key: 't2'}
                 ];
-                var self = this;
                 var tenthGradeData = [];
                 var eleventhGradeData = [];
                 angular.forEach(notes, function (curso){

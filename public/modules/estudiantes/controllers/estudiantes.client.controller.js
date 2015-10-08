@@ -859,7 +859,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         $scope.visibl = false;
 
         $scope.$watch('ced_estudiante', function(ced_estudiante){
-            if(ced_estudiante.length === 11){
+            if($scope.ced_estudiante != undefined){
                 $scope.show = true;
                 $scope.reporte_notas();
             }
@@ -942,34 +942,35 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 var pdfReport;
                 $scope.estudiante =  Nacionalidad.query( {cedula: $scope.ced_estudiante });
                 $scope.estudiante.$promise.then(function(student){
-                    fixInvalidCharactersfixInvalidCharacters(notes);
-                    pdfReport = serviceReport.notesReport(notes, student);
-                    console.log(pdfReport);
-                    var doc = new jsPDF('p', 'pt');
-                    doc.setFontSize(16);
-                    var logo_img = document.getElementById('cc-logo');
-                    var img_data = getBase64Image(logo_img);
-                    doc.addImage(img_data, 'JPEG',15,15,25,25);
-                    var infoestudiante = 'Cedula: ' + student[0].nacionalidad +'\nNombre del Alumno: '+ student[0].segundo_apellido + ' ' + student[0].primer_apellido + ' ' + student[0].name;
-                    doc.text(40, 19, pdfReport['Header']);
-                    doc.text(120, 60, pdfReport['Title'] + ' Decimo ' + student[0].anno_ingreso);
-                    doc.text(15, 90, infoestudiante);
-                    doc.setFontSize(10);
-                    doc.text(327, 140, 'Ausencias I Semestre              Ausencias II Semestre');
-                    doc.autoTable(pdfReport['Columns'], pdfReport['Data'][0], {margins: {right: 10, left: 10, top: 40, bottom: 40}, startY: 150});
-                    if (student[0].anno_ingreso < new Date().getFullYear()){
-                        doc.addPage();
+                    if (student[0] != undefined){
+                        fixInvalidCharactersfixInvalidCharacters(notes);
+                        pdfReport = serviceReport.notesReport(notes, student);
+                        var doc = new jsPDF('p', 'pt');
                         doc.setFontSize(16);
+                        var logo_img = document.getElementById('cc-logo');
+                        var img_data = getBase64Image(logo_img);
                         doc.addImage(img_data, 'JPEG',15,15,25,25);
-                        infoestudiante = 'Cédula: ' + $scope.ced_estudiante +'\nNombre del Alumno: '+ student[0].segundo_apellido + ' ' + student[0].primer_apellido + ' ' + student[0].name;
+                        var infoestudiante = 'Cedula: ' + student[0].nacionalidad +'\nNombre del Alumno: '+ student[0].segundo_apellido + ' ' + student[0].primer_apellido + ' ' + student[0].name;
                         doc.text(40, 19, pdfReport['Header']);
-                        doc.text(120, 60, pdfReport['Title'] + ' Undecimo ' + (student[0].anno_ingreso+1));
+                        doc.text(120, 60, pdfReport['Title'] + ' Decimo ' + student[0].anno_ingreso);
                         doc.text(15, 90, infoestudiante);
                         doc.setFontSize(10);
                         doc.text(327, 140, 'Ausencias I Semestre              Ausencias II Semestre');
-                        doc.autoTable(pdfReport['Columns'], pdfReport['Data'][1], {margins: {right: 10, left: 10, top: 40, bottom: 40}, startY: 150});
+                        doc.autoTable(pdfReport['Columns'], pdfReport['Data'][0], {margins: {right: 10, left: 10, top: 40, bottom: 40}, startY: 150});
+                        if (student[0].anno_ingreso < new Date().getFullYear()){
+                            doc.addPage();
+                            doc.setFontSize(16);
+                            doc.addImage(img_data, 'JPEG',15,15,25,25);
+                            infoestudiante = 'Cédula: ' + $scope.ced_estudiante +'\nNombre del Alumno: '+ student[0].segundo_apellido + ' ' + student[0].primer_apellido + ' ' + student[0].name;
+                            doc.text(40, 19, pdfReport['Header']);
+                            doc.text(120, 60, pdfReport['Title'] + ' Undecimo ' + (student[0].anno_ingreso+1));
+                            doc.text(15, 90, infoestudiante);
+                            doc.setFontSize(10);
+                            doc.text(327, 140, 'Ausencias I Semestre              Ausencias II Semestre');
+                            doc.autoTable(pdfReport['Columns'], pdfReport['Data'][1], {margins: {right: 10, left: 10, top: 40, bottom: 40}, startY: 150});
+                        }
+                        $scope.base64 = $sce.trustAsResourceUrl('data:application/pdf;base64,' + btoa(doc.output()));
                     }
-                    $scope.base64 = $sce.trustAsResourceUrl('data:application/pdf;base64,' + btoa(doc.output()));
                 });
             });
         }
