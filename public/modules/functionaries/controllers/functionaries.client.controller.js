@@ -1,8 +1,8 @@
 'use strict';
 
 // Functionaries controller
-angular.module('functionaries').controller('FunctionariesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Functionaries','Utility',
-	function($scope, $stateParams, $location, Authentication, Functionaries, Utility) {
+angular.module('functionaries').controller('FunctionariesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Functionaries','Utility', '$modal', '$log',
+	function($scope, $stateParams, $location, Authentication, Functionaries, Utility, $modal, $log) {
 		$scope.authentication = Authentication;
 
 		// Create new Functionary
@@ -13,13 +13,14 @@ angular.module('functionaries').controller('FunctionariesController', ['$scope',
 				firstSurname: this.firstSurname,
 				secondSurname: this.secondSurname,
 				identification: this.identification,
+				birthdate: this.birthdate,
 				maritalStatus: this.maritalStatus,
 				address: this.address,
 				phoneNumber: this.phoneNumber,
 				cellphoneNumber: this.cellphoneNumber,
 				email: this.email,
 				hireDate: this.hireDate,
-				status: this.status,
+				fired: this.fired
 			});
 
 			// Redirect after save
@@ -30,12 +31,13 @@ angular.module('functionaries').controller('FunctionariesController', ['$scope',
 				$scope.firstSurname = '';
 				$scope.secondSurname = '';
 				$scope.identification = '';
+				$scope.birthdate = '';
 				$scope.maritalStatus = '';
 				$scope.phoneNumber = '';
 				$scope.cellphoneNumber = '';
 				$scope.email = '';
 				$scope.hireDate = '';
-				$scope.status = '';
+				$scope.fired = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -80,6 +82,9 @@ angular.module('functionaries').controller('FunctionariesController', ['$scope',
 				functionaryId: $stateParams.functionaryId
 			});
 		};
+
+		$scope.optionsMaritalStatus = Utility.getMaritalStatusList();
+		$scope.maritalStatus = $scope.optionsMaritalStatus[0];
 
 
 	}

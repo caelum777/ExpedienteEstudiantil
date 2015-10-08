@@ -9,52 +9,66 @@
 
                     <label class="control-label" for="firstname">Nombre</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="firstName" id="firstname" class="form-control" required>
+                        <input type="text" data-ng-model="firstName" id="firstname" class="form-control align-field" required>
                     </div>
 
                     <label class="control-label" for="firstsurname">Primer apellido</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="firstSurname" id="firstsurname" class="form-control" required>
+                        <input type="text" data-ng-model="firstSurname" id="firstsurname" class="form-control align-field" required>
                     </div>
 
                     <label class="control-label" for="secondsurname">Segundo apellido</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="secondsurname" id="secondsurname" class="form-control" required>
+                        <input type="text" data-ng-model="secondSurname" id="secondsurname" class="form-control align-field" required>
                     </div>
 
                     <label class="control-label" for="identification">Cedula</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="identification" id="identification" class="form-control" required>
-                    </div>
-
-                    <label class="control-label" for="maritalstatus">Estado Civil</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="maritalStatus" id="maritalstatus" class="form-control" required>
+                        <input type="text" data-ng-model="identification" id="identification" class="form-control align-field" required>
                     </div>
 
                     <label class="control-label" for="birthdate">Fecha de nacimiento</label>
                     <div class="controls">
-                        <input type="date" data-ng-model="birthdate" id="birthdate" class="form-control" required>
+                        <input type="date" data-ng-model="birthdate" id="birthdate" class="form-control align-field" required>
+                    </div>
+
+                    <label class="control-label" for="maritalstatus">Estado Civil</label>
+                    <div class="controls">
+                        <select class="form-control align-field" data-ng-model="maritalStatus" id="maritalstatus"
+                                ng-options="maritalStatus as maritalStatus.maritalStatus for maritalStatus in optionsMaritalStatus">
+                        </select>
                     </div>
 
                     <label class="control-label" for="address">Direccion</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="address" id="address" class="form-control" required>
+                        <input type="text" data-ng-model="address" id="address" class="form-control align-field" required>
                     </div>
+
+
+                    <label class="control-label" for="phonenumber">Telefono Hogar</label>
+                    <div class="controls">
+                        <input type="text" ng-minlength="8" maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57' data-ng-model="phoneNumber" id="phonenumber" class="form-control align-field" required>
+                    </div>
+
 
                     <label class="control-label" for="cellphonenumber">Celular</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="cellphoneNumber" id="cellphonenumber" class="form-control" required>
+                        <input type="text" ng-minlength="8" maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57' data-ng-model="cellphoneNumber" id="cellphonenumber" class="form-control align-field" required>
                     </div>
 
                     <label class="control-label" for="email">Email</label>
                     <div class="controls">
-                        <input type="email" data-ng-model="email" id="email" class="form-control" required>
+                        <input type="email" data-ng-model="email" id="email" class="form-control align-field" required>
                     </div>
 
                     <label class="control-label" for="hiredate">Fecha de contratacion</label>
                     <div class="controls">
-                        <input type="date" data-ng-model="hireDate" id="hiredate" class="form-control" required>
+                        <input type="date" data-ng-model="hireDate" id="hiredate" class="form-control align-field" required>
+                    </div>
+
+                    <label class="control-label" for="fired">Despedido</label>
+                    <div class="controls">
+                        <input type="checkbox" data-ng-model="fired" id="fired" class="form-control" required>
                     </div>
                 </div>
 

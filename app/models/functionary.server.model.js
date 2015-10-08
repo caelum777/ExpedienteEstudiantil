@@ -42,14 +42,13 @@ var FunctionarySchema = new Schema({
 	maritalStatus: {
 		type: String,
 		default: '',
-		required: 'Porfavor llene el estado civil del funcionario',
 		trim: true
 	},
 
 	birthdate: {
 		type: Date,
 		default: '',
-		required: 'Porfavor llene el estado civil del funcionario',
+		required: 'Porfavor la fecha de nacimiento del funcionario',
 		trim: true
 	},
 
@@ -108,11 +107,8 @@ var FunctionarySchema = new Schema({
 	 *  Activo, Despedido, Renunció.
 	 * */
 
-	status: {
-		type: String,
-		default: '',
-		required: 'Porfavor llene el nombre estado del funcionario',
-		trim: true
+	fired: {
+		type: Boolean
 	},
 
 	created: {
