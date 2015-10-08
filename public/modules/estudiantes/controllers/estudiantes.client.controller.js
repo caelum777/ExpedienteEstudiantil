@@ -137,15 +137,13 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 // Redirect after save
                 estudiante.$save(function(response) {
 
-                    for(var i = 0; i < $scope.notas_septimo.length; i++) {
-
-
+                    for(var i = 0; i < $scope.notas_setimo_octavo_noveno.length; i++) {
 
                         var notaS = new Notas ({
                             cedula_estudiante: $scope.nacionalidad,
                             grado: 'septimo',
-                            curso: $scope.notas_septimo[i].curso,
-                            nota: $scope.notas_septimo[i].nota,
+                            curso: $scope.notas_setimo_octavo_noveno[i].curso,
+                            nota: $scope.notas_setimo_octavo_noveno[i].nota_setimo,
                             anno: estudiante.anno_ingreso-3,
                             semestre: 0
                         });
@@ -154,8 +152,8 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         var notaO = new Notas ({
                             cedula_estudiante: $scope.nacionalidad,
                             grado: 'octavo',
-                            curso: $scope.notas_octavo[i].curso,
-                            nota: $scope.notas_octavo[i].nota,
+                            curso: $scope.notas_setimo_octavo_noveno[i].curso,
+                            nota: $scope.notas_setimo_octavo_noveno[i].nota_octavo,
                             anno: estudiante.anno_ingreso-2,
                             semestre: 0
                         });
@@ -163,8 +161,8 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         var notaN = new Notas ({
                             cedula_estudiante: $scope.nacionalidad,
                             grado: 'noveno',
-                            curso: $scope.notas_noveno[i].curso,
-                            nota: $scope.notas_noveno[i].nota,
+                            curso: $scope.notas_setimo_octavo_noveno[i].curso,
+                            nota: $scope.notas_setimo_octavo_noveno[i].nota_noveno,
                             anno: estudiante.anno_ingreso-1,
                             semestre: 0
                         });
@@ -451,6 +449,14 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         $scope.initNotas = function(){
             var estudiante = $scope.estudiante;
             $scope.editable = true;
+            $scope.notas_setimo_octavo_noveno = [
+                {curso: 'Inglés', nota_setimo: 0, nota_octavo: 0 , nota_noveno: 0},
+                {curso: 'Matemática', nota_setimo: 0, nota_octavo: 0, nota_noveno: 0},
+                {curso: 'Ciencias', nota_setimo: 0, nota_octavo: 0, nota_noveno: 0},
+                {curso: 'Cívica', nota_setimo: 0, nota_octavo: 0, nota_noveno: 0},
+                {curso: 'Español', nota_setimo: 0, nota_octavo: 0, nota_noveno: 0},
+                {curso: 'Estudios Sociales', nota_setimo: 0, nota_octavo: 0, nota_noveno: 0},
+                {curso: 'Conducta', nota_setimo: 0, nota_octavo: 0, nota_noveno: 0}];
             $scope.notas_septimo = [
                 {curso: 'Inglés', nota: 0, semestre: 0 },
                 {curso: 'Matemática', nota: 0, semestre: 0},
@@ -571,6 +577,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         };
 
         $scope.initGridOptions = function(){
+            $scope.gridOptionsSON = $scope.getGridOptionsNotasSON('notas_setimo_octavo_noveno')
             $scope.gridOptionsS = $scope.getGridOptionsNotas('notas_septimo');
             $scope.gridOptionsO = $scope.getGridOptionsNotas('notas_octavo');
             $scope.gridOptionsN = $scope.getGridOptionsNotas('notas_noveno');
@@ -594,8 +601,26 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             };
         };
 
+        $scope.getGridOptionsNotasSON = function(data){
+            var editCellTemplate = '<input type="number" ng-class="\'colt\' + col.index"  min="1" max="100" ng-input="COL_FIELD" ng-model="COL_FIELD" >';
+            return {
+                data: data,
+                enableCellSelection: true,
+                enableRowSelection: false,
 
-
+                enableCellEditOnFocus: $scope.editable,
+                columnDefs: [{field: 'curso', displayName: 'Curso', enableCellEdit: false},
+                    {field:'nota_setimo', displayName:'Nota de setimo', enableCellEdit: $scope.editable,
+                    editableCellTemplate: editCellTemplate,
+                    cellTemplate:'<div class="ngCellText" ng-class="{\'red\' : row.getProperty(\'nota_setimo\') <65 && row.getProperty(\'nota_setimo\') != 0,   \'green\' : row.getProperty(\'nota_setimo\') >=65 && row.getProperty(\'nota_setimo\') != 0  }">{{ row.getProperty(col.field) }}</div>'},
+                    {field:'nota_octavo', displayName:'Nota de octavo', enableCellEdit: $scope.editable,
+                        editableCellTemplate: editCellTemplate,
+                        cellTemplate:'<div class="ngCellText" ng-class="{\'red\' : row.getProperty(\'nota_octavo\') <65 && row.getProperty(\'nota_octavo\') != 0,   \'green\' : row.getProperty(\'nota_octavo\') >=65 && row.getProperty(\'nota_octavo\') != 0  }">{{ row.getProperty(col.field) }}</div>'},
+                    {field:'nota_noveno', displayName:'Nota de noveno', enableCellEdit: $scope.editable,
+                        editableCellTemplate: editCellTemplate,
+                        cellTemplate:'<div class="ngCellText" ng-class="{\'red\' : row.getProperty(\'nota_noveno\') <65 && row.getProperty(\'nota_noveno\') != 0,   \'green\' : row.getProperty(\'nota_noveno\') >=65 && row.getProperty(\'nota_noveno\') != 0  }">{{ row.getProperty(col.field) }}</div>'}]
+            };
+        };
 
         $scope.notes_c_c = function(){
             $scope.notas_decimo_1 = [];
