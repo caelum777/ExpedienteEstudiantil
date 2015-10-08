@@ -311,15 +311,15 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             });
             var notas = $scope.notas;
             angular.forEach(notas, function (nota) {
-                for(var i = 0;i < $scope.notas_septimo.length; i++){
-                    if(($scope.notas_septimo.grado===nota.grado)&&($scope.notas_septimo.curso===nota.curso)){
-                        nota.nota = $scope.notas_septimo.nota;
+                for(var i = 0;i < $scope.notas_setimo_octavo_noveno.length; i++){
+                    if((nota.grado === 'septimo')&&($scope.notas_setimo_octavo_noveno[i].curso===nota.curso)){
+                        nota.nota = $scope.notas_setimo_octavo_noveno[i].nota_setimo;
                     }
-                    else if(($scope.notas_octavo.grado===nota.grado)&&($scope.notas_octavo.curso===nota.curso)){
-                        nota.nota = $scope.notas_octavo.nota;
+                    else if((nota.grado === 'octavo')&&($scope.notas_setimo_octavo_noveno[i].curso===nota.curso)){
+                        nota.nota = $scope.notas_setimo_octavo_noveno[i].nota_octavo;
                     }
-                    else if(($scope.notas_noveno.grado===nota.grado)&&($scope.notas_noveno.curso===nota.curso)){
-                        nota.nota = $scope.notas_noveno.nota;
+                    else if((nota.grado === 'noveno')&&($scope.notas_setimo_octavo_noveno[i].curso===nota.curso)){
+                        nota.nota = $scope.notas_setimo_octavo_noveno[i].nota_noveno;
                     }
                 }
                 Notas.update({ notaId: nota._id }, nota);
@@ -397,7 +397,6 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         var noveno = 0;
                         if(cursos_checked.indexOf(curso) === -1){
                             for (var j = 0; j < temporalNoteRegister.length; j++){
-                                console.log(temporalNoteRegister[j].materia + ' = ' + curso);
                                 if (temporalNoteRegister[j].materia === curso){
                                     if(temporalNoteRegister[j].grado === 'septimo'){
                                         setimo = temporalNoteRegister[j].calificacion;
@@ -605,10 +604,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         };
 
         $scope.initGridOptions = function(){
-            $scope.gridOptionsSON = $scope.getGridOptionsNotasSON('notas_setimo_octavo_noveno')
-            $scope.gridOptionsS = $scope.getGridOptionsNotas('notas_septimo');
-            $scope.gridOptionsO = $scope.getGridOptionsNotas('notas_octavo');
-            $scope.gridOptionsN = $scope.getGridOptionsNotas('notas_noveno');
+            $scope.gridOptionsSON = $scope.getGridOptionsNotasSON('notas_setimo_octavo_noveno');
             $scope.gridOptionsD1 = $scope.getGridOptionsNotas('notas_decimo_1');
             $scope.gridOptionsD2 = $scope.getGridOptionsNotas('notas_decimo_2');
             $scope.gridOptionsU1 = $scope.getGridOptionsNotas('notas_undecimo_1');
