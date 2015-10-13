@@ -321,9 +321,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
 		};
 
         $scope.admitidos = function(admitido) {
-            console.log(admitido);
             $scope.estudiantes = GetAdmitidos.query({admitido: admitido});
-            console.log($scope.estudiantes);
             $scope.ngGridEstudiantes(admitido);
         };
 
@@ -400,7 +398,6 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                             $scope.notas_setimo_octavo_noveno.push({curso: curso, nota_setimo: setimo, nota_octavo: octavo, nota_noveno: noveno});
                         }
                     }
-                    console.log($scope.notas_setimo_octavo_noveno);
                 }, function(error) {
                     console.log('Failed: ' + error);
                 });
@@ -509,10 +506,10 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 data: data,
                 enableCellSelection: true,
                 enableRowSelection: false,
-
                 enableCellEditOnFocus: $scope.editable,
                 columnDefs: [{field: 'curso', displayName: 'Curso', enableCellEdit: false},
-                    {field:'nota_setimo', displayName:'Nota de setimo', enableCellEdit: $scope.editable,
+                    {
+                        field: 'nota_setimo', displayName: 'Nota de setimo', enableCellEdit: $scope.editable,
                         editableCellTemplate: editCellTemplate,
                         cellClass: 'grid-align',
                         width: width,
@@ -536,25 +533,24 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 data: data,
                 enableCellSelection: true,
                 enableRowSelection: false,
-
                 enableCellEditOnFocus: $scope.editable,
                 columnDefs: [{field: 'curso', displayName: 'Curso', enableCellEdit: false},
-                    {field:'nota_decimo_primer_semestre', displayName:'Décimo I', enableCellEdit: $scope.editable,
+                    {field:'nota_decimo_primer_semestre', displayName:'I', enableCellEdit: $scope.editable,
                         width: width,
                         cellClass: 'grid-align',
                         editableCellTemplate:'<input type="number" ng-class="\'colt\' + col.index"  min="1" max="100" ng-input="COL_FIELD" ng-model="COL_FIELD" >',
                         cellTemplate:'<div class="ngCellText" ng-class="{\'red\' : row.getProperty(\'nota_decimo_primer_semestre\') <65 && row.getProperty(\'nota_decimo_primer_semestre\') != 0,   \'green\' : row.getProperty(\'nota_decimo_primer_semestre\') >=65 && row.getProperty(\'nota_decimo_primer_semestre\') != 0  }">{{ row.getProperty(col.field) }}</div>'},
-                    {field:'nota_decimo_segundo_semestre', displayName:'Décimo II', enableCellEdit: $scope.editable,
+                    {field:'nota_decimo_segundo_semestre', displayName:'II', enableCellEdit: $scope.editable,
                         width: width,
                         cellClass: 'grid-align',
                         editableCellTemplate:'<input type="number" ng-class="\'colt\' + col.index"  min="1" max="100" ng-input="COL_FIELD" ng-model="COL_FIELD" >',
                         cellTemplate:'<div class="ngCellText" ng-class="{\'red\' : row.getProperty(\'nota_decimo_segundo_semestre\') <65 && row.getProperty(\'nota_decimo_segundo_semestre\') != 0,   \'green\' : row.getProperty(\'nota_decimo_segundo_semestre\') >=65 && row.getProperty(\'nota_decimo_segundo_semestre\') != 0  }">{{ row.getProperty(col.field) }}</div>'},
-                    {field:'nota_undecimo_primer_semestre', displayName:'Undécimo I', enableCellEdit: $scope.editable,
+                    {field:'nota_undecimo_primer_semestre', displayName:'I', enableCellEdit: $scope.editable,
                         width: width,
                         cellClass: 'grid-align',
                         editableCellTemplate:'<input type="number" ng-class="\'colt\' + col.index"  min="1" max="100" ng-input="COL_FIELD" ng-model="COL_FIELD" >',
                         cellTemplate:'<div class="ngCellText" ng-class="{\'red\' : row.getProperty(\'nota_undecimo_primer_semestre\') <65 && row.getProperty(\'nota_undecimo_primer_semestre\') != 0,   \'green\' : row.getProperty(\'nota_undecimo_primer_semestre\') >=65 && row.getProperty(\'nota_undecimo_primer_semestre\') != 0  }">{{ row.getProperty(col.field) }}</div>'},
-                    {field:'nota_undecimo_segundo_semestre', displayName:'Undécimo II', enableCellEdit: $scope.editable,
+                    {field:'nota_undecimo_segundo_semestre', displayName:'II', enableCellEdit: $scope.editable,
                         width: width,
                         cellClass: 'grid-align',
                         editableCellTemplate:'<input type="number" ng-class="\'colt\' + col.index"  min="1" max="100" ng-input="COL_FIELD" ng-model="COL_FIELD" >',
@@ -589,6 +585,8 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         }
                     });
                     var cursos_checked = [];
+                    var promedio_decimo = 0;
+                    var promedio_undecimo = 0;
                     for (var i = 0; i < temporalNoteRegister.length; i++){
                         var curso = temporalNoteRegister[i].materia;
                         var decimo_primer_semestre = 0;
@@ -610,14 +608,24 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                                     else if(temporalNoteRegister[j].grado === 'undecimo' && temporalNoteRegister[j].semestre === 2){
                                         undecimo_segundo_semestre = temporalNoteRegister[j].calificacion;
                                     }
+                                    if (curso === 'Promedio'){
+                                        if (temporalNoteRegister[j].grado === 'decimo'){
+                                            promedio_decimo += temporalNoteRegister[j].calificacion;
+                                        }
+                                        else{
+                                            promedio_undecimo += temporalNoteRegister[j].calificacion;
+                                        }
+                                        console.log(promedio_decimo + ' - ' + promedio_undecimo);
+                                    }
                                 }
                             }
                             cursos_checked.push(curso);
                             $scope.notas_decimo_undecimo.push({curso: curso, nota_decimo_primer_semestre: decimo_primer_semestre, nota_decimo_segundo_semestre: decimo_segundo_semestre,
                                                                     nota_undecimo_primer_semestre: undecimo_primer_semestre, nota_undecimo_segundo_semestre: undecimo_segundo_semestre});
-
                         }
                     }
+                    $scope.tenth_annual_average = promedio_decimo/2;
+                    $scope.eleventh_annual_average = promedio_undecimo/2;
                 }, function (error) {
                     console.log('Failed: ' + error);
                 });
@@ -931,7 +939,6 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 serviceReport.studentNotes = GetNotas.query({ cedula_estudiante: $scope.ced_estudiante });
                 serviceReport.studentNotes.$promise.then(function(notes){
                     var pdfReport;
-                    console.log($scope.ced_estudiante);
                     $scope.estudiante =  Nacionalidad.query( {cedula: $scope.ced_estudiante });
                     $scope.estudiante.$promise.then(function(student){
                         if (student[0] != undefined){

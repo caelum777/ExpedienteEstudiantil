@@ -70,8 +70,42 @@
 
 .ngGridNotes{
     margin: 0 auto;
-    height: 694px;
+    height: 695px;
     width: 800px;
+}
+
+.nota-header{
+    padding-top: 5px;
+    height: 30px;
+    width: 241px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    font-weight: bold;
+    background-color: #eae8e8;
+    border: 1px solid #d4d4d4;
+}
+
+.nota-decimo-header{
+    margin-left: 503px;
+}
+
+.nota-promedio-anual-column{
+    margin-left: 185px;
+    padding-top: 5px;
+    height: 30px;
+    width: 319px;
+    border: 1px solid #d4d4d4;
+    background-color: #e6edec;
+}
+
+.nota-promedio-anual{
+    background-color: #e6edec;
+    padding-top: 5px;
+    height: 30px;
+    width: 241px;
+    border: 1px solid #d4d4d4;
 }
 
 .grid-align {
