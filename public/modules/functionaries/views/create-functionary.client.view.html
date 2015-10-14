@@ -61,15 +61,25 @@
                         <input type="email" data-ng-model="email" id="email" class="form-control align-field" required>
                     </div>
 
+                    <label class="control-label" for="role">Rol</label>
+                    <div class="controls">
+                        <select class="form-control align-field" data-ng-model="role" id="role"
+                                ng-options="role as role.role for role in optionsFunctionaryRoles">
+                        </select>
+                    </div>
+
                     <label class="control-label" for="hiredate">Fecha de contratacion</label>
                     <div class="controls">
                         <input type="date" data-ng-model="hireDate" id="hiredate" class="form-control align-field" required>
                     </div>
 
-                    <label class="control-label" for="fired">Despedido</label>
+                    <label class="control-label" for="status">Estado</label>
                     <div class="controls">
-                        <input type="checkbox" data-ng-model="fired" id="fired" class="form-control" required>
+                        <select class="form-control align-field" data-ng-model="status" id="status"
+                                ng-options="status as status.status for status in optionsFunctionaryStatus">
+                        </select>
                     </div>
+
                 </div>
 
 

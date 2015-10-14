@@ -45,6 +45,12 @@ var FunctionarySchema = new Schema({
 		trim: true
 	},
 
+	role: {
+		type: String,
+		default: '',
+		trim: true
+	},
+
 	birthdate: {
 		type: Date,
 		default: '',
@@ -92,8 +98,6 @@ var FunctionarySchema = new Schema({
 		trim: true
 	},
 
-
-
 	hireDate: {
 		type: Date,
 		default: Date.now,
@@ -102,13 +106,14 @@ var FunctionarySchema = new Schema({
 	},
 
 	/*
-	 *  Estado laboral:
+	 *  Work status:
 	 *
-	 *  Activo, Despedido, Renunció.
+	 *  Active, Fired, Resign.
 	 * */
 
-	fired: {
-		type: Boolean
+	status: {
+		type: String,
+		default: ''
 	},
 
 	created: {

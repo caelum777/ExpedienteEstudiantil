@@ -16,13 +16,14 @@ angular.module('functionaries').controller('FunctionariesController', ['$scope',
 				secondSurname: this.secondSurname,
 				identification: this.identification,
 				birthdate: this.birthdate,
-				maritalStatus: this.maritalStatus,
+				maritalStatus: this.maritalStatus.maritalStatus,
+				role: this.role.role,
 				address: this.address,
 				phoneNumber: this.phoneNumber,
 				cellphoneNumber: this.cellphoneNumber,
 				email: this.email,
 				hireDate: this.hireDate,
-				fired: this.fired
+				status: this.status.status
 			});
 
 			// Redirect after save
@@ -35,15 +36,23 @@ angular.module('functionaries').controller('FunctionariesController', ['$scope',
 				$scope.identification = '';
 				$scope.birthdate = '';
 				$scope.maritalStatus = '';
+				$scope.role = '';
 				$scope.phoneNumber = '';
 				$scope.cellphoneNumber = '';
 				$scope.email = '';
 				$scope.hireDate = '';
-				$scope.fired = '';
+				$scope.status = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
 		};
+
+		$scope.optionsMaritalStatus = Utility.getMaritalStatusList();
+		$scope.optionsFunctionaryRoles = Utility.getFunctionaryRoles();
+		$scope.optionsFunctionaryStatus = Utility.getFunctionaryStatus();
+		$scope.maritalStatus = $scope.optionsMaritalStatus[0];
+		$scope.role = $scope.optionsFunctionaryRoles[0];
+		$scope.status = $scope.optionsFunctionaryStatus[0];
 
 		// Remove existing Functionary
 		$scope.remove = function(functionary) {
@@ -85,8 +94,7 @@ angular.module('functionaries').controller('FunctionariesController', ['$scope',
 			});
 		};
 
-		$scope.optionsMaritalStatus = Utility.getMaritalStatusList();
-		$scope.maritalStatus = $scope.optionsMaritalStatus[0];
+
 
 
 	}
