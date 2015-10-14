@@ -65,9 +65,7 @@ angular.module('functionaries').controller('FunctionariesController', ['$scope',
 					}
 				}
 			} else {
-				$scope.functionary.$remove(function() {
-					$location.path('functionaries');
-				});
+				$scope.functionary.$remove(function(){});
 			}
 		};
 
