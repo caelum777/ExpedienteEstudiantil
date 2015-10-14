@@ -474,7 +474,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 {curso: 'Física', nota_decimo_primer_semestre: 0, nota_decimo_segundo_semestre: 0, nota_undecimo_primer_semestre: 0, nota_undecimo_segundo_semestre: 0},
                 {curso: 'Química', nota_decimo_primer_semestre: 0, nota_decimo_segundo_semestre: 0, nota_undecimo_primer_semestre: 0, nota_undecimo_segundo_semestre: 0},
                 {curso: 'Biología', nota_decimo_primer_semestre: 0, nota_decimo_segundo_semestre: 0, nota_undecimo_primer_semestre: 0, nota_undecimo_segundo_semestre: 0},
-                {curso: 'Bioteclogía', nota_decimo_primer_semestre: 0, nota_decimo_segundo_semestre: 0, nota_undecimo_primer_semestre: 0, nota_undecimo_segundo_semestre: 0},
+                {curso: 'Biotecnología', nota_decimo_primer_semestre: 0, nota_decimo_segundo_semestre: 0, nota_undecimo_primer_semestre: 0, nota_undecimo_segundo_semestre: 0},
                 {curso: 'Computación', nota_decimo_primer_semestre: 0, nota_decimo_segundo_semestre: 0, nota_undecimo_primer_semestre: 0, nota_undecimo_segundo_semestre: 0},
                 {curso: 'Robótica', nota_decimo_primer_semestre: 0, nota_decimo_segundo_semestre: 0, nota_undecimo_primer_semestre: 0, nota_undecimo_segundo_semestre: 0},
                 {curso: 'Dibujo Técnico', nota_decimo_primer_semestre: 0, nota_decimo_segundo_semestre: 0, nota_undecimo_primer_semestre: 0, nota_undecimo_segundo_semestre: 0},

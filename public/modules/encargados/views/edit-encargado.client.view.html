@@ -6,10 +6,6 @@
         <form class="form-horizontal" data-ng-submit="update()" novalidate>
             <fieldset>
                 <div class="form-group">
-                    <label class="control-label" for="name">Cédula del estudiante</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="encargado.estudiante" id="estudiante" class="form-control align-field" placeholder="0-0000-0000" required>
-                    </div>
                     <div class="controls">
                         <label class="control-label" for="name">Nombre del encargado</label>
                     </div>
@@ -28,10 +24,18 @@
                             <input type="text" data-ng-model="encargado.segundo_apellido" id="segundo_apellido" class="form-control align-field" placeholder="Segundo apellido" required>
                         </div>
                     </div>
+
                     <label class="control-label" for="name">Cédula del encargado</label>
                     <div class="controls">
                         <input type="text" data-ng-model="encargado.cedula" id="cedula" class="form-control align-field" placeholder="0-0000-0000" required>
-                    </div><label class="control-label" for="name">Ocupación</label>
+                    </div>
+                    <label class="control-label" for="name">Parentesco</label>
+                    <div class="controls">
+                        <select class="form-control align-field" data-ng-model="parentesco" id="parentesco"
+                                ng-options="opt as opt.relationship for opt in relationshipStudentList">
+                        </select>
+                    </div>
+                    <label class="control-label" for="name">Ocupación</label>
                     <div class="controls">
                         <input type="text" data-ng-model="encargado.ocupacion" id="ocupacion" class="form-control align-field" placeholder="Empresario, Panadero, Profesor..." required>
                     </div><label class="control-label" for="name">Estado civil</label>

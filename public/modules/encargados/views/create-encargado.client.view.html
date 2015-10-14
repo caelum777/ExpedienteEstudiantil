@@ -28,6 +28,13 @@
                     <div class="controls">
                         <input type="text" data-ng-model="cedula" id="cedula" class="form-control align-field" placeholder="0-0000-0000" required>
                     </div>
+                    <label class="control-label" for="name">Parentesco</label>
+                    <div class="controls">
+                        <select class="form-control align-field" data-ng-model="parentesco" id="parentesco"
+                                ng-options="opt as opt.relationship for opt in relationshipStudentList">
+                        </select>
+                    </div>
+
                     <label class="control-label" for="name">Ocupación</label>
                     <div class="controls">
                         <input type="text" data-ng-model="ocupacion" id="ocupacion" class="form-control align-field" placeholder="Empresario, Panadero, Profesor..." required>
