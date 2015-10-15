@@ -74,6 +74,11 @@
     width: 800px;
 }
 
+.ngGridNotesSON{
+    height: 275px;
+    width: 827px;
+}
+
 .nota-header{
     padding-top: 5px;
     height: 30px;
@@ -89,6 +94,15 @@
 
 .nota-decimo-header{
     margin-left: 503px;
+}
+.nota-noveno-header{
+    margin-left: 590px;
+    width: 252px;
+}
+
+.nota-noveno-view-header{
+    margin-left: 575px;
+    width: 252px;
 }
 
 .nota-promedio-anual-column{

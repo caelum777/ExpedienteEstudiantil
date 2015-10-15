@@ -117,9 +117,12 @@
                         Seleccionar foto <input name="filefield" type="file" ng-file-select ng-file-change="onFileSelect($files)">
                     </span>
                     <br/>
-                    <div class="controls align-field">
+                    <div class="controls">
                         <label class="control-label" for="name">Notas del estudiante</label>
-                        <div class="gridStyle" ng-grid="gridOptionsSON"></div>
+                        <div class="form-group no-margin-bottom">
+                            <div class="nota-header nota-noveno-header no-margin-bottom grid-align">Notas de noveno</div>
+                        </div>
+                        <div class="gridStyle ngGridNotesSON" ng-grid="gridOptionsSON"></div>
                     </div>
                     <br/>
                 <div class="form-group">
