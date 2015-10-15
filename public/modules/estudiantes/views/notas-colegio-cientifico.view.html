@@ -3,15 +3,16 @@
         <h1>Notas del estudiante</h1>
     </div>
     <form class="form-horizontal" novalidate>
-       <div class="form-group no-margin-bottom">
-            <div class="col-md-7 nota-header nota-decimo-header no-margin-bottom grid-align">{{string_decimo}}</div>
-            <div class="col-md-7 nota-header no-margin-bottom grid-align">{{string_undecimo}}</div>
+        <div class="form-group no-margin-bottom">
+            <div class="col-md-7 nota-header nota-decimo-header no-margin-bottom grid-align">D&eacute;cimo</div>
+            <div class="col-md-7 nota-header no-margin-bottom grid-align">Und&eacute;cimo</div>
         </div>
         <div>
             <div class="gridStyle ngGridNotes" ng-grid="gridOptionsDU" ></div>
         </div>
         <div class="form-group no-margin-bottom">
             <div class="col-md-4 nota-promedio-anual-column no-margin-bottom">Promedio anual</div>
+            <div ng-hide="true">{{ calcularPromedio() }}</div>
             <div class="col-md-4 nota-promedio-anual no-margin-bottom  grid-align">{{tenth_annual_average}}</div>
             <div class="col-md-4 nota-promedio-anual no-margin-bottom grid-align">{{eleventh_annual_average}}</div>
         </div>

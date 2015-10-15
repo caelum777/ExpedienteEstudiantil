@@ -4,8 +4,6 @@
 angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$stateParams', '$location', '$filter', '$http', '$sce', 'Authentication', 'Estudiantes', '$upload', 'Notas', 'GetNotas', 'GetAdmitidos', 'Decimo', 'Undecimo', 'Nacionalidad', 'Reports',
 	function($scope, $stateParams, $location, $filter, $http, $sce, Authentication, Estudiantes, $upload, Notas, GetNotas, GetAdmitidos, Decimo, Undecimo, Nacionalidad, Reports) {
 		$scope.authentication = Authentication;
-        $scope.string_decimo = 'Décimo';
-        $scope.string_undecimo = 'Undécimo';
         $scope.options = $http.get('codigo-postal.json').then(function(data){
             $scope.options = data.data;
             $scope.provincia = $scope.options[0];
@@ -662,8 +660,6 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                                                                     nota_undecimo_primer_semestre: undecimo_primer_semestre, nota_undecimo_segundo_semestre: undecimo_segundo_semestre});
                         }
                     }
-                    $scope.tenth_annual_average = promedio_decimo/2;
-                    $scope.eleventh_annual_average = promedio_undecimo/2;
                 }, function (error) {
                     console.log('Failed: ' + error);
                 });
@@ -698,6 +694,36 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         { field: '_id', displayName:'Ver', cellTemplate: '<a data-ng-href="#!/estudiantes/{{row.entity._id}}">ver</a>'}]
                 };
             }
+        };
+
+        $scope.calcularPromedio = function(){
+            var promedio_decimo_primer_semestre = 0;
+            var promedio_decimo_segundo_semestre = 0;
+            var promedio_undecimo_primer_semestre = 0;
+            var promedio_undecimo_segundo_semestre = 0;
+            var promedio_row = 0;
+            angular.forEach($scope.notas_decimo_undecimo, function(nota){
+                if(nota.curso != 'Promedio') {
+                    promedio_decimo_primer_semestre += nota.nota_decimo_primer_semestre;
+                    promedio_decimo_segundo_semestre += nota.nota_decimo_segundo_semestre;
+                    promedio_undecimo_primer_semestre += nota.nota_undecimo_primer_semestre;
+                    promedio_undecimo_segundo_semestre += nota.nota_undecimo_segundo_semestre;
+                }
+                else if(nota.curso === 'Promedio'){
+                    promedio_row = nota;
+                }
+            });
+            promedio_decimo_primer_semestre = Math.round(promedio_decimo_primer_semestre/($scope.notas_decimo_undecimo.length-1) * 100) / 100;
+            promedio_decimo_segundo_semestre = Math.round(promedio_decimo_segundo_semestre/($scope.notas_decimo_undecimo.length-1) * 100) / 100;
+            promedio_undecimo_primer_semestre = Math.round(promedio_undecimo_primer_semestre/($scope.notas_decimo_undecimo.length-1) * 100) / 100;
+            promedio_undecimo_segundo_semestre = Math.round(promedio_undecimo_segundo_semestre/($scope.notas_decimo_undecimo.length-1) * 100) / 100;
+            promedio_row.nota_decimo_primer_semestre = promedio_decimo_primer_semestre;
+            promedio_row.nota_decimo_segundo_semestre = promedio_decimo_segundo_semestre;
+            promedio_row.nota_undecimo_primer_semestre = promedio_undecimo_primer_semestre;
+            promedio_row.nota_undecimo_segundo_semestre = promedio_undecimo_segundo_semestre;
+            $scope.tenth_annual_average = Math.round((promedio_decimo_primer_semestre + promedio_decimo_segundo_semestre)/2* 100) / 100;;
+            $scope.eleventh_annual_average = Math.round((promedio_undecimo_primer_semestre + promedio_undecimo_segundo_semestre)/2* 100) / 100;;
+
         };
 
         $scope.matricular = function(){
@@ -900,6 +926,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 $scope.show = true;
                 $scope.reporte_notas();
         });
+
         $scope.$watch('reporte', function(){
             createReport();
         });
