@@ -95,7 +95,9 @@
                     </div>
                     <label class="control-label" for="name">Colegio de procedencia</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="estudiante.colegio_procedencia" id="colegio_procedencia" class="form-control align-field" placeholder="Colegio de procedencia" required>
+                        <select class="form-control align-field" data-ng-model="colegio_procedencia" id="colegio_procedencia"
+                                ng-options="high_school as high_school.name for high_school in high_schools_list">
+                        </select>
                     </div>
                     <label class="control-label" for="name">Adecuación significativa</label>
                     <div class="controls">

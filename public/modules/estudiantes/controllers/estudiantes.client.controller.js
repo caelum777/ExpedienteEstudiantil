@@ -10,6 +10,10 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             $scope.canton =  $scope.provincia.cantones[0];
             $scope.distrito = $scope.canton.distritos[0];
         });
+        $http.get('colegios-procedencia.json').then(function(data){
+            $scope.high_schools_list = data.data;
+            $scope.colegio_procedencia = $scope.high_schools_list[0];
+        });
         $scope.sexos = [{nombre: 'Masculino'}, {nombre: 'Femenino'}];
         $scope.adecuaciones = [{nombre: 'Tiene'}, {nombre: 'No tiene'}];
         $scope.consultas = [{nombre: 'Nombre'}, {nombre: 'Cedula'}, {nombre: 'Colegio de Procedencia'}];
@@ -125,7 +129,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     admitido: admitido,
                     foto: $scope.foto,
                     anno_ingreso: $scope.anno_ingreso,
-                    colegio_procedencia: $scope.colegio_procedencia,
+                    colegio_procedencia: $scope.colegio_procedencia.name,
                     adecuacion_sig: $scope.adecuacion_sig,
                     adecuacion_nsig: $scope.adecuacion_nsig,
                     graduado: graduado
@@ -301,6 +305,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             estudiante.provincia = $scope.provincia.nombre;
             estudiante.canton = $scope.canton.nombre;
             estudiante.distrito = $scope.distrito.nombre;
+            estudiante.colegio_procedencia = $scope.colegio_procedencia.name;
             estudiante.$update(function() {
                 $location.path('estudiantes/' + estudiante._id);
             }, function(errorResponse) {
@@ -353,7 +358,6 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             $scope.estudiante.$promise.then(function(estudiante) {
                 $scope.sexo = $scope.sexos[$scope.find($scope.sexos, $scope.estudiante.sexo, 0)];
                 if(edit){
-
                     if($scope.adecuaciones[0].nombre === $scope.estudiante.adecuacion_sig){
                         $scope.adSignificativa = $scope.adecuaciones[0];
                     }
@@ -371,7 +375,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     $scope.provincia = $scope.options[arr[0]];
                     $scope.canton = $scope.options[arr[0]].cantones[arr[1]];
                     $scope.distrito = $scope.options[arr[0]].cantones[arr[1]].distritos[arr[2]];
-
+                    $scope.colegio_procedencia = $scope.setColegioProcedenciaComboBox($scope.estudiante.colegio_procedencia);
                 }
                 $scope.notas = GetNotas.query({
                     cedula_estudiante: estudiante.nacionalidad
@@ -419,7 +423,6 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                             $scope.notas_setimo_octavo_noveno.push({curso: curso, nota_setimo: setimo, nota_octavo: octavo, nota_noveno_primer_trimestre: noveno_primer_trimestre, nota_noveno_segundo_trimestre: noveno_segundo_trimestre});
                         }
                     }
-                    console.log($scope.notas_setimo_octavo_noveno);
                 }, function(error) {
                     console.log('Failed: ' + error);
                 });
@@ -474,6 +477,14 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                             }
                         }
                     }
+                }
+            }
+        };
+
+        $scope.setColegioProcedenciaComboBox = function(colegio){
+            for(var i = 0; i < $scope.high_schools_list.length; i++){
+                if ($scope.high_schools_list[i].name === colegio){
+                    return $scope.high_schools_list[i];
                 }
             }
         };
@@ -642,7 +653,6 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                                         else{
                                             promedio_undecimo += temporalNoteRegister[j].calificacion;
                                         }
-                                        console.log(promedio_decimo + ' - ' + promedio_undecimo);
                                     }
                                 }
                             }

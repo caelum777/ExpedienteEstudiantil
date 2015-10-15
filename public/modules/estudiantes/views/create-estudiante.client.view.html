@@ -101,12 +101,15 @@
                     </div>
                     <label class="control-label" for="name">Colegio de procedencia</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="colegio_procedencia" id="colegio_procedencia" class="form-control align-field" required>
+                        <select class="form-control align-field" data-ng-model="colegio_procedencia" id="colegio_procedencia"
+                                ng-options="high_school as high_school.name for high_school in high_schools_list">
+                        </select>
                     </div>
 
 
-
-
+                   <!-- <div class="controls">
+                        <input type="text" data-ng-model="colegio_procedencia" id="colegio_procedencia" class="form-control align-field" required>
+                    </div>-->
 
                     <span class="form-group col-xs-6 no-margin-bottom" >
                         <label class="control-label" for="name">Año de Ingreso al Colegio Científico</label>
