@@ -2,6 +2,7 @@
 	<div class="page-header">
 		<h1 data-ng-bind="functionary.name"></h1>
 	</div>
+	<h2>{{functionary.firstName}} {{functionary.firstSurname}} {{functionary.secondSurname}}</h2>
 	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == functionary.user._id))">
 		<a class="btn btn-primary" href="/#!/functionaries/{{functionary._id}}/edit">
 			<i class="glyphicon glyphicon-edit"></i>
@@ -12,9 +13,9 @@
 	</div>
 	<small>
 		<em class="text-muted">
-			Posted on
+			Publicado en
 			<span data-ng-bind="functionary.created | date:'mediumDate'"></span>
-			by
+			por
 			<span data-ng-bind="functionary.user.displayName"></span>
 		</em>
 	</small>
