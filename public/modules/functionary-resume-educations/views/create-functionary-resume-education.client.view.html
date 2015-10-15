@@ -1,0 +1,48 @@
+<section data-ng-controller="FunctionaryResumeEducationsController">
+    <div class="page-header">
+        <h1>New Functionary resume education</h1>
+    </div>
+    <div class="col-md-12">
+        <form class="form-horizontal" data-ng-submit="create()" novalidate>
+            <fieldset>
+                <div class="form-group">
+
+                    <label class="control-label" for="schoolname">Universidad</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="schoolName" id="schoolname" class="form-control" required>
+                    </div>
+
+                    <label class="control-label" for="attendedstartdate">Fecha de inicio</label>
+                    <div class="controls">
+                        <select class="form-control align-field" data-ng-model="attendedStartDate" id="attendedstartdate"
+                                ng-options="year as year.year for year in optionsYearRange" required>
+                            <option selected="selected">3</option>
+                        </select>
+                    </div>
+
+                    <label class="control-label" for="attendedenddate">Fecha de graduacion</label>
+                    <div class="controls">
+                        <select class="form-control align-field" data-ng-model="attendedEndDate" id="attendedenddate"
+                                ng-options="year as year.year for year in optionsYearRange" required>
+                        </select>
+                    </div>
+
+                    <label class="control-label" for="degree">Grado</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="degree" id="degree" class="form-control" required>
+                    </div>
+
+                    <label class="control-label" for="description">Descripcion</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="description" id="description" class="form-control" required>
+                    </div>
+
+                </div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+
+            </fieldset>
+        </form>
+    </div>
+</section>

@@ -1,0 +1,46 @@
+<section data-ng-controller="FunctionariesController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Funcionarios</h1>
+    </div>
+
+    <div class="clo-xs-12 col-sm-8">
+        <div class="input-group input-group-lg">
+            <input type="text" class="form-control" ng-model="searchText" placeholder="Buscar...">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Ir!</button>
+              </span>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-4 text-center">
+        <button type="button" class="btn tbn-lg btn-success text-center">
+            <br>
+            Nuevo funcionario
+        </button>
+
+    </div>
+
+    <div class="list-group">
+        <div class="col-xs-6 col-sm-4" data-ng-repeat="functionary in functionaries | filter: searchText">
+            <a data-ng-href="#!/functionaries/{{functionary._id}}" class="list-group-item">
+                <h4 class="funct-list text-center">
+                    <i class="glyphicon glyphicon-user funct-list"></i>
+                </h4>
+                <div class="row">
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <h4>{{functionary.firstName}} {{functionary.firstSurname}} {{functionary.secondSurname}}</h4>
+                        <h5> Funcionario {{functionary.role}}</h5>
+                        <small class="list-group-item-text text-muted">
+                            <span data-ng-bind="functionary.created | date:'medium'"></span>
+                            <span class="pull-right">
+                                <button class="btn btn-default" ng-click="remove($event, functionary);">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </button>
+                            </span>
+                        </small>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>

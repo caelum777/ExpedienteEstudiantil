@@ -4,12 +4,14 @@
 angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$stateParams', '$location', '$filter', '$http', '$sce', 'Authentication', 'Estudiantes', '$upload', 'Notas', 'GetNotas', 'GetAdmitidos', 'Decimo', 'Undecimo', 'Nacionalidad', 'Reports',
 	function($scope, $stateParams, $location, $filter, $http, $sce, Authentication, Estudiantes, $upload, Notas, GetNotas, GetAdmitidos, Decimo, Undecimo, Nacionalidad, Reports) {
 		$scope.authentication = Authentication;
+
         $scope.options = $http.get('codigo-postal.json').then(function(data){
             $scope.options = data.data;
             $scope.provincia = $scope.options[0];
             $scope.canton =  $scope.provincia.cantones[0];
             $scope.distrito = $scope.canton.distritos[0];
         });
+
         $scope.sexos = [{nombre: 'Masculino'}, {nombre: 'Femenino'}];
         $scope.adecuaciones = [{nombre: 'Tiene'}, {nombre: 'No tiene'}];
         $scope.consultas = [{nombre: 'Nombre'}, {nombre: 'Cedula'}, {nombre: 'Colegio de Procedencia'}];
