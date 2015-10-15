@@ -4,6 +4,8 @@
 angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$stateParams', '$location', '$filter', '$http', '$sce', 'Authentication', 'Estudiantes', '$upload', 'Notas', 'GetNotas', 'GetAdmitidos', 'Decimo', 'Undecimo', 'Nacionalidad', 'Reports',
 	function($scope, $stateParams, $location, $filter, $http, $sce, Authentication, Estudiantes, $upload, Notas, GetNotas, GetAdmitidos, Decimo, Undecimo, Nacionalidad, Reports) {
 		$scope.authentication = Authentication;
+        $scope.string_decimo = 'Décimo';
+        $scope.string_undecimo = 'Undécimo';
         $scope.options = $http.get('codigo-postal.json').then(function(data){
             $scope.options = data.data;
             $scope.provincia = $scope.options[0];
@@ -243,7 +245,6 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     // Clear form fields
                 }, function(errorResponse) {
                     $scope.error = errorResponse.data.message;
-
                 });
             }
 		};
@@ -546,22 +547,22 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         editableCellTemplate: editCellTemplate,
                         cellClass: 'grid-align',
                         width: width,
-                        cellTemplate:'<div class="ngCellText" ng-class="{\'red\' : row.getProperty(\'nota_setimo\') <65 && row.getProperty(\'nota_setimo\') != 0,   \'green\' : row.getProperty(\'nota_setimo\') >=65 && row.getProperty(\'nota_setimo\') != 0  }">{{ row.getProperty(col.field) }}</div>'},
+                        cellTemplate:'<div class="ngCellText" ng-class="{\'red\' : row.getProperty(\'nota_setimo\') < 70 && row.getProperty(\'nota_setimo\') != 0, \'yellow\' : row.getProperty(\'nota_setimo\') >= 70 && row.getProperty(\'nota_setimo\') < 85  && row.getProperty(\'nota_setimo\') != 0, \'green\' : row.getProperty(\'nota_setimo\') >=85 && row.getProperty(\'nota_setimo\') != 0  }">{{ row.getProperty(col.field) }}</div>'},
                     {field:'nota_octavo', displayName:'Notas de octavo', enableCellEdit: $scope.editable,
                         editableCellTemplate: editCellTemplate,
                         cellClass: 'grid-align',
                         width: width,
-                        cellTemplate:'<div class="ngCellText" ng-class="{\'red\' : row.getProperty(\'nota_octavo\') <65 && row.getProperty(\'nota_octavo\') != 0,   \'green\' : row.getProperty(\'nota_octavo\') >=65 && row.getProperty(\'nota_octavo\') != 0  }">{{ row.getProperty(col.field) }}</div>'},
+                        cellTemplate:'<div class="ngCellText" ng-class="{\'red\' : row.getProperty(\'nota_octavo\') < 70 && row.getProperty(\'nota_octavo\') != 0, \'yellow\' : row.getProperty(\'nota_octavo\') >= 70 && row.getProperty(\'nota_octavo\') < 85  && row.getProperty(\'nota_octavo\') != 0, \'green\' : row.getProperty(\'nota_octavo\') >=85 && row.getProperty(\'nota_octavo\') != 0  }">{{ row.getProperty(col.field) }}</div>'},
                     {field:'nota_noveno_primer_trimestre', displayName:'I Trimestre', enableCellEdit: $scope.editable,
                         editableCellTemplate: editCellTemplate,
                         cellClass: 'grid-align',
                         width: width,
-                        cellTemplate:'<div class="ngCellText" ng-class="{\'red\' : row.getProperty(\'nota_noveno_primer_trimestre\') <65 && row.getProperty(\'nota_noveno_primer_trimestre\') != 0,   \'green\' : row.getProperty(\'nota_noveno_primer_trimestre\') >=65 && row.getProperty(\'nota_noveno_primer_trimestre\') != 0  }">{{ row.getProperty(col.field) }}</div>'},
+                        cellTemplate:'<div class="ngCellText" ng-class="{\'red\' : row.getProperty(\'nota_noveno_primer_trimestre\') < 70 && row.getProperty(\'nota_noveno_primer_trimestre\') != 0, \'yellow\' : row.getProperty(\'nota_noveno_primer_trimestre\') >= 70 && row.getProperty(\'nota_noveno_primer_trimestre\') < 85  && row.getProperty(\'nota_noveno_primer_trimestre\') != 0, \'green\' : row.getProperty(\'nota_noveno_primer_trimestre\') >=85 && row.getProperty(\'nota_noveno_primer_trimestre\') != 0  }">{{ row.getProperty(col.field) }}</div>'},
                     {field:'nota_noveno_segundo_trimestre', displayName:'II Trimestre', enableCellEdit: $scope.editable,
                         editableCellTemplate: editCellTemplate,
                         cellClass: 'grid-align',
                         width: width,
-                        cellTemplate:'<div class="ngCellText" ng-class="{\'red\' : row.getProperty(\'nota_noveno_segundo_trimestre\') <65 && row.getProperty(\'nota_noveno_segundo_trimestre\') != 0,   \'green\' : row.getProperty(\'nota_noveno_segundo_trimestre\') >=65 && row.getProperty(\'nota_noveno_segundo_trimestre\') != 0  }">{{ row.getProperty(col.field) }}</div>'}]
+                        cellTemplate:'<div class="ngCellText" ng-class="{\'red\' : row.getProperty(\'nota_noveno_segundo_trimestre\') < 70 && row.getProperty(\'nota_noveno_segundo_trimestre\') != 0, \'yellow\' : row.getProperty(\'nota_noveno_segundo_trimestre\') >= 70 && row.getProperty(\'nota_noveno_segundo_trimestre\') < 85  && row.getProperty(\'nota_noveno_segundo_trimestre\') != 0, \'green\' : row.getProperty(\'nota_noveno_segundo_trimestre\') >=85 && row.getProperty(\'nota_noveno_segundo_trimestre\') != 0  }">{{ row.getProperty(col.field) }}</div>'}]
             };
         };
 
@@ -577,22 +578,22 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                         width: width,
                         cellClass: 'grid-align',
                         editableCellTemplate:'<input type="number" ng-class="\'colt\' + col.index"  min="1" max="100" ng-input="COL_FIELD" ng-model="COL_FIELD" >',
-                        cellTemplate:'<div class="ngCellText" ng-class="{\'red\' : row.getProperty(\'nota_decimo_primer_semestre\') <65 && row.getProperty(\'nota_decimo_primer_semestre\') != 0,   \'green\' : row.getProperty(\'nota_decimo_primer_semestre\') >=65 && row.getProperty(\'nota_decimo_primer_semestre\') != 0  }">{{ row.getProperty(col.field) }}</div>'},
+                        cellTemplate:'<div class="ngCellText" ng-class="{\'red\' : row.getProperty(\'nota_decimo_primer_semestre\') <70 && row.getProperty(\'nota_decimo_primer_semestre\') != 0,   \'green\' : row.getProperty(\'nota_decimo_primer_semestre\') >=70 && row.getProperty(\'nota_decimo_primer_semestre\') != 0  }">{{ row.getProperty(col.field) }}</div>'},
                     {field:'nota_decimo_segundo_semestre', displayName:'II', enableCellEdit: $scope.editable,
                         width: width,
                         cellClass: 'grid-align',
                         editableCellTemplate:'<input type="number" ng-class="\'colt\' + col.index"  min="1" max="100" ng-input="COL_FIELD" ng-model="COL_FIELD" >',
-                        cellTemplate:'<div class="ngCellText" ng-class="{\'red\' : row.getProperty(\'nota_decimo_segundo_semestre\') <65 && row.getProperty(\'nota_decimo_segundo_semestre\') != 0,   \'green\' : row.getProperty(\'nota_decimo_segundo_semestre\') >=65 && row.getProperty(\'nota_decimo_segundo_semestre\') != 0  }">{{ row.getProperty(col.field) }}</div>'},
+                        cellTemplate:'<div class="ngCellText" ng-class="{\'red\' : row.getProperty(\'nota_decimo_segundo_semestre\') <70 && row.getProperty(\'nota_decimo_segundo_semestre\') != 0,   \'green\' : row.getProperty(\'nota_decimo_segundo_semestre\') >=70 && row.getProperty(\'nota_decimo_segundo_semestre\') != 0  }">{{ row.getProperty(col.field) }}</div>'},
                     {field:'nota_undecimo_primer_semestre', displayName:'I', enableCellEdit: $scope.editable,
                         width: width,
                         cellClass: 'grid-align',
                         editableCellTemplate:'<input type="number" ng-class="\'colt\' + col.index"  min="1" max="100" ng-input="COL_FIELD" ng-model="COL_FIELD" >',
-                        cellTemplate:'<div class="ngCellText" ng-class="{\'red\' : row.getProperty(\'nota_undecimo_primer_semestre\') <65 && row.getProperty(\'nota_undecimo_primer_semestre\') != 0,   \'green\' : row.getProperty(\'nota_undecimo_primer_semestre\') >=65 && row.getProperty(\'nota_undecimo_primer_semestre\') != 0  }">{{ row.getProperty(col.field) }}</div>'},
+                        cellTemplate:'<div class="ngCellText" ng-class="{\'red\' : row.getProperty(\'nota_undecimo_primer_semestre\') <70 && row.getProperty(\'nota_undecimo_primer_semestre\') != 0,   \'green\' : row.getProperty(\'nota_undecimo_primer_semestre\') >=70 && row.getProperty(\'nota_undecimo_primer_semestre\') != 0  }">{{ row.getProperty(col.field) }}</div>'},
                     {field:'nota_undecimo_segundo_semestre', displayName:'II', enableCellEdit: $scope.editable,
                         width: width,
                         cellClass: 'grid-align',
                         editableCellTemplate:'<input type="number" ng-class="\'colt\' + col.index"  min="1" max="100" ng-input="COL_FIELD" ng-model="COL_FIELD" >',
-                        cellTemplate:'<div class="ngCellText" ng-class="{\'red\' : row.getProperty(\'nota_undecimo_segundo_semestre\') <65 && row.getProperty(\'nota_undecimo_segundo_semestre\') != 0,   \'green\' : row.getProperty(\'nota_undecimo_segundo_semestre\') >=65 && row.getProperty(\'nota_undecimo_segundo_semestre\') != 0  }">{{ row.getProperty(col.field) }}</div>'}]
+                        cellTemplate:'<div class="ngCellText" ng-class="{\'red\' : row.getProperty(\'nota_undecimo_segundo_semestre\') <70 && row.getProperty(\'nota_undecimo_segundo_semestre\') != 0,   \'green\' : row.getProperty(\'nota_undecimo_segundo_semestre\') >=70 && row.getProperty(\'nota_undecimo_segundo_semestre\') != 0  }">{{ row.getProperty(col.field) }}</div>'}]
             };
         };
 

@@ -24,14 +24,20 @@
 }
 
 .green {
-	background-color: green;
+	background-color: #00B200;
 	color: white;
 }
 
 .red {
-	background-color: red;
+	background-color: #B44230;
 	color: white;
 }
+
+.yellow{
+	background-color: #E4CF3E;
+	color: white;
+}
+
 /* Set the fixed height of the footer here */
 #push,
 #footer {
