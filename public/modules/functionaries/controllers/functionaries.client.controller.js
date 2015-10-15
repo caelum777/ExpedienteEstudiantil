@@ -55,10 +55,11 @@ angular.module('functionaries').controller('FunctionariesController', ['$scope',
 		$scope.status = $scope.optionsFunctionaryStatus[0];
 
 		// Remove existing Functionary
-		$scope.remove = function(functionary) {
-			if ( functionary ) { 
+		$scope.remove = function(event,functionary) {
+			if ( functionary ) {
+				event.preventDefault()
+				event.stopPropagation()
 				functionary.$remove();
-
 				for (var i in $scope.functionaries) {
 					if ($scope.functionaries [i] === functionary) {
 						$scope.functionaries.splice(i, 1);
