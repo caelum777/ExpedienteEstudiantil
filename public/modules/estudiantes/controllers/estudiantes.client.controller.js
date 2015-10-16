@@ -10,7 +10,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             $scope.canton =  $scope.provincia.cantones[0];
             $scope.distrito = $scope.canton.distritos[0];
         });
-        $http.get('colegios-procedencia.json').then(function(data){
+        $scope.high_schools_list = $http.get('colegios-procedencia.json').then(function(data){
             $scope.high_schools_list = data.data;
             $scope.colegio_procedencia = $scope.high_schools_list[0];
         });
