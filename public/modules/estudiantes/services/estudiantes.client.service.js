@@ -86,8 +86,8 @@ angular.module('estudiantes').factory('Nacionalidad', ['$resource',
 
 
 angular.module('estudiantes').factory('Reports', function(){
-        var HEADER = "";
-        var TITLE = "";
+        var HEADER = '';
+        var TITLE = '';
         var columns = [];
         var data = [];
 
@@ -178,7 +178,7 @@ angular.module('estudiantes').factory('Reports', function(){
 
             emailListReport: function(estudiantes) {
                 data = [];
-                'Colegio Cientifico de Costa Rica\n' +
+                HEADER = 'Colegio Cientifico de Costa Rica\n' +
                 'Instituto Tecnologico de Costa Rica, Sede Regional San Carlos\n' +
                 'Telefax: 2475-7089,Tel: 2401-3122\n';
                 TITLE = '';
@@ -413,7 +413,7 @@ angular.module('estudiantes').factory('Reports', function(){
                 return header;
             },
             getJSONFromData: function (header, title, columns, data, startY){
-                return {"Header": header, "Title": title, "Columns":columns, "Data": data, "StartY": startY};
+                return {'Header': header, 'Title': title, 'Columns':columns, 'Data': data, 'StartY': startY};
             },
        };
         return report;

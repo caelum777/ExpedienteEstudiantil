@@ -98,19 +98,17 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 /*if($scope.anno_ingreso < new Date().getFullYear()-1){
                     gr = 1;
                 }*/
-                graduado = $scope.graduado
+                graduado = $scope.graduado;
                 var admitido = 0;
                 /*if($scope.anno_ingreso < new Date().getFullYear()){
                     admitido = 1;
                 }*/
 
                 if ($scope.anno_ingreso>new Date().getFullYear()) {
-
-                    $scope.anno_ingreso_error = true
-
-                    return
+                    $scope.anno_ingreso_error = true;
+                    return;
                 }
-                admitido = $scope.anno_ingreso
+                admitido = $scope.anno_ingreso;
                 var estudiante = new Estudiantes ({
                     name: $scope.name,
                     primer_apellido: $scope.primer_apellido,
@@ -702,28 +700,29 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             var promedio_undecimo_primer_semestre = 0;
             var promedio_undecimo_segundo_semestre = 0;
             var promedio_row = 0;
-            angular.forEach($scope.notas_decimo_undecimo, function(nota){
-                if(nota.curso != 'Promedio') {
-                    promedio_decimo_primer_semestre += nota.nota_decimo_primer_semestre;
-                    promedio_decimo_segundo_semestre += nota.nota_decimo_segundo_semestre;
-                    promedio_undecimo_primer_semestre += nota.nota_undecimo_primer_semestre;
-                    promedio_undecimo_segundo_semestre += nota.nota_undecimo_segundo_semestre;
-                }
-                else if(nota.curso === 'Promedio'){
-                    promedio_row = nota;
-                }
-            });
-            promedio_decimo_primer_semestre = Math.round(promedio_decimo_primer_semestre/($scope.notas_decimo_undecimo.length-1) * 100) / 100;
-            promedio_decimo_segundo_semestre = Math.round(promedio_decimo_segundo_semestre/($scope.notas_decimo_undecimo.length-1) * 100) / 100;
-            promedio_undecimo_primer_semestre = Math.round(promedio_undecimo_primer_semestre/($scope.notas_decimo_undecimo.length-1) * 100) / 100;
-            promedio_undecimo_segundo_semestre = Math.round(promedio_undecimo_segundo_semestre/($scope.notas_decimo_undecimo.length-1) * 100) / 100;
-            promedio_row.nota_decimo_primer_semestre = promedio_decimo_primer_semestre;
-            promedio_row.nota_decimo_segundo_semestre = promedio_decimo_segundo_semestre;
-            promedio_row.nota_undecimo_primer_semestre = promedio_undecimo_primer_semestre;
-            promedio_row.nota_undecimo_segundo_semestre = promedio_undecimo_segundo_semestre;
-            $scope.tenth_annual_average = Math.round((promedio_decimo_primer_semestre + promedio_decimo_segundo_semestre)/2* 100) / 100;;
-            $scope.eleventh_annual_average = Math.round((promedio_undecimo_primer_semestre + promedio_undecimo_segundo_semestre)/2* 100) / 100;;
-
+            if($scope.notas_decimo_undecimo.length !== 0) {
+                angular.forEach($scope.notas_decimo_undecimo, function (nota) {
+                    if (nota.curso !== 'Promedio') {
+                        promedio_decimo_primer_semestre += nota.nota_decimo_primer_semestre;
+                        promedio_decimo_segundo_semestre += nota.nota_decimo_segundo_semestre;
+                        promedio_undecimo_primer_semestre += nota.nota_undecimo_primer_semestre;
+                        promedio_undecimo_segundo_semestre += nota.nota_undecimo_segundo_semestre;
+                    }
+                    else if (nota.curso === 'Promedio') {
+                        promedio_row = nota;
+                    }
+                });
+                promedio_decimo_primer_semestre = Math.round(promedio_decimo_primer_semestre / ($scope.notas_decimo_undecimo.length - 1) * 100) / 100;
+                promedio_decimo_segundo_semestre = Math.round(promedio_decimo_segundo_semestre / ($scope.notas_decimo_undecimo.length - 1) * 100) / 100;
+                promedio_undecimo_primer_semestre = Math.round(promedio_undecimo_primer_semestre / ($scope.notas_decimo_undecimo.length - 1) * 100) / 100;
+                promedio_undecimo_segundo_semestre = Math.round(promedio_undecimo_segundo_semestre / ($scope.notas_decimo_undecimo.length - 1) * 100) / 100;
+                promedio_row.nota_decimo_primer_semestre = promedio_decimo_primer_semestre;
+                promedio_row.nota_decimo_segundo_semestre = promedio_decimo_segundo_semestre;
+                promedio_row.nota_undecimo_primer_semestre = promedio_undecimo_primer_semestre;
+                promedio_row.nota_undecimo_segundo_semestre = promedio_undecimo_segundo_semestre;
+                $scope.tenth_annual_average = Math.round((promedio_decimo_primer_semestre + promedio_decimo_segundo_semestre) / 2 * 100) / 100;
+                $scope.eleventh_annual_average = Math.round((promedio_undecimo_primer_semestre + promedio_undecimo_segundo_semestre) / 2 * 100) / 100;
+            }
         };
 
         $scope.matricular = function(){
@@ -975,8 +974,8 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     $scope.visibl = true;
                     $scope.show = false;
                 }
-                if (pdfReport != null){
-                    if (pdfReport['Data'].length > 0){
+                if (pdfReport !== undefined){
+                    if (pdfReport.Data.length > 0){
                         $scope.generatePDF(pdfReport);
                     }
                 }
@@ -993,20 +992,20 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             var logo_img = document.getElementById('cc-logo');
             var img_data = getBase64Image(logo_img);
             doc.addImage(img_data, 'JPEG',15,15,25,25);
-            doc.text(40, 19, PDFReport['Header']);
-            doc.text(15, 80, PDFReport['Title']);
-            doc.autoTable(PDFReport['Columns'], PDFReport['Data'], {margins: {right: 10, left: 10, top: 100, bottom: 100}, startY: PDFReport['StartY']});
+            doc.text(40, 19, PDFReport.Header);
+            doc.text(15, 80, PDFReport.Title);
+            doc.autoTable(PDFReport.Columns, PDFReport.Data, {margins: {right: 10, left: 10, top: 100, bottom: 100}, startY: PDFReport.StartY});
             $scope.base64 = $sce.trustAsResourceUrl('data:application/pdf;base64,' + btoa(doc.output()));
         };
         $scope.reporte_notas = function(){
-            if($scope.ced_estudiante != undefined && $scope.ced_estudiante != ''){
+            if($scope.ced_estudiante !== undefined && $scope.ced_estudiante !== ''){
                 var serviceReport = Reports;
                 serviceReport.studentNotes = GetNotas.query({ cedula_estudiante: $scope.ced_estudiante });
                 serviceReport.studentNotes.$promise.then(function(notes){
                     var pdfReport;
                     $scope.estudiante =  Nacionalidad.query( {cedula: $scope.ced_estudiante });
                     $scope.estudiante.$promise.then(function(student){
-                        if (student[0] != undefined){
+                        if (student[0] !== undefined){
                             fixInvalidCharactersfixInvalidCharacters(notes);
                             pdfReport = serviceReport.notesReport(notes, student);
                             var doc = new jsPDF('p', 'pt');
@@ -1015,23 +1014,23 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                             var img_data = getBase64Image(logo_img);
                             doc.addImage(img_data, 'JPEG',15,15,25,25);
                             var infoestudiante = 'Cedula: ' + student[0].nacionalidad +'\nNombre del Alumno: '+ student[0].segundo_apellido + ' ' + student[0].primer_apellido + ' ' + student[0].name;
-                            doc.text(40, 19, pdfReport['Header']);
-                            doc.text(120, 60, pdfReport['Title'] + ' Decimo ' + student[0].anno_ingreso);
+                            doc.text(40, 19, pdfReport.Header);
+                            doc.text(120, 60, pdfReport.Title + ' Decimo ' + student[0].anno_ingreso);
                             doc.text(15, 90, infoestudiante);
                             doc.setFontSize(10);
                             doc.text(327, 140, 'Ausencias I Semestre              Ausencias II Semestre');
-                            doc.autoTable(pdfReport['Columns'], pdfReport['Data'][0], {margins: {right: 10, left: 10, top: 40, bottom: 40}, startY: 150});
+                            doc.autoTable(pdfReport.Columns, pdfReport.Data[0], {margins: {right: 10, left: 10, top: 40, bottom: 40}, startY: 150});
                             if (student[0].anno_ingreso < new Date().getFullYear()){
                                 doc.addPage();
                                 doc.setFontSize(16);
                                 doc.addImage(img_data, 'JPEG',15,15,25,25);
                                 infoestudiante = 'Cédula: ' + $scope.ced_estudiante +'\nNombre del Alumno: '+ student[0].segundo_apellido + ' ' + student[0].primer_apellido + ' ' + student[0].name;
-                                doc.text(40, 19, pdfReport['Header']);
-                                doc.text(120, 60, pdfReport['Title'] + ' Undecimo ' + (student[0].anno_ingreso+1));
+                                doc.text(40, 19, pdfReport.Header);
+                                doc.text(120, 60, pdfReport.Title + ' Undecimo ' + (student[0].anno_ingreso+1));
                                 doc.text(15, 90, infoestudiante);
                                 doc.setFontSize(10);
                                 doc.text(327, 140, 'Ausencias I Semestre              Ausencias II Semestre');
-                                doc.autoTable(pdfReport['Columns'], pdfReport['Data'][1], {margins: {right: 10, left: 10, top: 40, bottom: 40}, startY: 150});
+                                doc.autoTable(pdfReport.Columns, pdfReport.Data[1], {margins: {right: 10, left: 10, top: 40, bottom: 40}, startY: 150});
                             }
                             $scope.base64 = $sce.trustAsResourceUrl('data:application/pdf;base64,' + btoa(doc.output()));
                         }
@@ -1065,24 +1064,26 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
 
 function fixInvalidCharactersfixInvalidCharacters(noteList){
     var accentMap = { 'á':'a', 'é':'e', 'í':'i','ó':'o','ú':'u', 'ñ': 'n'};
+    var ret = '';
     for(var j = 0; j < noteList.length; j++){
-        var ret = '';
+        ret = '';
         for (var i = 0; i < noteList[j].curso.length; i++) {
             ret += accentMap[noteList[j].curso.charAt(i)] || noteList[j].curso.charAt(i);
         }
         noteList[j].curso = ret;
     }
-        return ret;
+    return ret;
 }
 
 function getBase64Image(img) {
-    var canvas = document.createElement("canvas");
-    if (img != undefined) {
+    var canvas = document.createElement('canvas');
+    if (img !== null) {
+        console.log(img);
         canvas.width = img.width;
         canvas.height = img.height;
-        var ctx = canvas.getContext("2d");
+        var ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0);
     }
-    var dataURL = canvas.toDataURL("image/jpeg");
+    var dataURL = canvas.toDataURL('image/jpeg');
     return dataURL;
 }
