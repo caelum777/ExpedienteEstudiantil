@@ -99,6 +99,12 @@
                                 ng-options="high_school as high_school.name for high_school in high_schools_list">
                         </select>
                     </div>
+                    <div ng-if="colegio_procedencia.name == 'Otro'" class="animate-if" class="form-group col-xs-4 no-margin-bottom">
+                        <label class="control-label" for="name">Digite el colegio de procendecia</label>
+                        <div class="controls">
+                            <input type="text" ng-model="$parent.colegio_procedencia_nuevo" id="colegio_procedencia_nuevo" class="form-control align-field">
+                        </div>
+                    </div>
                     <label class="control-label" for="name">Adecuación significativa</label>
                     <div class="controls">
                         <select class="form-control align-field" data-ng-model="adSignificativa" id="adecuacion_significativa"

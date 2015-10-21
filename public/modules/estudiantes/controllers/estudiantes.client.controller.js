@@ -36,8 +36,6 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         $scope.selected_vacunas = [];
         $scope.anno_ingreso = 0;
 
-
-
         $scope.provincia_change = function() {
             $scope.canton =  $scope.provincia.cantones[0];
             $scope.distrito = $scope.canton.distritos[0];
@@ -94,6 +92,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             function insertarEstudiante(){
                 // Create new Estudiante object
                 //var graduado
+                var colegio = $scope.colegio_procedencia.name;
                 var graduado = 0;
                 /*if($scope.anno_ingreso < new Date().getFullYear()-1){
                     gr = 1;
@@ -107,6 +106,9 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 if ($scope.anno_ingreso>new Date().getFullYear()) {
                     $scope.anno_ingreso_error = true;
                     return;
+                }
+                if(colegio === 'Otro'){
+                    colegio = $scope.colegio_procedencia_nuevo;
                 }
                 admitido = $scope.anno_ingreso;
                 var estudiante = new Estudiantes ({
@@ -127,12 +129,11 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     admitido: admitido,
                     foto: $scope.foto,
                     anno_ingreso: $scope.anno_ingreso,
-                    colegio_procedencia: $scope.colegio_procedencia.name,
+                    colegio_procedencia: colegio,
                     adecuacion_sig: $scope.adecuacion_sig,
                     adecuacion_nsig: $scope.adecuacion_nsig,
                     graduado: graduado
                 });
-
                 // Redirect after save
                 estudiante.$save(function(response) {
 
@@ -484,6 +485,8 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                     return $scope.high_schools_list[i];
                 }
             }
+            $scope.colegio_procedencia_nuevo = colegio;
+            return $scope.high_schools_list[i-1];
         };
 
         //Notas de los cursos
