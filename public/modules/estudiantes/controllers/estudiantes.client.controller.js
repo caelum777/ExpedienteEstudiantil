@@ -703,6 +703,18 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             if($scope.notas_decimo_undecimo.length !== 0) {
                 angular.forEach($scope.notas_decimo_undecimo, function (nota) {
                     if (nota.curso !== 'Promedio') {
+                        if(nota.nota_decimo_primer_semestre === undefined){
+                            nota.nota_decimo_primer_semestre = 0;
+                        }
+                        if(nota.nota_decimo_segundo_semestre === undefined){
+                            nota.nota_decimo_segundo_semestre = 0;
+                        }
+                        if(nota.nota_undecimo_primer_semestre === undefined){
+                            nota.nota_undecimo_primer_semestre = 0;
+                        }
+                        if(nota.nota_undecimo_segundo_semestre === undefined){
+                            nota.nota_undecimo_segundo_semestre = 0;
+                        }
                         promedio_decimo_primer_semestre += nota.nota_decimo_primer_semestre;
                         promedio_decimo_segundo_semestre += nota.nota_decimo_segundo_semestre;
                         promedio_undecimo_primer_semestre += nota.nota_undecimo_primer_semestre;
