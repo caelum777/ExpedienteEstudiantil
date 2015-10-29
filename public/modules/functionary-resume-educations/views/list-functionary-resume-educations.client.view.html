@@ -1,0 +1,19 @@
+<section data-ng-controller="FunctionaryResumeEducationsController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Functionary resume educations</h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="functionaryResumeEducation in functionaryResumeEducations" data-ng-href="#!/functionary-resume-educations/{{functionaryResumeEducation._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="functionaryResumeEducation.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="functionaryResumeEducation.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="functionaryResumeEducation.name"></h4>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!functionaryResumeEducations.$resolved || functionaryResumeEducations.length">
+    	No Functionary resume educations yet, why don't you <a href="/#!/functionary-resume-educations/create">create one</a>?
+    </div>
+</section>

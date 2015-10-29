@@ -1,0 +1,93 @@
+<section data-ng-controller="FunctionariesController">
+    <div class="page-header">
+        <h1>Nuevo funcionario</h1>
+    </div>
+    <div class="col-md-12">
+        <form class="form-horizontal" data-ng-submit="create()" novalidate>
+            <fieldset>
+                <div class="form-group">
+
+                    <label class="control-label" for="firstname">Nombre</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="firstName" id="firstname" class="form-control align-field" required>
+                    </div>
+
+                    <label class="control-label" for="firstsurname">Primer apellido</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="firstSurname" id="firstsurname" class="form-control align-field" required>
+                    </div>
+
+                    <label class="control-label" for="secondsurname">Segundo apellido</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="secondSurname" id="secondsurname" class="form-control align-field" required>
+                    </div>
+
+                    <label class="control-label" for="identification">Cedula</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="identification" id="identification" class="form-control align-field" required>
+                    </div>
+
+                    <label class="control-label" for="birthdate">Fecha de nacimiento</label>
+                    <div class="controls">
+                        <input type="date" data-ng-model="birthdate" id="birthdate" class="form-control align-field" required>
+                    </div>
+
+                    <label class="control-label" for="maritalstatus">Estado Civil</label>
+                    <div class="controls">
+                        <select class="form-control align-field" data-ng-model="maritalStatus" id="maritalstatus"
+                                ng-options="maritalStatus as maritalStatus.maritalStatus for maritalStatus in optionsMaritalStatus">
+                        </select>
+                    </div>
+
+                    <label class="control-label" for="address">Direccion</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="address" id="address" class="form-control align-field" required>
+                    </div>
+
+
+                    <label class="control-label" for="phonenumber">Telefono Hogar</label>
+                    <div class="controls">
+                        <input type="text" ng-minlength="8" maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57' data-ng-model="phoneNumber" id="phonenumber" class="form-control align-field" required>
+                    </div>
+
+
+                    <label class="control-label" for="cellphonenumber">Celular</label>
+                    <div class="controls">
+                        <input type="text" ng-minlength="8" maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57' data-ng-model="cellphoneNumber" id="cellphonenumber" class="form-control align-field" required>
+                    </div>
+
+                    <label class="control-label" for="email">Email</label>
+                    <div class="controls">
+                        <input type="email" data-ng-model="email" id="email" class="form-control align-field" required>
+                    </div>
+
+                    <label class="control-label" for="role">Rol</label>
+                    <div class="controls">
+                        <select class="form-control align-field" data-ng-model="role" id="role"
+                                ng-options="role as role.role for role in optionsFunctionaryRoles">
+                        </select>
+                    </div>
+
+                    <label class="control-label" for="hiredate">Fecha de contratacion</label>
+                    <div class="controls">
+                        <input type="date" data-ng-model="hireDate" id="hiredate" class="form-control align-field" required>
+                    </div>
+
+                    <label class="control-label" for="status">Estado</label>
+                    <div class="controls">
+                        <select class="form-control align-field" data-ng-model="status" id="status"
+                                ng-options="status as status.status for status in optionsFunctionaryStatus">
+                        </select>
+                    </div>
+
+                </div>
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-lg btn-success">
+            </div>
+            <div data-ng-show="error" class="text-danger">
+                <strong data-ng-bind="error"></strong>
+            </div>
+            </fieldset>
+        </form>
+    </div>
+</section>
