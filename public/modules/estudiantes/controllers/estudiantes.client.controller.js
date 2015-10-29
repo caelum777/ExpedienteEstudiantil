@@ -136,7 +136,6 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
                 });
                 // Redirect after save
                 estudiante.$save(function(response) {
-
                     for(var i = 0; i < $scope.notas_setimo_octavo_noveno.length; i++) {
 
                         var notaS = new Notas ({
@@ -282,6 +281,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
         $scope.updateEstudiantes = function() {
             var estudiante = $scope.estudiante;
             estudiante.foto = $scope.foto;
+            estudiante.fecha_de_nacimiento = $scope.fecha_de_nacimiento;
             if($scope.sexo.nombre === 'Masculino'){
                 estudiante.sexo = true;
             }
@@ -355,6 +355,7 @@ angular.module('estudiantes').controller('EstudiantesController', ['$scope', '$s
             $scope.editable = edit;
             $scope.estudiante.$promise.then(function(estudiante) {
                 $scope.sexo = $scope.sexos[$scope.find($scope.sexos, $scope.estudiante.sexo, 0)];
+                $scope.fecha_de_nacimiento = $scope.estudiante.fecha_de_nacimiento;
                 if(edit){
                     if($scope.adecuaciones[0].nombre === $scope.estudiante.adecuacion_sig){
                         $scope.adSignificativa = $scope.adecuaciones[0];
@@ -1093,7 +1094,6 @@ function fixInvalidCharactersfixInvalidCharacters(noteList){
 function getBase64Image(img) {
     var canvas = document.createElement('canvas');
     if (img !== null) {
-        console.log(img);
         canvas.width = img.width;
         canvas.height = img.height;
         var ctx = canvas.getContext('2d');

@@ -27,8 +27,11 @@
                     </div>
                     <div class="">
                         <label class="control-label" for="name">Fecha de nacimiento</label>
-                        <div class="controls">
+                        <!--<div class="controls">
                             <input type="date" data-ng-model="fecha_de_nacimiento" id="fecha_de_nacimiento"  class="form-control align-field"required >
+                        </div>-->
+                        <div class="controls">
+                            <input id="fecha_de_nacimiento" type="text" placeholder='dd/mm/yyyy' data-ng-model="fecha_de_nacimiento" class="form-control align-field"required />
                         </div>
                     </div>
                     <label class="control-label" for="name">Cédula o número de pasaporte</label>
@@ -129,10 +132,6 @@
                     </span>
 
                     <label class="transparent-label" for="name">. . . . . . . . . </label>
-
-
-
-
 
                     <div class = "form-group col-xs-6 no-margin-bottom">
                         <label class="control-label" for="name">Adecuación significativa</label>
