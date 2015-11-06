@@ -40,22 +40,15 @@
     <br/>
     <br/>
     <div>
-        <div>
-            <label class="control-label">Notas de septimo</label>
-            <div class="gridStyle" ng-grid="gridOptionsS"></div>
+        <div class="center-button">
+            <label class="control-label">Notas del estudiante</label>
+            <div class="form-group no-margin-bottom">
+                <div class="nota-header nota-noveno-view-header no-margin-bottom grid-align">Notas de noveno</div>
+            </div>
+            <div class="gridStyle ngGridNotesSON" ng-grid="gridOptionsSON"></div>
             <br/>
         </div>
-        <div>
-            <label class="control-label">Notas de <octavo></octavo></label>
-            <div class="gridStyle" ng-grid="gridOptionsO"></div>
-            <br/>
-        </div>
-        <div>
-            <label class="control-label">Notas de noveno</label>
-            <div class="gridStyle" ng-grid="gridOptionsN"></div>
-            <br/>
-        </div>
-        <div class="row">
+        <div class="form-group row">
             <div class="col-md-11" style="float: none; margin: 0 auto;">
                 <a href="/#!/encargados/create/{{estudiante._id}}/{{estudiante.nacionalidad}}"><input type="button" value="Asignar encargados" ng-show="estudiante.admitido" class="btn btn-primary" href=""></a>
                 <a href="/#!/encargados/{{estudiante._id}}/{{estudiante.nacionalidad}}"><input type="button" value="Mostrar encargados" ng-show="estudiante.admitido" class="btn btn-primary" href=""></a>

@@ -1,130 +1,181 @@
+
 <section data-ng-controller="EstudiantesController" data-ng-init="initNotas()">
     <div class="page-header">
-        <h1>Insertar un nuevo estudiante</h1>
+        <h1>Agregar expediente</h1>
     </div>
-    <!--action="http://localhost:3000/upload" method="post" enctype="multipart/form-data"-->
-    <div class="col-md-12">
+    <div class="col-xs-12 center-div">
         <form class="form-horizontal" data-ng-submit="create()">
             <fieldset>
                 <div class="form-group">
-                    <label class="control-label" for="name">Nombre del estudiante</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Nombre" required>
+                    <div class="controls ">
+                        <label class="control-label" for="name">Nombre del estudiante</label>
                     </div>
-                    <label class="control-label" for="name">Primer Apellido</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="primer_apellido" id="primer_apellido" class="form-control" placeholder="Primer apellido" required>
+                    <div class="form-group col-xs-4 no-margin-bottom">
+                        <div class="controls ">
+                            <input type="text" data-ng-model="name" id="name" class="form-control align-field" placeholder="Nombre" required>
+                        </div>
                     </div>
-                    <label class="control-label" for="name">Segundo Apellido</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="segundo_apellido" id="segundo_apellido" class="form-control" placeholder="Segundo apellido" required>
+                    <div class="form-group col-xs-4 no-margin-bottom">
+                        <div class="controls">
+                            <input type="text" data-ng-model="primer_apellido" id="primer_apellido" class="form-control align-field" placeholder="Primer apellido" required>
+                        </div>
                     </div>
-                    <label class="control-label" for="name">Fecha de nacimiento</label>
-                    <div class="controls">
-                        <input type="date" data-ng-model="fecha_de_nacimiento" id="fecha_de_nacimiento" class="form-control" pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" title="Formato: dd-mm-yyyy" placeholder="Fecha de nacimiento" required>
+                    <div class="form-group col-xs-4 no-margin-bottom">
+                        <div class="controls">
+                            <input type="text" data-ng-model="segundo_apellido" id="segundo_apellido" class="form-control  align-field" placeholder="Segundo apellido" required>
+                        </div>
+                    </div>
+                    <div class="">
+                        <label class="control-label" for="name">Fecha de nacimiento</label>
+                        <!--<div class="controls">
+                            <input type="date" data-ng-model="fecha_de_nacimiento" id="fecha_de_nacimiento"  class="form-control align-field"required >
+                        </div>-->
+                        <div class="controls">
+                            <input id="fecha_de_nacimiento" type="text" placeholder='dd/mm/yyyy' data-ng-model="fecha_de_nacimiento" class="form-control align-field"required />
+                        </div>
                     </div>
                     <label class="control-label" for="name">Cédula o número de pasaporte</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="nacionalidad" id="nacionalidad" class="form-control" placeholder="Cédula o numero de pasaporte" title="Formato: 0-0000-0000" pattern="[0-9]{1}-[0-9]{4}-[0-9]{4}" required>
+                        <input type="text" data-ng-model="nacionalidad" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                               id="nacionalidad" class="form-control align-field"required>
                     </div>
                     <label class="control-label" for="name">Sexo</label>
                     <div class="controls">
-                        <select class="form-control" data-ng-model="sexo" id="sexo"
+                        <select class="form-control align-field" data-ng-model="sexo" id="sexo"
                                 ng-options="opt as opt.nombre for opt in sexos">
                         </select>
-                        <!--<select class="form-control" data-ng-model="sexo" id="sexo">
-                            <option value=1 selected>Masculino</option>
-                            <option value=0>Femenino</option>
-                        </select>-->
                     </div>
-                    <label class="control-label" for="name">Telefono Hogar</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="telefono_casa" id="telefono_casa" class="form-control" placeholder="Telefono Hogar" pattern="[0-9]{4}-[0-9]{4}" title="Formato: 0000-0000" required>
+                        <label class="control-label" for="name">Teléfonos</label>
                     </div>
-                    <label class="control-label" for="name">Celular</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="celular" id="celular" class="form-control" placeholder="Celular" pattern="[0-9]{4}-[0-9]{4}" title="Formato: 0000-0000" required>
+                        <div class="form-group col-xs-6 no-margin-bottom">
+                            <div class="controls">
+                                <input type="text" ng-minlength="8" maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                       data-ng-model="telefono_casa" id="telefono_casa" class="form-control align-field" placeholder="Tel. Hogar"  required>
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-6 no-margin-bottom">
+                            <div class="controls">
+                                <input type="text" ng-minlength="8" maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                       data-ng-model="celular" id="celular" class="form-control align-field" placeholder="Celular" required>
+                            </div>
+                        </div>
                     </div>
-                    <label class="control-label" for="name">Correo electronico</label>
+                    <label class="control-label" for="name">Correo electrónico</label>
                     <div class="controls">
-                        <input type="email" data-ng-model="correo" id="correo" class="form-control" placeholder="Correo" required>
+                        <input type="email" data-ng-model="correo" id="correo" class="form-control align-field" required>
                     </div>
-                    <label class="control-label" for="name">Provincia</label>
-                    <div class="controls">
-                        <select class="form-control" data-ng-model="provincia" id="provincia" ng-change="provincia_change()"
-                                ng-options="opt as opt.nombre for opt in options">
-                        </select>
-                        <!--<input type="text" data-ng-model="provincia" id="provincia" class="form-control" placeholder="Provincia" required>-->
+                    <div class="form-group col-xs-3 no-margin-bottom">
+                        <label class="control-label" for="name">Provincia</label>
+                        <div class="controls">
+                            <select class="form-control align-field" data-ng-model="provincia" id="provincia" ng-change="provincia_change()"
+                                    ng-options="opt as opt.nombre for opt in options">
+                            </select>
+                        </div>
                     </div>
-                    <label class="control-label" for="name">Cantón</label>
-                    <div class="controls">
-                        <select class="form-control" data-ng-model="canton" id="canton" ng-disabled="!provincia" ng-change="canton_change()"
-                                ng-options="opt as opt.nombre for opt in provincia.cantones">
-                        </select>
-                        <!--<input type="text" data-ng-model="canton" id="canton" class="form-control" placeholder="Cantón" required>-->
+                    <div class="form-group col-xs-3 no-margin-bottom">
+                        <label class="control-label" for="name">Cantón</label>
+                        <div class="controls">
+                            <select class="form-control align-field" data-ng-model="canton" id="canton" ng-disabled="!provincia" ng-change="canton_change()"
+                                    ng-options="opt as opt.nombre for opt in provincia.cantones">
+                            </select>
+                        </div>
                     </div>
-                    <label class="control-label" for="name">Distrito</label>
-                    <div class="controls">
-                        <select class="form-control" data-ng-model="distrito" id="distrito" ng-disabled="!canton"
-                                ng-options="opt as opt.nombre for opt in canton.distritos">
-                        </select>
-                        <!--<input type="text" data-ng-model="distrito" id="distrito" class="form-control" placeholder="Distrito" required>-->
+                    <div class="form-group col-xs-3 no-margin-bottom">
+                        <label class="control-label" for="name">Distrito</label>
+                        <div class="controls">
+                            <select class="form-control align-field" data-ng-model="distrito" id="distrito" ng-disabled="!canton"
+                                    ng-options="opt as opt.nombre for opt in canton.distritos">
+                            </select>
+                        </div>
                     </div>
-                    <label class="control-label" for="name">Barrio</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="barrio" id="barrio" class="form-control" placeholder="Barrio" required>
+                    <div class="form-group col-xs-4 no-margin-bottom">
+                        <label class="control-label" for="name">Barrio</label>
+                        <div class="controls">
+                            <input type="text" data-ng-model="barrio" id="barrio" class="form-control align-field-barrio"required>
+                        </div>
                     </div>
-                    <label class="control-label" for="name">Dirección exacta</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="direccion_exacta" id="direccion_exacta" class="form-control" placeholder="Dirección exacta" required>
+                    <div class = "">
+                        <label class="control-label" for="name">Dirección exacta</label>
+                        <div class="controls">
+                            <input type="text" data-ng-model="direccion_exacta" id="direccion_exacta" class="form-control align-field" required>
+                        </div>
                     </div>
                     <label class="control-label" for="name">Colegio de procedencia</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="colegio_procedencia" id="colegio_procedencia" class="form-control" placeholder="Colegio de procedencia" required>
-                    </div>
-                    <label class="control-label" for="name">Adecuación significativa</label>
-                    <div class="controls">
-                        <select class="form-control" data-ng-model="adSignificativa" id="adecuacion_significativa"
-                                ng-options="opt as opt.nombre for opt in adecuaciones">
+                        <select class="form-control align-field" data-ng-model="colegio_procedencia" id="colegio_procedencia"
+                                ng-options="high_school as high_school.name for high_school in high_schools_list">
                         </select>
                     </div>
-                    <label class="control-label" for="name">Adecuación no significativa</label>
-                    <div class="controls">
-                        <select class="form-control" data-ng-model="adNoSignificativa" id="adecuacion_nsignificativa"
-                                ng-options="opt as opt.nombre for opt in adecuaciones">
-                        </select>
+                    <div ng-if="colegio_procedencia.name == 'Otro'" class="animate-if" class="form-group col-xs-4 no-margin-bottom">
+                        <label class="control-label" for="name">Digite el colegio de procendecia</label>
+                        <div class="controls">
+                            <input type="text" ng-model="$parent.colegio_procedencia_nuevo" id="colegio_procedencia_nuevo" class="form-control align-field">
+                        </div>
                     </div>
-                    <div class="controls">
-                        <label class="control-label" for="name">Generación</label>
-                        <input type="text" data-ng-model="generacion" id="generacion" class="form-control" placeholder="Generación" pattern="[0-9]{4}" title="Formato: 0000" required>
+                    <span class="form-group col-xs-6 no-margin-bottom" >
+                        <label class="control-label" for="name">Año de Ingreso al Colegio Científico</label>
+                        <div class="controls">
+                            <input type="text" ng-minlength="4"  maxlength="4"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' data-ng-model="anno_ingreso" id="anno_ingreso"
+                                   class="form-control align-field" aria-valuemin="4" required>
+                            <div class="error_anno_ingreso_mayor_actual"ng-show="anno_ingreso_error_mayor_actual">
+                                <label class="control-label" for="name" >El año no puede ser mayor que el año actual</label>
+                            </div>
+                        </div>
+                    </span>
+                    <span class="form-group col-xs-6 no-margin-bottom">
+                        <label class="control-label" for="name">Graduado</label>
+                        <div class="controls">
+                            <input type="checkbox" data-ng-model="graduado" class="checkbox checked" name="graduado" class="form-control align-field">
+                        </div>
+                    </span>
+
+                    <label class="transparent-label" for="name">. . . . . . . . . </label>
+
+                    <div class = "form-group col-xs-6 no-margin-bottom">
+                        <label class="control-label" for="name">Adecuación significativa</label>
+                        <div class="controls">
+                            <select class="form-control align-field" data-ng-model="adSignificativa" id="adecuacion_significativa"
+                                    ng-options="opt as opt.nombre for opt in adecuaciones">
+                            </select>
+                        </div>
                     </div>
-                    <div class="controls">
-                       <label class="control-label" for="name">Foto del estudiante</label>
-                       <input name="filefield" type="file" ng-file-select ng-file-change="onFileSelect($files)">
+                    <div class="form-group col-xs-6 no-margin-bottom">
+                        <label class="control-label" for="name">Adecuación no significativa</label>
+                        <div class="controls">
+                            <select class="form-control align-field" data-ng-model="adNoSignificativa" id="adecuacion_nsignificativa"
+                                    ng-options="opt as opt.nombre for opt in adecuaciones">
+                            </select>
+                        </div>
                     </div>
-                    <div class="controls">
-                        <label class="control-label" for="name">Notas de septimo</label>
-                        <div class="gridStyle" ng-grid="gridOptionsS"></div>
+
+                    <div class="control">
+                        <label class="control-label" for="name">Foto del estudiante</label>
                     </div>
+
+
+                    <span class="btn btn-default btn-file">
+                        Seleccionar foto <input name="filefield" type="file" ng-file-select ng-file-change="onFileSelect($files)">
+                    </span>
+                    <br/>
+                    <br/>
+
                     <div class="controls">
-                        <label class="control-label" for="name">Notas de octavo</label>
-                        <div class="gridStyle" ng-grid="gridOptionsO"></div>
-                    </div>
-                    <div class="controls">
-                        <label class="control-label" for="name">Notas de noveno</label>
-                        <div class="gridStyle" ng-grid="gridOptionsN"></div>
+                        <label class="control-label" for="name">Notas del estudiante</label>
+                        <div class="form-group no-margin-bottom">
+                            <div class="nota-header nota-noveno-header no-margin-bottom grid-align">Notas de noveno</div>
+                        </div>
+                        <div class="gridStyle ngGridNotesSON" ng-grid="gridOptionsSON"></div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Crear estudiante" class="btn btn-default">
+                    <input type="submit" value="Crear estudiante" class="btn btn-primary align-field">
                 </div>
                 <div data-ng-show="error" class="alert alert-danger" role="alert" data-ng-bind="error">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <span class="sr-only"></span>
                 </div>
-				<!--<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>-->
             </fieldset>
         </form>
     </div>

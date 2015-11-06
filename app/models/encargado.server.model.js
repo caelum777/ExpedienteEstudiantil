@@ -37,6 +37,11 @@ var EncargadoSchema = new Schema({
         required: 'Debe ingresar la cédula o número de pasaporte del encargado',
         trim: true
     },
+    parentesco: {
+        type: String,
+        required: 'Debe ingresar el parentesco con el estudiante',
+        trim: true
+    },
     ocupacion: {
         type: String,
         required: 'Debe ingresar la prrofesión u ocupación del encargado',

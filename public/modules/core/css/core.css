@@ -1,6 +1,10 @@
 .content {
 	margin-top: 50px;
 }
+body{
+	background-color: #EEEEEE;
+}
+
 .undecorated-link:hover {
 	text-decoration: none;
 }
@@ -21,4 +25,130 @@
 .gridStyleList {
     border: 1px solid rgb(212,212,212);
     height: 248px;
+}
+
+.green {
+	background-color: #00B200;
+	color: white;
+}
+
+.red {
+	background-color: #B44230;
+	color: white;
+}
+
+.yellow{
+	background-color: #E4CF3E;
+	color: white;
+}
+
+/* Set the fixed height of the footer here */
+#push,
+#footer {
+	height: 60px;
+	position: absolute;
+	bottom : -1;
+	background-color: #f5f5f5;
+}
+/* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+	#footer {
+		margin-left: -20px;
+		margin-right: -20px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+}
+@media (min-width: 768px) {
+	.contact_info_detail {
+		display: block;
+		margin: 0 auto;
+		width: 650px;
+	}
+
+	.contact_info_detail {
+		display: block;
+		text-align: center;
+	}
+}
+@media (min-width: 768px) {
+	.contact_info_detail .detail:first-of-type {
+		width: 195px;
+	}
+}
+@media (min-width: 768px) {
+	.contact_info_detail .detail {
+		display: inline-block;
+		width: 210px;
+	}
+	.contact_info_detail .detail {
+		margin-bottom: 7px;
+	}
+
+	Inherited from div.contact_info_detail
+	.contact_info_detail {
+		display: compact ;
+		text-align: center;
+	}
+}
+.container .credit {
+	margin: 20px 0;
+}
+.muted {
+	color: #999999;
+}
+p {
+	text-align: center;
+	margin: 0 0 10px;
+}
+p {
+	display: block;
+	-webkit-margin-before: 1em;
+	-webkit-margin-after: 1em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+}
+.text_type_01 {
+	color: #818181;
+	font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+	font-size: 1em;
+	text-justify: inter-word;
+}
+
+
+.text_type_01_p {
+	color: #818181;
+	font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+	font-size: 1em;
+	text-align: justify;
+	text-justify: inter-word;
+}
+
+
+.text_type_04 {
+	text-align: center;
+	color: #818181;
+	font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+	font-size: 2em;
+}
+
+.col-sm-6 {
+	width: 50%;
+}
+.col-sm-6-cemter{
+	text-align: center;
+}
+
+.animate-if.ng-enter, .animate-if.ng-leave {
+	transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+}
+
+.animate-if.ng-enter,
+.animate-if.ng-leave.ng-leave-active {
+	opacity:0;
+}
+
+.animate-if.ng-leave,
+.animate-if.ng-enter.ng-enter-active {
+	opacity:1;
 }

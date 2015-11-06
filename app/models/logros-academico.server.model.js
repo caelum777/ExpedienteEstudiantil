@@ -10,9 +10,10 @@ var mongoose = require('mongoose'),
  * Logros academico Schema
  */
 var LogrosAcademicoSchema = new Schema({
+
 	name: {
 		type: String,
-		required: 'Debe escribir el nombre del logro académico',
+		required: 'Debe escribir el nombre del logro academico',
 		trim: true
 	},
     estudiante: {
@@ -29,7 +30,7 @@ var LogrosAcademicoSchema = new Schema({
     premio: {
         type: String,
         default: '',
-        required: 'Debe escribir el premio que recibió el estudiante',
+        required: 'Debe escribir el premio que recibe el estudiante',
         trim: true
     },
     anno: {

@@ -1,14 +1,15 @@
 'use strict';
 
 // Encargados controller
-angular.module('encargados').controller('EncargadosController', ['$scope', '$stateParams', '$location', 'Authentication', 'Encargados','GetEncargado',
-	function($scope, $stateParams, $location, Authentication, Encargados, GetEncargado) {
+angular.module('encargados').controller('EncargadosController', ['$scope', '$stateParams', '$location', 'Authentication', 'Encargados','GetEncargado', 'Utility',
+	function($scope, $stateParams, $location, Authentication, Encargados, GetEncargado, Utility) {
 		$scope.authentication = Authentication;
         $scope.estudiante = '';
         $scope.name = '';
         $scope.primer_apellido = '';
         $scope.segundo_apellido = '';
         $scope.cedula = '';
+        $scope.parentesco = '';
         $scope.ocupacion = '';
         $scope.estado_civil = '';
         $scope.nacionalidad = '';
@@ -26,12 +27,14 @@ angular.module('encargados').controller('EncargadosController', ['$scope', '$sta
         // Create new Encargado
 		$scope.create = function() {
 			// Create new Encargado object
+            console.log($scope.parentesco);
 			var encargado = new Encargados ({
                 estudiante: $stateParams.cedulaEstudiante,
 				name: $scope.name,
                 primer_apellido:$scope.primer_apellido,
                 segundo_apellido: $scope.segundo_apellido,
                 cedula: $scope.cedula,
+                parentesco: $scope.parentesco.relationship,
                 ocupacion: $scope.ocupacion,
                 estado_civil: $scope.estado_civil,
                 nacionalidad: $scope.nacionalidad,
@@ -65,7 +68,7 @@ angular.module('encargados').controller('EncargadosController', ['$scope', '$sta
 
 		// Remove existing Encargado
 		$scope.remove = function(encargado) {
-			if ( encargado ) { 
+			if ( encargado ) {
 				encargado.$remove();
 
 				for (var i in $scope.encargados) {
@@ -84,6 +87,7 @@ angular.module('encargados').controller('EncargadosController', ['$scope', '$sta
 		// Update existing Encargado
 		$scope.update = function() {
 			var encargado = $scope.encargado;
+            encargado.parentesco = $scope.parentesco.relationship;
             //encargado.responsable = $scope.eleccion.opcion;
 			encargado.$update(function() {
 				//$location.path('encargados/' + encargado._id);
@@ -110,11 +114,25 @@ angular.module('encargados').controller('EncargadosController', ['$scope', '$sta
 		$scope.findOne = function() {
             $scope.cedulaEstudianteUrl = $stateParams.cedulaEstudiante;
             $scope.idEstudianteUrl = $stateParams.estudianteId;
-			$scope.encargado = Encargados.get({ 
+			$scope.encargado = Encargados.get({
 				encargadoId: $stateParams.encargadoId
 			});
+
+            $scope.encargado.$promise.then(function(estudiante) {
+                $scope.parentesco = $scope.setParentescoComboBox(estudiante.parentesco);
+            });
 		};
 
+        $scope.relationshipStudentList = Utility.getRelationshipList();
+        $scope.parentesco = $scope.relationshipStudentList[0];
+
+        $scope.setParentescoComboBox = function(parentesco){
+            for(var i = 0; i < $scope.relationshipStudentList.length; i++){
+                if ($scope.relationshipStudentList[i].relationship === parentesco){
+                    return $scope.relationshipStudentList[i];
+                }
+            }
+        };
        /* $scope.isResponsable = function(value) {
             if (value === true)
                 $scope.responsableS = 'Si'
